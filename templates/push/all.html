@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="/static/layui/css/layui.css">
+
+
+{% extends "admin/base.html" %}
+{% load admin_static %}
+
+
+{% block content %}
+    <div>
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+        </colgroup>
+        <thead>
+        <tr>
+            <th> 游戏名称 </th>
+            <th> 导出游戏 </th>
+            <th> 操作 </th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+                <tr>
+                    <td>{{ i.name }}</td>
+                    <td>
+                        {% for id, value in educe.items %}
+                            {% if i.id == id %}
+                                {{ value }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="/admin/push/look/{{ i.id }}" class="layui-btn layui-btn-primary", target="_blank">
+                            查看
+                        </a>
+                        <a href="/admin/push/fz/{{ i.id }}" class="layui-btn">
+                            推送仿真
+                        </a>
+                         <a href="/admin/push/online/{{ i.id }}" class="layui-btn layui-btn-danger">
+                            推送线上
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <div>
+    {% if messages %}
+        <script>
+            {% for msg in messages %}
+                alert('{{ msg.message }}');
+            {% endfor %}
+        </script>
+    {% endif %}
+    </div>
+{% endblock %}
+
+
+{% block extrajs %}
+{% endblock %}
