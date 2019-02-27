@@ -1,62 +1,51 @@
-<link rel="stylesheet" href="/static/layui/css/layui.css">
-
-
-{% extends "admin/base.html" %}
-{% load admin_static %}
-
-
-{% block content %}
-    <div>
-    <table class="layui-table">
-        <colgroup>
-            <col width="150">
-            <col width="200">
-        </colgroup>
-        <thead>
-        <tr>
-            <th> 游戏名称 </th>
-            <th> 导出游戏 </th>
-            <th> 操作 </th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for i in data %}
-                <tr>
-                    <td>{{ i.name }}</td>
-                    <td>
-                        {% for id, value in educe.items %}
-                            {% if i.id == id %}
-                                {{ value }}
-                            {% endif %}
-                        {% endfor %}
-                    </td>
-                    <td>
-                        <a href="/admin/push/look/{{ i.id }}" class="layui-btn layui-btn-primary", target="_blank">
-                            查看
-                        </a>
-                        <a href="/admin/push/fz/{{ i.id }}" class="layui-btn">
-                            推送仿真
-                        </a>
-                         <a href="/admin/push/online/{{ i.id }}" class="layui-btn layui-btn-danger">
-                            推送线上
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>layui</title>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" href="layui/css/layui.css" media="all"/>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<form class="layui-form" action="">
+    <div class="layui-form-item" pane="">
+        <div class="layui-inline">
+            <label class="layui-form-label">原始复选框</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked=""/>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">选择框</label>
+            <div class="layui-input-block">
+                <select name="type" lay-verify="required">
+                    <option value=""></option>
+                    <option value="0">icon切换</option>
+                    <option value="1">导流条</option>
+                    <option value="2">侧拉框</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="query">查询</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
     </div>
-    <div>
-    {% if messages %}
-        <script>
-            {% for msg in messages %}
-                alert('{{ msg.message }}');
-            {% endfor %}
-        </script>
-    {% endif %}
-    </div>
-{% endblock %}
+</form>
 
 
-{% block extrajs %}
-{% endblock %}
+<script src="layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+        form.on('submit(query)', function (data) {
+        });
+    });
+</script>
+</body>
+</html>
