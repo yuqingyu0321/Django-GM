@@ -5,16 +5,6 @@ from django.shortcuts import render, HttpResponse, render_to_response
 from .models import *
 from common.config import WXAPPID_CONFIG
 
-ORIENTED_TYPE_MODEL = {
-    '0': IconSwitchModel,
-    '1': StripModel,
-    '2': SlideOverModel,
-}
-ORIENTED_TYPE = {
-    '0': 'icon切换',
-    '1': '导流条',
-    '2': '侧拉框',
-}
 
 
 def get_curr_oriented(basic_id, type):
@@ -61,7 +51,7 @@ def get_all_gameStrip_data(basic_id):
 
         icon.append(temp_dict)
 
-    response['icon'] = icon
+    response['icons'] = icon
     return response
 
 
@@ -117,7 +107,7 @@ def get_all_iconswitch_data(basic_id):
 
         icon.append(temp_dict)
 
-    response['icon'] = icon
+    response['icons'] = icon
     return response
 
 
@@ -210,7 +200,7 @@ def get_all_SlideOver_data(basic_id):
 
         icon.append(temp_dict)
 
-    response['icon'] = icon
+    response['icons'] = icon
     return response
 
 def get_slideover_educe_name(basic_ID):
@@ -222,3 +212,34 @@ def get_slideover_educe_name(basic_ID):
         allName += ','
 
     return allName[:-1] if allName else allName
+
+ORIENTED_TYPE_MODEL = {
+    '0': IconSwitchModel,
+    '1': StripModel,
+    '2': SlideOverModel,
+}
+
+ORIENTED_TYPE = {
+    '0': 'icon切换',
+    '1': '导流条',
+    '2': '侧拉框',
+}
+
+ORIENTED_TYPE_GET_ALL_FUNC = {
+    '0': get_all_iconswitch_data,
+    '1': get_all_gameStrip_data,
+    '2': get_all_SlideOver_data,
+}
+
+
+ORIENTED_TYPE_GET_EDUCENAME_FUNC = {
+    '0': get_iconswitch_name,
+    '1': get_strip_educe_name,
+    '2': get_slideover_educe_name,
+}
+
+ORIENTED_TYPE_SERVER_ID = {
+    '0': 'iconSwitch',
+    '1': 'strip',
+    '2': 'slideOver',
+}

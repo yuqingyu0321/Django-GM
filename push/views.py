@@ -10,66 +10,69 @@ from common import config
 from django.views.generic import View
 
 
-
 def get_use_dict(type):
     show_all = or_view.get_all_oriented(type)
     educe_game_dict = {}
     for i in show_all:
         educe_game = ''
-        if type == '0':
-            educe_game = or_view.get_iconswitch_name(i.id)
-        elif type == '1':
-            educe_game = or_view.get_strip_educe_name(i.id)
-        elif type == '2':
-            educe_game = or_view.get_slideover_educe_name(i.id)
+        func = or_view.ORIENTED_TYPE_GET_EDUCENAME_FUNC.get(type)
+        if func:
+            educe_game = func(i.id)
         educe_game_dict[i.id] = educe_game if educe_game else '_'
 
     content = {'data': show_all,
                'educe': educe_game_dict,
                'type': or_view.ORIENTED_TYPE.get(type, ''),
                'typeId': int(type) if type else 200}
+
     return content
+
 
 def showAll(request):
     type = request.GET.get('type', None)
-    print type
-    if request.GET.get('type') == '0':
-        print request.GET
-    elif request.GET.get('type') == '1':
-        print request.GET
-    elif request.GET.get('type') == '2':
-        print request.GET
+
+    if type in or_view.ORIENTED_TYPE.keys():
+        return render(request, 'push/data.html', get_use_dict(type))
     else:
-        return render(request, 'push/test.html')
-
-    return render(request, 'push/test.html', get_use_dict(type))
-
+        return render(request, 'push/data.html')
 
 
 def lookJson(request, basic_id, type_id):
     type_id = str(type_id)
     look_all = {}
-    if type_id == '0':
-        look_all = or_view.get_all_iconswitch_data(basic_id)
-    elif type_id == '1':
-        look_all = or_view.get_all_gameStrip_data(basic_id)
-    elif type_id == '2':
-        look_all = or_view.get_all_SlideOver_data(basic_id)
 
-    return HttpResponse(json.dumps(look_all),
+    func = or_view.ORIENTED_TYPE_GET_ALL_FUNC.get(type_id)
+    if func:
+        look_all = func(basic_id)
+
+    return HttpResponse(json.dumps(look_all, indent=4, ensure_ascii=False, separators=(',',':')),
                         content_type="application/json,charset=utf-8")
 
 
-def push_fz(request, basic_id):
-    content = get_use_dict()
-    obj = or_view.get_curr_strip(basic_id)
+def push_fz(request, basic_id, type_id):
+    return push_data(request, basic_id, type_id)
+
+
+def push_online(request, basic_id, type_id):
+    return push_data(request, basic_id, type_id, fz=False)
+
+
+def push_data(request, basic_id, type_id, fz=True):
+    obj = or_view.get_curr_oriented(basic_id, type_id)
     socketList = config.getSocketUrl(obj[0].socket_url)
+
     try:
         if socketList:
-            get_all_data = or_view.get_curr_strip(basic_id)
+            func = or_view.ORIENTED_TYPE_GET_ALL_FUNC.get(type_id)
+            if not func:
+                raise 'func is error %s %s %s' % (basic_id, type_id, fz)
 
-            api_url = socketList[0] + 'api/wx/zmgm/set'
-            values = {'gameId': obj[0].game_id, 'oriented': get_all_data}
+            get_all_data = func(basic_id)
+            socket_url = socketList[0] if fz else socketList[1]
+
+            api_url = socket_url + config.gain_SetSocketApi(obj[0].socket_url)
+            values = {'typeId': or_view.ORIENTED_TYPE_SERVER_ID[type_id], 'gameId': obj[0].game_id,
+                      'oriented': get_all_data}
 
             # 进行参数封装
             data = urllib.urlencode(values)
@@ -77,12 +80,55 @@ def push_fz(request, basic_id):
             req = urllib2.Request(api_url, data)
             # 访问完整url
             response = urllib2.urlopen(req)
-            html = response.read()
-
-            config.flash(request, "success", "成功！")
+            html = eval(response.read())
+            if html.get('code') == 0:
+                info = {'info': '成功'}
+            else:
+                info = {'info': '失败', 'code': html.get('code')}
         else:
-            raise 'socketList%s' % socketList
-    except:
-        config.flash(request, "false", "失败！")
+            raise 'socketList is error %s %s %s' % (basic_id, type_id, fz)
+    except Exception, e:
+        info = {'info': '失败! %s' % e}
 
-    return render(request, 'push/all.html', content)
+    return HttpResponse(json.dumps(info, indent=4, ensure_ascii=False, separators=(',',':')),
+                        content_type="application/json,charset=utf-8")
+
+
+def look_fz(request, basic_id, type_id):
+    return look_data(request, basic_id, type_id)
+
+
+def look_online(request, basic_id, type_id):
+    return look_data(request, basic_id, type_id, fz=False)
+
+
+def look_data(request, basic_id, type_id, fz=True):
+    obj = or_view.get_curr_oriented(basic_id, type_id)
+    socketList = config.getSocketUrl(obj[0].socket_url)
+
+    try:
+        if socketList:
+            func = or_view.ORIENTED_TYPE_GET_ALL_FUNC.get(type_id)
+            if not func:
+                raise 'func is error %s %s %s' % (basic_id, type_id, fz)
+
+            socket_url = socketList[0] if fz else socketList[1]
+
+            api_url = socket_url + config.gain_GetSocketApi(obj[0].socket_url)
+            values = {'typeId': or_view.ORIENTED_TYPE_SERVER_ID[type_id], 'gameId': obj[0].game_id}
+
+            # 进行参数封装
+            data = urllib.urlencode(values)
+            # 组装完整url
+            req = urllib2.Request(api_url, data)
+            # 访问完整url
+            response = urllib2.urlopen(req)
+            html = eval(response.read())
+
+        else:
+            raise 'socketList is error %s %s %s' % (basic_id, type_id, fz)
+    except Exception, e:
+        html = {'info': '失败! %s' % e}
+
+    return HttpResponse(json.dumps(html, indent=4, ensure_ascii=False, separators=(',',':')),
+                        content_type="application/json,charset=utf-8")
