@@ -1,6 +1,6 @@
 from django.conf.urls import include, url,static
 
-from .views import showAll, lookJson, push_fz, look_fz, push_online, look_online
+from .views import *
 
 urlpatterns = [
     url(r'^$', showAll),

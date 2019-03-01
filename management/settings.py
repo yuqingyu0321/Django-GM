@@ -29,15 +29,13 @@ ALLOWED_HOSTS = ['172.16.15.152']
 # Application definition
 
 INSTALLED_APPS = [
-    'suit',
+    'simple',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'xadmin',
-    #'bootstrap4',
     'oriented',
 ]
 
@@ -116,54 +114,3 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-# Django Suit
-SUIT_CONFIG = {
-    # header
-    'ADMIN_NAME': '祖玛管理系统',
-    'HEADER_DATE_FORMAT': 'l, j. F Y',
-    'HEADER_TIME_FORMAT': 'H:i',
-
-    # forms
-    'SHOW_REQUIRED_ASTERISK': True,  # Default True
-    'CONFIRM_UNSAVED_CHANGES': True,  # Default True
-
-    # menu
-    'SEARCH_URL': '/admin/auth/user/',
-    'MENU_ICONS': {
-        'sites': 'icon-leaf',
-        'auth': 'icon-lock',
-    },
-    'MENU_OPEN_FIRST_CHILD': True,  # Default True
-    'MENU_EXCLUDE': ('auth.group',),
-    'MENU': (
-        'sites',
-        {
-            'app': 'auth',
-            'icon': 'icon-lock',
-            'models': ('user', 'group')
-        },
-        {
-            'label': '导流管理',
-            'app': 'oriented',
-            'icon': 'icon-wrench',
-            'models': ('StripModel','IconSwitchModel', 'SlideOverModel')
-        },
-        {
-            'label': '推送数据',
-            'icon': 'icon-question-sign',
-            'url': '/admin/push/'
-        },
-    ),
-
-    # misc
-    'LIST_PER_PAGE': 15
-}
-
-BOOTSTRAP4 = {
-    "error_css_class": "bootstrap4-error",
-    "required_css_class": "bootstrap4-required",
-    "javascript_in_head": True,
-    "include_jquery": True,
-}

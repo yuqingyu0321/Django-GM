@@ -35,7 +35,7 @@ class StripAdmin(admin.ModelAdmin):
     form = StripForm
     list_per_page = 50
 
-    # save_as = True
+    save_as = True
     search_fields = ('name',)
 
     def game_name(self, obj):
@@ -71,7 +71,7 @@ class IconSwitchModelAdmin(admin.ModelAdmin):
     ]
     list_per_page = 50
 
-    # save_as = True
+    save_as = True
     search_fields = ('name',)
 
     def game_name(self, obj):
@@ -134,7 +134,7 @@ class SlideOverModelAdmin(admin.ModelAdmin):
     ]
     list_per_page = 50
 
-    # save_as = True
+    save_as = True
     search_fields = ('name',)
 
     def game_name(self, obj):
