@@ -5,7 +5,6 @@ from django.contrib import admin
 from .models import *
 from django import forms
 from .views import *
-from suit.widgets import LinkedSelect, AutosizedTextarea, EnclosedInput
 
 
 class GameStripInline(admin.StackedInline):
