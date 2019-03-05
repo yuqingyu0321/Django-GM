@@ -1,5 +1,5 @@
 
-FROM python:2.7
+FROM python:2.7.16-alpine3.8
 
 MAINTAINER yu
 
@@ -13,6 +13,6 @@ WORKDIR /root/code
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-ADD . /root/code
+# ADD . /root/code
 
 CMD ["sh","/root/code/uwsgi_start.sh"]

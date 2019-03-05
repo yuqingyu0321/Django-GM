@@ -5,7 +5,6 @@ services:
     container_name: mysql5.7
     image: mysql:5.7
     volumes:
-      # mkdir mysqldata first
       - ../mysql/data:/var/lib/mysql
       - ../mysql/conf:/etc/mysql/conf.d
       - ../mysql/logs:/var/log/mysql
@@ -21,7 +20,7 @@ services:
     container_name: gm
     build: .
     volumes:
-      - ./:/root/code
+      - ./:/root/code:rw
     ports:
       - "8080:8080"
     depends_on:
