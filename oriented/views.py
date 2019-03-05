@@ -6,7 +6,6 @@ from .models import *
 from common.config import WXAPPID_CONFIG
 
 
-
 def get_curr_oriented(basic_id, type):
     return ORIENTED_TYPE_MODEL[type].objects.filter(id=int(basic_id))
 
@@ -61,7 +60,7 @@ def get_strip_educe_name(basic_ID):
     for obj_game in obj_all_game:
         wxAppId = str(obj_game.wxAppId)
         allName += WXAPPID_CONFIG.get(wxAppId, '')
-        allName += ','
+        allName += '；'
 
     return allName[:-1] if allName else allName
 
@@ -92,7 +91,7 @@ def get_all_iconswitch_data(basic_id):
         temp_dict['scale'] = float(obj_game.scale)
         temp_dict['imgLink'] = str(obj_game.imgLink)
         temp_dict['openType'] = int(obj_game.openType)
-        temp_dict['openData'] = {'clickHide': int(obj_game.clickHide), 'imgurl': str(obj_game.wxAppId)}
+        temp_dict['openData'] = [{'clickHide': int(obj_game.clickHide), 'imgurl': str(obj_game.wxAppId)}]
         temp_dict['topath'] = str(obj_game.topath)
 
         biParam = []
@@ -117,7 +116,7 @@ def get_iconswitch_name(basic_ID):
     for obj_game in obj_all_game:
         wxAppId = str(obj_game.wxAppId)
         allName += WXAPPID_CONFIG.get(wxAppId, '')
-        allName += ','
+        allName += '；'
 
     return allName[:-1] if allName else allName
 
@@ -172,7 +171,7 @@ def get_all_SlideOver_data(basic_id):
     text['size'] = int(obj_text[0].size)
     text['yfromIcon'] = int(obj_text[0].yfromIcon)
     text['color'] = [
-        int(obj_text[0].colorR),int(obj_text[0].colorG), int(obj_text[0].colorB)
+        int(obj_text[0].colorR), int(obj_text[0].colorG), int(obj_text[0].colorB)
     ]
     response['text'] = text
 
@@ -203,15 +202,17 @@ def get_all_SlideOver_data(basic_id):
     response['icons'] = icon
     return response
 
+
 def get_slideover_educe_name(basic_ID):
     allName = ''
     obj_all_game = GameSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(basic_ID))
     for obj_game in obj_all_game:
         wxAppId = str(obj_game.openUrl)
         allName += WXAPPID_CONFIG.get(wxAppId, '')
-        allName += ','
+        allName += '；'
 
     return allName[:-1] if allName else allName
+
 
 ORIENTED_TYPE_MODEL = {
     '0': IconSwitchModel,
@@ -230,7 +231,6 @@ ORIENTED_TYPE_GET_ALL_FUNC = {
     '1': get_all_gameStrip_data,
     '2': get_all_SlideOver_data,
 }
-
 
 ORIENTED_TYPE_GET_EDUCENAME_FUNC = {
     '0': get_iconswitch_name,
