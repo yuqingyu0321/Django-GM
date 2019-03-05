@@ -10,5 +10,5 @@
 
 # python manage.py runserver 0.0.0.0:3032 --settings=waxiao.settings_dev
 
-gunicorn -b :3032 management.wsgi:application
+gunicorn -b :8080 management.wsgi:application
 
