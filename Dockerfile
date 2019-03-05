@@ -15,4 +15,4 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 ADD . /root/code
 
-CMD ["sh","/root/code/start.sh"]
+CMD ["sh","/root/code/uwsgi_start.sh"]
