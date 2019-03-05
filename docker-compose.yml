@@ -3,7 +3,6 @@ services:
 
   mysql:
     image: mysql:5.7
-    user: 1000:1000
     volumes:
       # mkdir mysqldata first
       - ../mysql/data:/var/lib/mysql
@@ -12,7 +11,7 @@ services:
     restart: always
     ports:
       - "3306:3306"
-    command: mysqld
+    command: mysqld --explicit_defaults_for_timestamp=true
     environment:
       - MYSQL_ROOT_PASSWORD=123456
       - TZ=Asia/Shanghai
