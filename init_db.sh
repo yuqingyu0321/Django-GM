@@ -1,7 +1,7 @@
 #!/bin/bash
 USERNAME="root"
 PASSWORD="123456"
-DBNAME="managemen"
+DBNAME="management"
 
 #创建数据库
 create_db_sql="CREATE DATABASE ${DBNAME} DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
