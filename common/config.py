@@ -126,7 +126,7 @@ def getSocketUrl(id):
     if id == 0:
         return [FUHAO_SOCKET_URL_FZ, FUHAO_SOCKET_URL_ONLINE]
     elif id == 1:
-        return ['http://192.168.20.140:8000/', SANXIAO_SOCKET_URL_ONLINE]
+        return [SANXIAO_SOCKET_URL_FZ, SANXIAO_SOCKET_URL_ONLINE]
     else:
         return []
 
