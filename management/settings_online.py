@@ -116,7 +116,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-BASE_LOG_DIR = os.path.join(BASE_DIR, "log") # 配置路径
+BASE_LOG_DIR = os.path.join(BASE_DIR, "log")
 
 
 LOGGING = {
@@ -124,7 +124,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '[%(asctime)s] %(levelname)s [%(pathname)s:%(lineno)s] %(message)s'#日志格式
+            'format': '[%(asctime)s] %(levelname)s [%(pathname)s:%(lineno)s] %(message)s'
         },
         'simple': {
             'format': '%(levelname)s %(message)s'
@@ -132,7 +132,7 @@ LOGGING = {
     },
     'filters': {
         'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',#过滤器，只有当setting的DEBUG = True时生效
+            '()': 'django.utils.log.RequireDebugTrue',
         },
     },
     'handlers': {
@@ -145,15 +145,15 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': os.path.join(BASE_LOG_DIR, 'gm.log'),#日志保存文件
-            'formatter': 'verbose', #日志格式，与上边的设置对应选择
+            'filename': os.path.join(BASE_LOG_DIR, 'gm.log'),
+            'formatter': 'verbose',
             'when': 'midnight',
             'interval': 1,
             'backupCount': 7
         }
     },
     'loggers': {
-        'GM': {#日志记录器
+        'GM': {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': True,
