@@ -221,7 +221,7 @@ ORIENTED_TYPE_MODEL = {
 }
 
 ORIENTED_TYPE = {
-    '0': 'icon切换',
+    '0': 'Icon切换',
     '1': '导流条',
     '2': '侧拉框',
 }

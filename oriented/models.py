@@ -41,7 +41,7 @@ class GameStripModel(models.Model):
     bi_iconId = models.CharField(verbose_name='bI_IconId',  max_length=10)
     bi_landing_page = models.CharField(verbose_name='bI_落地页', max_length=512)
     bi_landing_page_id = models.CharField(verbose_name='bI_落地页Id', max_length=10)
-    bi_educe_game = models.CharField(verbose_name='bI_内部path', max_length=10)
+    bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=10)
 
     def __str__(self):
         name = ''
@@ -98,7 +98,7 @@ class GameIconSwitchModel(models.Model):
     bi_iconId = models.CharField(verbose_name='bI_IconId',  max_length=10)
     bi_landing_page = models.CharField(verbose_name='bI_落地页', max_length=512)
     bi_landing_page_id = models.CharField(verbose_name='bI_落地页Id', max_length=10)
-    bi_educe_game = models.CharField(verbose_name='bI_内部path', max_length=10)
+    bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=10)
 
     def __str__(self):
         name = ''
@@ -223,7 +223,7 @@ class GameSlideOverModel(models.Model):
     bi_iconId = models.CharField(verbose_name='bI_IconId',  max_length=10)
     bi_landing_page = models.CharField(verbose_name='bI_落地页', max_length=512)
     bi_landing_page_id = models.CharField(verbose_name='bI_落地页Id', max_length=10)
-    bi_educe_game = models.CharField(verbose_name='bI_内部path', max_length=10)
+    bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=10)
 
     def __str__(self):
         name = ''
