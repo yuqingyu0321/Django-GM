@@ -8,7 +8,9 @@ from django.shortcuts import render
 from oriented import views as or_view
 from common import config
 from django.views.generic import View
+import logging
 
+logger = logging.getLogger('GM')
 
 def get_use_dict(type):
     show_all = or_view.get_all_oriented(type)
@@ -60,6 +62,9 @@ def push_online(request, basic_id, type_id):
 def push_data(request, basic_id, type_id, fz=True):
     obj = or_view.get_curr_oriented(basic_id, type_id)
     socketList = config.getSocketUrl(obj[0].socket_url)
+    gameId = obj[0].game_id
+    gameName = obj[0].name
+    type = or_view.ORIENTED_TYPE.get(type_id)
 
     try:
         if socketList:
@@ -90,6 +95,8 @@ def push_data(request, basic_id, type_id, fz=True):
     except Exception, e:
         info = {'info': '失败! %s' % e}
 
+    logger.info('gameId={} name={} type={} fz={} data={}'.format(gameId, gameName, type, fz, json.dumps(info)))
+
     return HttpResponse(json.dumps(info, indent=4, ensure_ascii=False, separators=(',',':')),
                         content_type="application/json,charset=utf-8")
 
@@ -105,6 +112,10 @@ def look_online(request, basic_id, type_id):
 def look_data(request, basic_id, type_id, fz=True):
     obj = or_view.get_curr_oriented(basic_id, type_id)
     socketList = config.getSocketUrl(obj[0].socket_url)
+
+    gameId = obj[0].game_id
+    gameName = obj[0].name
+    type = or_view.ORIENTED_TYPE.get(type_id)
 
     try:
         if socketList:
@@ -123,12 +134,14 @@ def look_data(request, basic_id, type_id, fz=True):
             req = urllib2.Request(api_url, data)
             # 访问完整url
             response = urllib2.urlopen(req)
-            html = eval(response.read())
+            info = eval(response.read())
 
         else:
             raise 'socketList is error %s %s %s' % (basic_id, type_id, fz)
     except Exception, e:
-        html = {'info': '失败! %s' % e}
+        info = {'info': '失败! %s' % e}
 
-    return HttpResponse(json.dumps(html, indent=4, ensure_ascii=False, separators=(',',':')),
+    logger.info('gameId={} name={} type={} fz={} data={}'.format(gameId, gameName, type, fz, json.dumps(info)))
+
+    return HttpResponse(json.dumps(info, indent=4, ensure_ascii=False, separators=(',',':')),
                         content_type="application/json,charset=utf-8")
