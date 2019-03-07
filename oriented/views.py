@@ -243,3 +243,21 @@ ORIENTED_TYPE_SERVER_ID = {
     '1': 'strip',
     '2': 'slideOver',
 }
+
+
+def backup_educe_name(type_id, datas):
+    allName = ''
+    icons_datas = datas.get('icons', [])
+    if type_id == '0':
+        for _datas in icons_datas:
+            wxAppId = _datas['openData'][0]['imgurl']
+            allName += WXAPPID_CONFIG.get(wxAppId, '')
+            allName += '；'
+
+    elif type_id == '1' or type_id == '2':
+        for _datas in icons_datas:
+            wxAppId = _datas['openUrl']
+            allName += WXAPPID_CONFIG.get(wxAppId, '')
+            allName += '；'
+
+    return allName[:-1] if allName else allName

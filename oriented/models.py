@@ -8,8 +8,9 @@ from common.config import WXAPPID_CHOICES, SOCKET_URL
 
 
 class StripModel(models.Model):
-    game_id = models.PositiveIntegerField(verbose_name='gameId', unique=True)
-    name = models.CharField(verbose_name='游戏名称', max_length=255, unique=True)
+    version = models.CharField(verbose_name='版本号', max_length=255, default='1.0')
+    game_id = models.PositiveIntegerField(verbose_name='gameId')
+    name = models.CharField(verbose_name='游戏名称', max_length=255)
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
     label = models.CharField(verbose_name='标题', max_length=512)
     bg = models.CharField(verbose_name='背景图', max_length=512)
@@ -57,8 +58,9 @@ class GameStripModel(models.Model):
 
 
 class IconSwitchModel(models.Model):
-    game_id = models.PositiveIntegerField(verbose_name='gameId', unique=True)
-    name = models.CharField(verbose_name='游戏名称', max_length=255, unique=True)
+    version = models.CharField(verbose_name='版本号', max_length=255, default='1.0')
+    game_id = models.PositiveIntegerField(verbose_name='gameId')
+    name = models.CharField(verbose_name='游戏名称', max_length=255)
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
     switch = models.PositiveIntegerField(verbose_name='switch', default=1)
     framesInterval = models.PositiveIntegerField(verbose_name='播放速度', default=10000)
@@ -114,8 +116,9 @@ class GameIconSwitchModel(models.Model):
 
 
 class SlideOverModel(models.Model):
-    game_id = models.PositiveIntegerField(verbose_name='gameId', unique=True)
-    name = models.CharField(verbose_name='游戏名称', max_length=255, unique=True)
+    version = models.CharField(verbose_name='版本号', max_length=255, default='1.0')
+    game_id = models.PositiveIntegerField(verbose_name='gameId')
+    name = models.CharField(verbose_name='游戏名称', max_length=255)
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
     switch = models.PositiveIntegerField(verbose_name='switch', default=1)
     fromWhere = models.PositiveIntegerField(verbose_name='展开方向', default=0)
