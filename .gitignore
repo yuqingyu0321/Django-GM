@@ -35,8 +35,8 @@ migrations/
 
 
 # Django stuff:
+*.log.*
 *.log
-
 
 
 

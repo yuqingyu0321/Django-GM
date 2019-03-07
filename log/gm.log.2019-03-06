@@ -1,5 +1,0 @@
-[2019-03-06 18:48:56,497] INFO [/Users/yu/Documents/study/Django-GM/push/views.py:102] gameId=20205 name=3D球球打砖块 type=Icon切换 fz=True data={"info": "\u6210\u529f"}
-[2019-03-06 18:53:52,077] INFO [/Users/yu/Documents/study/Django-GM/push/views.py:102] gameId=20205 name=3D球球打砖块 type=Icon切换 fz=True data={"info": "\u6210\u529f"}
-[2019-03-06 18:54:07,058] INFO [/Users/yu/Documents/study/Django-GM/push/views.py:102] gameId=20205 name=3D球球打砖块 type=Icon切换 fz=True data={"info": "\u6210\u529f"}
-[2019-03-06 18:54:08,869] INFO [/Users/yu/Documents/study/Django-GM/push/views.py:102] gameId=20205 name=3D球球打砖块 type=Icon切换 fz=True data={"info": "\u6210\u529f"}
-[2019-03-06 18:54:10,762] INFO [/Users/yu/Documents/study/Django-GM/push/views.py:102] gameId=20205 name=3D球球打砖块 type=Icon切换 fz=True data={"info": "\u6210\u529f"}
