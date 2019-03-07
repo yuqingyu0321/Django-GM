@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <script src="/static/layui/layui.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
+    <title>祖玛管理系统</title>
+</head>
+<body class="layui-layout-body">
+<div>
+    <fieldset class="layui-elem-field layui-field-title site-demo-button" style="margin-top: 30px;">
+        <legend>{{ type }}</legend>
+    </fieldset>
+</div>
+<div>
+    <form class="layui-form" action="/admin/push/backup/{{ typeId }}" method="get">
+        <div class="layui-form-item">
+            <label class="layui-form-label">环境</label>
+            <div class="layui-input-inline">
+                <select name="env_id" lay-verify="required">
+                    <option value="">请选择游戏所属环境</option>
+                    <option value="fz">仿真</option>
+                    <option value="online">线上</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <button class="layui-btn" lay-submit lay-filter="query">查询</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div>
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+            <col width="350">
+        </colgroup>
+        <thead>
+        <tr>
+            <th> 游戏名称</th>
+            <th> 操作时间</th>
+            <th> 导出游戏</th>
+            <th> 操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in data %}
+            <tr>
+                <td>{{ i.name }}</td>
+                <td>{{ i.time }}</td>
+                <td>{{ i.educe }}</td>
+                <td>
+                    <a class="site-demo-button" id="m_look" style="margin-bottom: 0;">
+                        <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal"
+                                oriented_id="{{ i.id }}" type_id="{{ typeId }}">查看
+                        </button>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script src="/static/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+
+    layui.use('form', function () {
+        var form = layui.form;
+        form.on('submit(query)', function (data) {
+            console.log(data.form)
+        });
+    });
+
+</script>
+
+
+</div>
+
+<div class="layui-footer">
+    <!-- 底部固定区域 -->
+</div>
+
+</body>
+</html>
+
+

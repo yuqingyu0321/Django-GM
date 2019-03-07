@@ -2,13 +2,12 @@
 from __future__ import unicode_literals
 from django.db import models
 from common.config import WXAPPID_CHOICES, SOCKET_URL
-
+import uuid
 
 
 
 
 class StripModel(models.Model):
-    version = models.CharField(verbose_name='版本号', max_length=255, default='1.0')
     game_id = models.PositiveIntegerField(verbose_name='gameId')
     name = models.CharField(verbose_name='游戏名称', max_length=255)
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
@@ -21,6 +20,7 @@ class StripModel(models.Model):
     switch = models.PositiveIntegerField(verbose_name='switch', default=1)
     viewAdCounts = models.PositiveIntegerField(verbose_name='viewAdCounts', default=5)
     framesInterval = models.PositiveIntegerField(verbose_name='播放速度', default=50)
+    create_time = models.DateTimeField('创建时间', auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -58,12 +58,12 @@ class GameStripModel(models.Model):
 
 
 class IconSwitchModel(models.Model):
-    version = models.CharField(verbose_name='版本号', max_length=255, default='1.0')
     game_id = models.PositiveIntegerField(verbose_name='gameId')
     name = models.CharField(verbose_name='游戏名称', max_length=255)
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
     switch = models.PositiveIntegerField(verbose_name='switch', default=1)
     framesInterval = models.PositiveIntegerField(verbose_name='播放速度', default=10000)
+    create_time = models.DateTimeField('创建时间', auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -116,7 +116,6 @@ class GameIconSwitchModel(models.Model):
 
 
 class SlideOverModel(models.Model):
-    version = models.CharField(verbose_name='版本号', max_length=255, default='1.0')
     game_id = models.PositiveIntegerField(verbose_name='gameId')
     name = models.CharField(verbose_name='游戏名称', max_length=255)
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
@@ -126,6 +125,7 @@ class SlideOverModel(models.Model):
     reddot = models.CharField(verbose_name='角标', max_length=512, default='https://sanxqn.nalrer.cn/tysanxiao/test/LikeConfigRes/reddot.png')
     mask = models.CharField(verbose_name='蒙层', max_length=512, default='https://sanxqn.nalrer.cn/tysanxiao/test/LikeConfigRes/adRes.png')
     viewAdCounts = models.PositiveIntegerField(verbose_name='viewAdCounts', default=3)
+    create_time = models.DateTimeField('创建时间', auto_now_add=True)
 
     def __str__(self):
         return self.name

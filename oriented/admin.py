@@ -26,7 +26,8 @@ class StripForm(forms.ModelForm):
 @admin.register(StripModel)
 class StripAdmin(admin.ModelAdmin):
     # listdisplay设置要显示在列表中的字段（id字段是Django模型的默认主键）
-    list_display = [ 'game_name', 'get_version', 'educe_game']
+    list_display = [ 'id', 'game_name', 'educe_game', 'create_time']
+    list_display_links = ['game_name']
     # 内联
     inlines = [
         GameStripInline,
@@ -36,10 +37,6 @@ class StripAdmin(admin.ModelAdmin):
 
     save_as = True
     search_fields = ('name',)
-
-    def get_version(self, obj):
-        return obj.version
-    get_version.short_description = '版本号'
 
     def game_name(self, obj):
         return obj.name
@@ -66,7 +63,8 @@ class PositionModelInline(admin.TabularInline):
 @admin.register(IconSwitchModel)
 class IconSwitchModelAdmin(admin.ModelAdmin):
     # listdisplay设置要显示在列表中的字段（id字段是Django模型的默认主键）
-    list_display = [ 'game_name', 'get_version', 'educe_game']
+    list_display = ['id', 'game_name', 'educe_game', 'create_time']
+    list_display_links = ['game_name']
     # 内联
     inlines = [
         PositionModelInline,
@@ -76,10 +74,6 @@ class IconSwitchModelAdmin(admin.ModelAdmin):
 
     save_as = True
     search_fields = ('name',)
-
-    def get_version(self, obj):
-        return obj.version
-    get_version.short_description = '版本号'
 
     def game_name(self, obj):
         return obj.name
@@ -129,7 +123,8 @@ class LabelSlideOverModelInline(admin.TabularInline):
 @admin.register(SlideOverModel)
 class SlideOverModelAdmin(admin.ModelAdmin):
     # listdisplay设置要显示在列表中的字段（id字段是Django模型的默认主键）
-    list_display = [ 'game_name', 'get_version', 'educe_game']
+    list_display = [ 'id', 'game_name', 'educe_game', 'create_time']
+    list_display_links = ['game_name']
     # 内联
     inlines = [
         LabelSlideOverModelInline,
@@ -143,10 +138,6 @@ class SlideOverModelAdmin(admin.ModelAdmin):
 
     save_as = True
     search_fields = ('name',)
-
-    def get_version(self, obj):
-        return obj.version
-    get_version.short_description = '版本号'
 
     def game_name(self, obj):
         return obj.name

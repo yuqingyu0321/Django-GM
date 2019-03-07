@@ -19,11 +19,13 @@
 <div>
     <table class="layui-table">
         <colgroup>
+            <col width="50">
             <col width="150">
-            <col width="450">
+            <col width="350">
         </colgroup>
         <thead>
         <tr>
+            <th> 序号</th>
             <th> 游戏名称</th>
             <th> 导出游戏</th>
             <th> 操作</th>
@@ -32,6 +34,7 @@
         <tbody>
         {% for i in data %}
             <tr>
+                <td>{{ i.id }}</td>
                 <td>{{ i.name }}</td>
                 <td>
                     {% for id, value in educe.items %}
@@ -48,25 +51,25 @@
                     </a>
                     <a class="site-demo-button" id="m_fz" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn"
-                                oriented_id="{{ i.id }}" type_id="{{ typeId }}">推送仿真
+                                oriented_id="{{ i.id }}" type_id="{{ typeId }}" version_id="{{ i.id }}">推送仿真
                         </button>
                     </a>
                     <a class="site-demo-button" id="m_fz_data" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn"
                                 oriented_id="{{ i.id }}" type_id="{{ typeId }}" game_name="{{ i.name }}"
-                                type_name="{{ type }}">查看仿真数据
+                                type_name="{{ type }}" version_id="{{ i.id }}">查看仿真数据
                         </button>
                     </a>
 
                     <a class="site-demo-button" id="m_online" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn layui-btn-danger"
-                                oriented_id="{{ i.id }}" type_id="{{ typeId }}">推送线上
+                                oriented_id="{{ i.id }}" type_id="{{ typeId }}" version_id="{{ i.id }}">推送线上
                         </button>
                     </a>
                     <a class="site-demo-button" id="m_online_data" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn layui-btn-danger"
                                 oriented_id="{{ i.id }}" type_id="{{ typeId }}" game_name="{{ i.name }}"
-                                type_name="{{ type }}">查看线上数据
+                                type_name="{{ type }}" version_id="{{ i.id }}">查看线上数据
                         </button>
                     </a>
                 </td>
@@ -124,14 +127,14 @@
         //推送仿真数据
         var fz = {
             offset: function (othis) {
-                var m_content = '/admin/push/fz/' + this.getAttribute('oriented_id') + '/' + this.getAttribute('type_id');
+                var m_content = '/admin/push/fz/' + this.getAttribute('oriented_id') + '/' + this.getAttribute('type_id') + '/' + this.getAttribute('version_id');
                 layer.open({
                     skin: 'layui-layer-molv',
                     type: 2,
                     title: '推送仿真数据',
                     shadeClose: true,
                     shade: 0.6,
-                    area: ['500px', '50%'],
+                    area: ['1000px', '90%'],
                     content: m_content
                 });
             }
@@ -144,7 +147,7 @@
         //仿真查看数据
         var m_fz_data = {
             offset: function (othis) {
-                var m_content = '/admin/push/fzdata/' + this.getAttribute('oriented_id') + '/' + this.getAttribute('type_id');
+                var m_content = '/admin/push/fzdata/' + this.getAttribute('oriented_id') + '/' + this.getAttribute('type_id')+ '/' + this.getAttribute('version_id');
                 layer.open({
                     skin: 'layui-layer-molv',
                     type: 2,
@@ -164,14 +167,14 @@
         //推送线上数据
         var m_online = {
             offset: function (othis) {
-                m_content = '/admin/push/online/' + this.getAttribute('oriented_id') + '/' + this.getAttribute('type_id');
+                m_content = '/admin/push/online/' + this.getAttribute('oriented_id') + '/' + this.getAttribute('type_id')+ '/' + this.getAttribute('version_id');
                 layer.open({
                     skin: 'layui-layer-molv',
                     type: 2,
                     title: '推送线上数据',
                     shadeClose: true,
                     shade: 0.6,
-                    area: ['500px', '50%'],
+                    area: ['1000px', '90%'],
                     content: m_content
                 });
             }
@@ -184,7 +187,7 @@
         //线上查看数据
         var m_online_data = {
             offset: function (othis) {
-                m_content = '/admin/push/onlinedata/' + this.getAttribute('oriented_id') + '/' + this.getAttribute('type_id');
+                m_content = '/admin/push/onlinedata/' + this.getAttribute('oriented_id') + '/' + this.getAttribute('type_id')+ '/' + this.getAttribute('version_id');
                 layer.open({
                     skin: 'layui-layer-molv',
                     type: 2,

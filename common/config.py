@@ -167,3 +167,9 @@ def flash(request, title, text, level='info'):
 
     messages.add_message(request, level, text, extra_tags=title)
     return 'ok'
+
+import time
+
+def timeStampToStr(ts, formatTime = "%Y-%m-%d %H:%M:%S"):
+    t = time.localtime(ts)
+    return time.strftime(formatTime, t)
