@@ -30,7 +30,8 @@ var/
 *.manifest
 *.spec
 
-
+migrations/
+!migrations/__init__.py
 
 
 # Django stuff:
