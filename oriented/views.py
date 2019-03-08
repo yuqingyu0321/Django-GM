@@ -78,8 +78,8 @@ def get_all_iconswitch_data(basic_id):
         temp_dict = {}
         temp_dict['id'] = int(obj_position.position_id)
         temp_dict['type'] = int(obj_position.type)
-        temp_dict['x'] = int(obj_position.x)
-        temp_dict['y'] = int(obj_position.y)
+        temp_dict['x'] = obj_position.x
+        temp_dict['y'] = obj_position.y
         position.append(temp_dict)
     response['position'] = position
 
