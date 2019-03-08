@@ -29,6 +29,7 @@ def get_all_gameStrip_data(basic_id):
     response['framesInterval'] = obj_strip[0].framesInterval
 
     icon = []
+    wxAppIdList = []
     obj_all_game = GameStripModel.objects.filter(foreignkey_strip_id=int(basic_id))
     for obj_game in obj_all_game:
         temp_dict = {}
@@ -37,6 +38,7 @@ def get_all_gameStrip_data(basic_id):
         temp_dict['openUrl'] = str(obj_game.wxAppId)
         temp_dict['isClickHide'] = int(obj_game.isClickHide)
         temp_dict['topath'] = str(obj_game.topath)
+        wxAppIdList.append(obj_game.wxAppId)
 
         biParam = []
         biParam.append(str(obj_game.bi_iconId))
@@ -51,7 +53,7 @@ def get_all_gameStrip_data(basic_id):
         icon.append(temp_dict)
 
     response['icons'] = icon
-    return response
+    return response, wxAppIdList
 
 
 def get_strip_educe_name(basic_ID):
@@ -83,6 +85,7 @@ def get_all_iconswitch_data(basic_id):
         position.append(temp_dict)
     response['position'] = position
 
+    wxAppIdList = []
     icon = []
     obj_all_game = GameIconSwitchModel.objects.filter(foreignkey_iconswitch=int(basic_id))
     for obj_game in obj_all_game:
@@ -93,7 +96,7 @@ def get_all_iconswitch_data(basic_id):
         temp_dict['openType'] = int(obj_game.openType)
         temp_dict['openData'] = [{'clickHide': int(obj_game.clickHide), 'imgurl': str(obj_game.wxAppId)}]
         temp_dict['topath'] = str(obj_game.topath)
-
+        wxAppIdList.append(obj_game.wxAppId)
         biParam = []
         biParam.append(str(obj_game.bi_iconId))
         biParam.append('{}{}'.format(obj_game.bi_iconId, obj_game.bi_landing_page_id))
@@ -107,7 +110,7 @@ def get_all_iconswitch_data(basic_id):
         icon.append(temp_dict)
 
     response['icons'] = icon
-    return response
+    return response,wxAppIdList
 
 
 def get_iconswitch_name(basic_ID):
@@ -176,6 +179,7 @@ def get_all_SlideOver_data(basic_id):
     response['text'] = text
 
     icon = []
+    wxAppIdList = []
     obj_all_game = GameSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(basic_id))
     for obj_game in obj_all_game:
         temp_dict = {}
@@ -186,6 +190,7 @@ def get_all_SlideOver_data(basic_id):
         temp_dict['openUrl'] = str(obj_game.openUrl)
         temp_dict['isredon'] = int(obj_game.isredon)
         temp_dict['topath'] = str(obj_game.topath)
+        wxAppIdList.append(obj_game.openUrl)
 
         biParam = []
         biParam.append(str(obj_game.bi_iconId))
@@ -200,7 +205,7 @@ def get_all_SlideOver_data(basic_id):
         icon.append(temp_dict)
 
     response['icons'] = icon
-    return response
+    return response, wxAppIdList
 
 
 def get_slideover_educe_name(basic_ID):

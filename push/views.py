@@ -51,7 +51,7 @@ def lookJson(request, basic_id, type_id):
 
     func = or_view.ORIENTED_TYPE_GET_ALL_FUNC.get(type_id)
     if func:
-        look_all = func(basic_id)
+        look_all, _ = func(basic_id)
 
     return HttpResponse(json.dumps(look_all, indent=4, ensure_ascii=False, separators=(',', ':')),
                         content_type="application/json,charset=utf-8")
@@ -78,7 +78,7 @@ def push_data(request, basic_id, type_id, version_id, fz=True):
             if not func:
                 raise 'func is error %s %s %s' % (basic_id, type_id, fz)
 
-            get_all_data = func(basic_id)
+            get_all_data, wxAppIdList = func(basic_id)
             socket_url = socketList[0] if fz else socketList[1]
 
             api_url = socket_url + config.gain_SetSocketApi(obj[0].socket_url)
@@ -99,7 +99,13 @@ def push_data(request, basic_id, type_id, version_id, fz=True):
             if html.get('code') == 0:
                 values.pop('oriented')
                 test_url = socket_url + config.gain_GetSocketApi(obj[0].socket_url) + "?" + urllib.urlencode(values)
-                info = {'info': '成功', 'url': test_url}
+
+                info = {
+                    'info': '成功',
+                    'url': test_url,
+                    'navigateToMiniProgramAppIdList': wxAppIdList,
+                    'educeGameName':[config.WXAPPID_CONFIG.get(i, '') for i in wxAppIdList]
+                }
                 # 保存redis数据
                 # save_push_data_in_redis(gameId, fz, type_id, get_all_data)
                 # BackUpDao.saveGameId(gameId, gameName)
@@ -155,10 +161,6 @@ def look_data(request, basic_id, type_id, version_id, fz=True):
 
     try:
         if socketList:
-            func = or_view.ORIENTED_TYPE_GET_ALL_FUNC.get(type_id)
-            if not func:
-                raise 'func is error %s %s %s' % (basic_id, type_id, fz)
-
             socket_url = socketList[0] if fz else socketList[1]
 
             api_url = socket_url + config.gain_GetSocketApi(obj[0].socket_url)
