@@ -75,8 +75,8 @@ class IconSwitchModel(models.Model):
 class PositionModel(models.Model):
     position_id = models.IntegerField(verbose_name='id')
     type = models.IntegerField(verbose_name='type')
-    x = models.IntegerField(verbose_name='x')
-    y = models.IntegerField(verbose_name='y')
+    x = models.FloatField(verbose_name='x')
+    y = models.FloatField(verbose_name='y')
     foreignkey_iconswitch = models.ForeignKey(IconSwitchModel, verbose_name="Icon切换")
 
     def __str__(self):
