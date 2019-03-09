@@ -26,7 +26,7 @@ class StripForm(forms.ModelForm):
 @admin.register(StripModel)
 class StripAdmin(admin.ModelAdmin):
     # listdisplay设置要显示在列表中的字段（id字段是Django模型的默认主键）
-    list_display = [ 'id', 'game_name', 'educe_game', 'create_time']
+    list_display = [ 'id', 'game_name', 'educe_game', 'user', 'create_time', 'modifi_time']
     list_display_links = ['game_name']
     # 内联
     inlines = [
@@ -46,6 +46,9 @@ class StripAdmin(admin.ModelAdmin):
         return get_strip_educe_name(obj.id)
     educe_game.short_description = '导出游戏'
 
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user.username
+        super(StripAdmin, self).save_model(request, obj, form, change)
 
 # admin.site.register(Oriented, OrientedAdmin)
 
@@ -63,7 +66,7 @@ class PositionModelInline(admin.TabularInline):
 @admin.register(IconSwitchModel)
 class IconSwitchModelAdmin(admin.ModelAdmin):
     # listdisplay设置要显示在列表中的字段（id字段是Django模型的默认主键）
-    list_display = ['id', 'game_name', 'educe_game', 'create_time']
+    list_display = ['id', 'game_name', 'educe_game', 'user', 'create_time', 'modifi_time']
     list_display_links = ['game_name']
     # 内联
     inlines = [
@@ -83,6 +86,9 @@ class IconSwitchModelAdmin(admin.ModelAdmin):
         return get_iconswitch_name(obj.id)
     educe_game.short_description = '导出游戏'
 
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user.username
+        super(IconSwitchModelAdmin, self).save_model(request, obj, form, change)
 
 
 class GameSlideOverModelInline(admin.StackedInline):
@@ -123,7 +129,7 @@ class LabelSlideOverModelInline(admin.TabularInline):
 @admin.register(SlideOverModel)
 class SlideOverModelAdmin(admin.ModelAdmin):
     # listdisplay设置要显示在列表中的字段（id字段是Django模型的默认主键）
-    list_display = [ 'id', 'game_name', 'educe_game', 'create_time']
+    list_display = [ 'id', 'game_name', 'educe_game', 'user', 'create_time', 'modifi_time']
     list_display_links = ['game_name']
     # 内联
     inlines = [
@@ -146,3 +152,7 @@ class SlideOverModelAdmin(admin.ModelAdmin):
     def educe_game(self, obj):
         return get_slideover_educe_name(obj.id)
     educe_game.short_description = '导出游戏'
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user.username
+        super(SlideOverModelAdmin, self).save_model(request, obj, form, change)

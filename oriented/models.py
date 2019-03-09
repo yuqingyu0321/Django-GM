@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
+from django.contrib.auth.models import User
 from common.config import (
     WXAPPID_CHOICES,
     SOCKET_URL,
@@ -8,10 +9,6 @@ from common.config import (
     OWN_WXAPPID_CONFIG,
     WXAPPID_CONFIG,
 )
-
-
-
-
 
 class StripModel(models.Model):
     game_id = models.PositiveIntegerField(verbose_name='gameId')
@@ -27,6 +24,8 @@ class StripModel(models.Model):
     viewAdCounts = models.PositiveIntegerField(verbose_name='viewAdCounts', default=5)
     framesInterval = models.PositiveIntegerField(verbose_name='播放速度', default=50)
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
+    modifi_time = models.DateTimeField('修改时间', auto_now=True)
+    user = models.CharField(editable=False, null=True, verbose_name='操作人', max_length=255)
 
     def __str__(self):
         return OWN_WXAPPID_CONFIG.get(self.name, '')
@@ -65,6 +64,8 @@ class IconSwitchModel(models.Model):
     switch = models.PositiveIntegerField(verbose_name='switch', default=1)
     framesInterval = models.PositiveIntegerField(verbose_name='播放速度', default=10000)
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
+    modifi_time = models.DateTimeField('修改时间', auto_now=True)
+    user = models.CharField(editable=False, null=True, verbose_name='操作人', max_length=255)
 
     def __str__(self):
         return OWN_WXAPPID_CONFIG.get(self.name, '')
@@ -113,7 +114,7 @@ class GameIconSwitchModel(models.Model):
 
 class SlideOverModel(models.Model):
     game_id = models.PositiveIntegerField(verbose_name='gameId')
-    name = models.CharField(verbose_name='游戏名称', choices=OWN_WXAPPID_CHOICE,max_length=255)
+    name = models.CharField(verbose_name='游戏名称', choices=OWN_WXAPPID_CHOICE, max_length=255)
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
     switch = models.PositiveIntegerField(verbose_name='switch', default=1)
     fromWhere = models.PositiveIntegerField(verbose_name='展开方向', default=0)
@@ -122,6 +123,8 @@ class SlideOverModel(models.Model):
     mask = models.CharField(verbose_name='蒙层', max_length=512, default='https://sanxqn.nalrer.cn/tysanxiao/test/LikeConfigRes/adRes.png')
     viewAdCounts = models.PositiveIntegerField(verbose_name='viewAdCounts', default=3)
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
+    modifi_time = models.DateTimeField('修改时间', auto_now=True)
+    user = models.CharField(editable=False, null=True, verbose_name='操作人', max_length=255)
 
     def __str__(self):
         return OWN_WXAPPID_CONFIG.get(self.name, '')
