@@ -24,7 +24,7 @@ class StripModel(models.Model):
     viewAdCounts = models.PositiveIntegerField(verbose_name='viewAdCounts', default=5)
     framesInterval = models.PositiveIntegerField(verbose_name='播放速度', default=50)
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
-    modifi_time = models.DateTimeField('修改时间', auto_now=True)
+    modifi_time = models.DateTimeField('最后修改时间', auto_now=True)
     user = models.CharField(editable=False, null=True, verbose_name='操作人', max_length=255)
 
     def __str__(self):
@@ -64,7 +64,7 @@ class IconSwitchModel(models.Model):
     switch = models.PositiveIntegerField(verbose_name='switch', default=1)
     framesInterval = models.PositiveIntegerField(verbose_name='播放速度', default=10000)
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
-    modifi_time = models.DateTimeField('修改时间', auto_now=True)
+    modifi_time = models.DateTimeField('最后修改时间', auto_now=True)
     user = models.CharField(editable=False, null=True, verbose_name='操作人', max_length=255)
 
     def __str__(self):
@@ -123,7 +123,7 @@ class SlideOverModel(models.Model):
     mask = models.CharField(verbose_name='蒙层', max_length=512, default='https://sanxqn.nalrer.cn/tysanxiao/test/LikeConfigRes/adRes.png')
     viewAdCounts = models.PositiveIntegerField(verbose_name='viewAdCounts', default=3)
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
-    modifi_time = models.DateTimeField('修改时间', auto_now=True)
+    modifi_time = models.DateTimeField('最后修改时间', auto_now=True)
     user = models.CharField(editable=False, null=True, verbose_name='操作人', max_length=255)
 
     def __str__(self):
