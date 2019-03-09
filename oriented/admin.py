@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from common.config import OWN_WXAPPID_CONFIG
 from django.contrib import admin
 from .models import *
 from django import forms
@@ -39,7 +39,7 @@ class StripAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
     def game_name(self, obj):
-        return obj.name
+        return OWN_WXAPPID_CONFIG.get(obj.name, '')
     game_name.short_description = '游戏名称'
 
     def educe_game(self, obj):
@@ -76,7 +76,7 @@ class IconSwitchModelAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
     def game_name(self, obj):
-        return obj.name
+        return OWN_WXAPPID_CONFIG.get(obj.name, '')
     game_name.short_description = '游戏名称'
 
     def educe_game(self, obj):
@@ -140,7 +140,7 @@ class SlideOverModelAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
     def game_name(self, obj):
-        return obj.name
+        return OWN_WXAPPID_CONFIG.get(obj.name, '')
     game_name.short_description = '游戏名称'
 
     def educe_game(self, obj):

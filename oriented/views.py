@@ -11,8 +11,10 @@ def get_curr_oriented(basic_id, type):
 
 
 def get_all_oriented(type):
-    return ORIENTED_TYPE_MODEL[type].objects.all()
+    return ORIENTED_TYPE_MODEL[type].objects.all().order_by('-id')
 
+def get_wxAppId_oriented(type, wxApppId):
+    return ORIENTED_TYPE_MODEL[type].objects.filter(name=wxApppId).order_by('-id')
 
 def get_all_gameStrip_data(basic_id):
     response = {}
@@ -110,7 +112,7 @@ def get_all_iconswitch_data(basic_id):
         icon.append(temp_dict)
 
     response['icons'] = icon
-    return response,wxAppIdList
+    return response, wxAppIdList
 
 
 def get_iconswitch_name(basic_ID):

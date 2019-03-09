@@ -1,15 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
-from common.config import WXAPPID_CHOICES, SOCKET_URL
-import uuid
+from common.config import (
+    WXAPPID_CHOICES,
+    SOCKET_URL,
+    OWN_WXAPPID_CHOICE,
+    OWN_WXAPPID_CONFIG,
+    WXAPPID_CONFIG,
+)
+
 
 
 
 
 class StripModel(models.Model):
     game_id = models.PositiveIntegerField(verbose_name='gameId')
-    name = models.CharField(verbose_name='游戏名称', max_length=255)
+    name = models.CharField(verbose_name='游戏名称', choices=OWN_WXAPPID_CHOICE, max_length=255)
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
     label = models.CharField(verbose_name='标题', max_length=512)
     bg = models.CharField(verbose_name='背景图', max_length=512)
@@ -23,7 +29,7 @@ class StripModel(models.Model):
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return OWN_WXAPPID_CONFIG.get(self.name, '')
 
     class Meta:
         verbose_name = '导流条'
@@ -45,12 +51,7 @@ class GameStripModel(models.Model):
     bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=10)
 
     def __str__(self):
-        name = ''
-        for i in WXAPPID_CHOICES:
-            if i[0] == self.wxAppId:
-                name = i[1]
-                break
-        return name
+        return WXAPPID_CONFIG.get(self.wxAppId, '')
 
     class Meta:
         verbose_name = '导出游戏'
@@ -59,14 +60,14 @@ class GameStripModel(models.Model):
 
 class IconSwitchModel(models.Model):
     game_id = models.PositiveIntegerField(verbose_name='gameId')
-    name = models.CharField(verbose_name='游戏名称', max_length=255)
+    name = models.CharField(verbose_name='游戏名称', choices=OWN_WXAPPID_CHOICE, max_length=255)
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
     switch = models.PositiveIntegerField(verbose_name='switch', default=1)
     framesInterval = models.PositiveIntegerField(verbose_name='播放速度', default=10000)
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return OWN_WXAPPID_CONFIG.get(self.name, '')
 
     class Meta:
         verbose_name = 'Icon切换'
@@ -103,12 +104,7 @@ class GameIconSwitchModel(models.Model):
     bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=10)
 
     def __str__(self):
-        name = ''
-        for i in WXAPPID_CHOICES:
-            if i[0] == self.wxAppId:
-                name = i[1]
-                break
-        return name
+        return WXAPPID_CONFIG.get(self.wxAppId, '')
 
     class Meta:
         verbose_name = '导出游戏'
@@ -117,7 +113,7 @@ class GameIconSwitchModel(models.Model):
 
 class SlideOverModel(models.Model):
     game_id = models.PositiveIntegerField(verbose_name='gameId')
-    name = models.CharField(verbose_name='游戏名称', max_length=255)
+    name = models.CharField(verbose_name='游戏名称', choices=OWN_WXAPPID_CHOICE,max_length=255)
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
     switch = models.PositiveIntegerField(verbose_name='switch', default=1)
     fromWhere = models.PositiveIntegerField(verbose_name='展开方向', default=0)
@@ -128,7 +124,7 @@ class SlideOverModel(models.Model):
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return OWN_WXAPPID_CONFIG.get(self.name, '')
 
     class Meta:
         verbose_name = '侧拉框'
@@ -229,12 +225,7 @@ class GameSlideOverModel(models.Model):
     bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=10)
 
     def __str__(self):
-        name = ''
-        for i in WXAPPID_CHOICES:
-            if i[0] == self.openUrl:
-                name = i[1]
-                break
-        return name
+        return WXAPPID_CONFIG.get(self.openUrl, '')
 
     class Meta:
         verbose_name = '导出游戏'

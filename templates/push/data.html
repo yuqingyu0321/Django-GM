@@ -16,6 +16,26 @@
         <legend>{{ type }}</legend>
     </fieldset>
 </div>
+
+<div>
+    <form class="layui-form" action="/admin/push/search/{{ typeId }}" method="get">
+        <div class="layui-form-item">
+            <label class="layui-form-label">游戏名称</label>
+            <div class="layui-input-inline">
+                <select name="search_wxAppId" lay-verify="required" lay-search>
+                    <option value="">请选择游戏</option>
+                    {% for wxappid, name in gameChoice.items %}
+                        <option value="{{ wxappid }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <button class="layui-btn" lay-submit lay-filter="query">查询</button>
+            </div>
+        </div>
+
+    </form>
+</div>
 <div>
     <table class="layui-table">
         <colgroup>
@@ -33,6 +53,51 @@
         </thead>
         <tbody>
         {% for i in data %}
+            <tr>
+                <td>{{ i.id }}</td>
+                <td>{{ i.name }}</td>
+                <td>
+                    {% for id, value in educe.items %}
+                        {% if i.id == id %}
+                            {{ value }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a class="site-demo-button" id="m_look" style="margin-bottom: 0;">
+                        <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal"
+                                oriented_id="{{ i.id }}" type_id="{{ typeId }}">查看
+                        </button>
+                    </a>
+                    <a class="site-demo-button" id="m_fz" style="margin-bottom: 0;">
+                        <button data-method="offset" data-type="auto" class="layui-btn"
+                                oriented_id="{{ i.id }}" type_id="{{ typeId }}" version_id="{{ i.id }}">推送仿真
+                        </button>
+                    </a>
+                    <a class="site-demo-button" id="m_fz_data" style="margin-bottom: 0;">
+                        <button data-method="offset" data-type="auto" class="layui-btn"
+                                oriented_id="{{ i.id }}" type_id="{{ typeId }}" game_name="{{ i.name }}"
+                                type_name="{{ type }}" version_id="{{ i.id }}">查看仿真数据
+                        </button>
+                    </a>
+
+                    <a class="site-demo-button" id="m_online" style="margin-bottom: 0;">
+                        <button data-method="offset" data-type="auto" class="layui-btn layui-btn-danger"
+                                oriented_id="{{ i.id }}" type_id="{{ typeId }}" version_id="{{ i.id }}">推送线上
+                        </button>
+                    </a>
+                    <a class="site-demo-button" id="m_online_data" style="margin-bottom: 0;">
+                        <button data-method="offset" data-type="auto" class="layui-btn layui-btn-danger"
+                                oriented_id="{{ i.id }}" type_id="{{ typeId }}" game_name="{{ i.name }}"
+                                type_name="{{ type }}" version_id="{{ i.id }}">查看线上数据
+                        </button>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+
+        {% for i in wxAppIdData %}
             <tr>
                 <td>{{ i.id }}</td>
                 <td>{{ i.name }}</td>

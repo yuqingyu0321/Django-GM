@@ -19,7 +19,7 @@ def get_use_dict(type):
     show_all = or_view.get_all_oriented(type)
     educe_game_dict = {}
     for i in show_all:
-
+        i.name = config.OWN_WXAPPID_CONFIG.get(i.name, '')
         educe_game = ''
         func = or_view.ORIENTED_TYPE_GET_EDUCENAME_FUNC.get(type)
         if func:
@@ -30,7 +30,8 @@ def get_use_dict(type):
         'data': show_all,
         'educe': educe_game_dict,
         'type': '推送管理--' + or_view.ORIENTED_TYPE.get(type, ''),
-        'typeId': int(type) if type else 200
+        'typeId': int(type) if type else 200,
+        'gameChoice': config.OWN_WXAPPID_CONFIG
     }
 
     return content
@@ -122,27 +123,6 @@ def push_data(request, basic_id, type_id, version_id, fz=True):
                         content_type="application/json,charset=utf-8")
 
 
-def save_push_data_in_redis(gameId, fz, typeId, value):
-    game_datas = BackUpDao.getData(gameId, typeId, fz)
-    if len(game_datas) == 3:
-        game_datas.pop(0)
-    timestamp = int(time.time())
-
-    game_datas.append([timestamp, gameId, value])
-
-    BackUpDao.saveData(gameId, game_datas, typeId, fz)
-
-
-def get_push_data_in_redis(gameId, fz, typeId):
-    game_datas = BackUpDao.getData(gameId, typeId, fz)
-    return game_datas
-
-
-def get_all_push_data_in_redis(fz, typeId):
-    game_datas = BackUpDao.getAllDatas(typeId, fz)
-    return game_datas
-
-
 def look_fz(request, basic_id, type_id, version_id):
     return look_data(request, basic_id, type_id, version_id)
 
@@ -187,6 +167,53 @@ def look_data(request, basic_id, type_id, version_id, fz=True):
 
     return HttpResponse(json.dumps(info, indent=4, ensure_ascii=False, separators=(',', ':')),
                         content_type="application/json,charset=utf-8")
+
+
+
+# 游戏选择
+def search_game(request, type_id):
+    game_wxAppId = request.GET.get('search_wxAppId')
+    game_wxAppId_datas = or_view.get_wxAppId_oriented(type_id, game_wxAppId)
+
+    educe_game_dict = {}
+    for i in game_wxAppId_datas:
+        i.name = config.OWN_WXAPPID_CONFIG.get(i.name, '')
+        educe_game = ''
+        func = or_view.ORIENTED_TYPE_GET_EDUCENAME_FUNC.get(type_id)
+        if func:
+            educe_game = func(i.id)
+        educe_game_dict[i.id] = educe_game if educe_game else '_'
+
+    content = {
+        'wxAppIdData': game_wxAppId_datas,
+        'educe': educe_game_dict,
+        'type': '推送管理--' + or_view.ORIENTED_TYPE.get(type_id, ''),
+        'typeId': type_id,
+        'gameChoice': config.OWN_WXAPPID_CONFIG
+    }
+
+    return render(request, 'push/data.html', content)
+
+# 备份管理
+def save_push_data_in_redis(gameId, fz, typeId, value):
+    game_datas = BackUpDao.getData(gameId, typeId, fz)
+    if len(game_datas) == 3:
+        game_datas.pop(0)
+    timestamp = int(time.time())
+
+    game_datas.append([timestamp, gameId, value])
+
+    BackUpDao.saveData(gameId, game_datas, typeId, fz)
+
+
+def get_push_data_in_redis(gameId, fz, typeId):
+    game_datas = BackUpDao.getData(gameId, typeId, fz)
+    return game_datas
+
+
+def get_all_push_data_in_redis(fz, typeId):
+    game_datas = BackUpDao.getAllDatas(typeId, fz)
+    return game_datas
 
 
 def get_all_back_data(request):
