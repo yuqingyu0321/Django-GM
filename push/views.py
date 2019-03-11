@@ -98,6 +98,7 @@ def push_data(request, basic_id, type_id, version_id, fz=True):
 
             html = eval(response.read())
             if html.get('code') == 0:
+                # 处理推送显示
                 values.pop('oriented')
                 test_url = socket_url + config.gain_GetSocketApi(obj[0].socket_url) + "?" + urllib.urlencode(values)
 
@@ -107,6 +108,8 @@ def push_data(request, basic_id, type_id, version_id, fz=True):
                     'navigateToMiniProgramAppIdList': wxAppIdList,
                     'educeGameName':[config.WXAPPID_CONFIG.get(i, '') for i in wxAppIdList]
                 }
+                # 处理操作人和操作时间
+                or_view.handle_userAndTime(request, basic_id, type_id, fz)
                 # 保存redis数据
                 # save_push_data_in_redis(gameId, fz, type_id, get_all_data)
                 # BackUpDao.saveGameId(gameId, gameName)

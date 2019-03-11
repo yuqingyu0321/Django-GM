@@ -27,6 +27,9 @@ class StripModel(models.Model):
     modifi_time = models.DateTimeField('最后修改时间', auto_now=True)
     user = models.CharField(editable=False, null=True, verbose_name='操作人', max_length=255)
 
+    online_modifi_time = models.DateTimeField('线上最后修改时间', editable=False, null=True)
+    online_user = models.CharField(editable=False, null=True, verbose_name='推送操作人', max_length=255)
+
     def __str__(self):
         return OWN_WXAPPID_CONFIG.get(self.name, '')
 
@@ -66,6 +69,9 @@ class IconSwitchModel(models.Model):
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
     modifi_time = models.DateTimeField('最后修改时间', auto_now=True)
     user = models.CharField(editable=False, null=True, verbose_name='操作人', max_length=255)
+
+    online_modifi_time = models.DateTimeField('线上最后修改时间', editable=False, null=True)
+    online_user = models.CharField(editable=False, null=True, verbose_name='推送操作人', max_length=255)
 
     def __str__(self):
         return OWN_WXAPPID_CONFIG.get(self.name, '')
@@ -125,6 +131,9 @@ class SlideOverModel(models.Model):
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
     modifi_time = models.DateTimeField('最后修改时间', auto_now=True)
     user = models.CharField(editable=False, null=True, verbose_name='操作人', max_length=255)
+
+    online_modifi_time = models.DateTimeField('线上最后修改时间', editable=False, null=True)
+    online_user = models.CharField(editable=False, null=True, verbose_name='推送操作人', max_length=255)
 
     def __str__(self):
         return OWN_WXAPPID_CONFIG.get(self.name, '')

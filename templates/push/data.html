@@ -37,18 +37,28 @@
     </form>
 </div>
 <div>
-    <table class="layui-table">
+    <table class="layui-table" lay-even>
         <colgroup>
-            <col width="50">
-            <col width="150">
+            <col>
+            <col>
             <col width="350">
+            <col>
+            <col width="200">
+            <col width="200">
+            <col>
+            <col>
         </colgroup>
         <thead>
         <tr>
             <th> 序号</th>
             <th> 游戏名称</th>
             <th> 导出游戏</th>
-            <th> 操作</th>
+            <th> 当前配置</th>
+            <th> 同步仿真服</th>
+            <th> 同步线上服</th>
+            <th> 操作人</th>
+            <th> 同步线上服时间</th>
+
         </tr>
         </thead>
         <tbody>
@@ -66,9 +76,11 @@
                 <td>
                     <a class="site-demo-button" id="m_look" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal"
-                                oriented_id="{{ i.id }}" type_id="{{ typeId }}">查看
+                                oriented_id="{{ i.id }}" type_id="{{ typeId }}">预览
                         </button>
                     </a>
+                </td>
+                <td>
                     <a class="site-demo-button" id="m_fz" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn"
                                 oriented_id="{{ i.id }}" type_id="{{ typeId }}" version_id="{{ i.id }}">推送仿真
@@ -77,10 +89,11 @@
                     <a class="site-demo-button" id="m_fz_data" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn"
                                 oriented_id="{{ i.id }}" type_id="{{ typeId }}" game_name="{{ i.name }}"
-                                type_name="{{ type }}" version_id="{{ i.id }}">查看仿真数据
+                                type_name="{{ type }}" version_id="{{ i.id }}">预览
                         </button>
                     </a>
-
+                </td>
+                <td>
                     <a class="site-demo-button" id="m_online" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn layui-btn-danger"
                                 oriented_id="{{ i.id }}" type_id="{{ typeId }}" version_id="{{ i.id }}">推送线上
@@ -89,10 +102,12 @@
                     <a class="site-demo-button" id="m_online_data" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn layui-btn-danger"
                                 oriented_id="{{ i.id }}" type_id="{{ typeId }}" game_name="{{ i.name }}"
-                                type_name="{{ type }}" version_id="{{ i.id }}">查看线上数据
+                                type_name="{{ type }}" version_id="{{ i.id }}">预览
                         </button>
                     </a>
                 </td>
+                <td>{{ i.online_user }}</td>
+                <td>{{ i.online_modifi_time }}</td>
             </tr>
         {% endfor %}
 
@@ -111,9 +126,11 @@
                 <td>
                     <a class="site-demo-button" id="m_look" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal"
-                                oriented_id="{{ i.id }}" type_id="{{ typeId }}">查看
+                                oriented_id="{{ i.id }}" type_id="{{ typeId }}">预览
                         </button>
                     </a>
+                </td>
+                <td>
                     <a class="site-demo-button" id="m_fz" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn"
                                 oriented_id="{{ i.id }}" type_id="{{ typeId }}" version_id="{{ i.id }}">推送仿真
@@ -122,10 +139,11 @@
                     <a class="site-demo-button" id="m_fz_data" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn"
                                 oriented_id="{{ i.id }}" type_id="{{ typeId }}" game_name="{{ i.name }}"
-                                type_name="{{ type }}" version_id="{{ i.id }}">查看仿真数据
+                                type_name="{{ type }}" version_id="{{ i.id }}">预览
                         </button>
                     </a>
-
+                </td>
+                <td>
                     <a class="site-demo-button" id="m_online" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn layui-btn-danger"
                                 oriented_id="{{ i.id }}" type_id="{{ typeId }}" version_id="{{ i.id }}">推送线上
@@ -134,10 +152,12 @@
                     <a class="site-demo-button" id="m_online_data" style="margin-bottom: 0;">
                         <button data-method="offset" data-type="auto" class="layui-btn layui-btn-danger"
                                 oriented_id="{{ i.id }}" type_id="{{ typeId }}" game_name="{{ i.name }}"
-                                type_name="{{ type }}" version_id="{{ i.id }}">查看线上数据
+                                type_name="{{ type }}" version_id="{{ i.id }}">预览
                         </button>
                     </a>
                 </td>
+                <td>{{ i.online_user }}</td>
+                <td>{{ i.online_modifi_time }}</td>
             </tr>
         {% endfor %}
         </tbody>

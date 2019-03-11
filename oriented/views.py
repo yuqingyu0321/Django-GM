@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import json
+from datetime import datetime
 from django.shortcuts import render, HttpResponse, render_to_response
 from .models import *
 from common.config import WXAPPID_CONFIG
@@ -268,3 +269,12 @@ def backup_educe_name(type_id, datas):
             allName += '；'
 
     return allName[:-1] if allName else allName
+
+
+def handle_userAndTime(request, basicId, typeId, fz):
+    if fz:
+        return
+    currOrientedQuery = ORIENTED_TYPE_MODEL[typeId].objects.get(id=int(basicId))
+    currOrientedQuery.online_modifi_time = datetime.now()
+    currOrientedQuery.online_user = request.user.username
+    currOrientedQuery.save(update_fields=['online_modifi_time', 'online_user'])
