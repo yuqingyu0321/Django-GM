@@ -37,6 +37,7 @@ class StripAdmin(admin.ModelAdmin):
 
     save_as = True
     search_fields = ('name',)
+    ordering = ('-id',)
 
     def game_name(self, obj):
         return OWN_WXAPPID_CONFIG.get(obj.name, '')
@@ -77,6 +78,7 @@ class IconSwitchModelAdmin(admin.ModelAdmin):
 
     save_as = True
     search_fields = ('name',)
+    ordering = ('-id',)
 
     def game_name(self, obj):
         return OWN_WXAPPID_CONFIG.get(obj.name, '')
@@ -144,6 +146,7 @@ class SlideOverModelAdmin(admin.ModelAdmin):
 
     save_as = True
     search_fields = ('name',)
+    ordering = ('-id',)
 
     def game_name(self, obj):
         return OWN_WXAPPID_CONFIG.get(obj.name, '')
