@@ -29,7 +29,7 @@ class GameStripInline(admin.StackedInline):
     form = GameStripModelForm
     fieldsets = [
         (
-            '＋',
+            '▼',
             {
                 'fields': [
                     'index',
@@ -140,7 +140,7 @@ class GameIconSwitchModelInline(admin.StackedInline):
     form = GameIconSwitchForm
     fieldsets = [
         (
-            '＋',
+            '▼',
             {
                 'fields': [
                     ('wxAppId', 'topath', 'scale'),
@@ -163,7 +163,7 @@ class PositionModelInline(admin.StackedInline):
     extra = 0
     fieldsets = [
         (
-            '＋',
+            '▼',
             {
                 'fields': [
                     'position_id',
@@ -248,7 +248,7 @@ class GameSlideOverModelInline(admin.StackedInline):
     form = GameSlideOverForm
     fieldsets = [
         (
-            '＋',
+            '▼',
             {
                 'fields': [
                     'index',
@@ -274,7 +274,7 @@ class TextSlideOverModelInline(admin.StackedInline):
     max_num = 1
     fieldsets = [
         (
-            '＋',
+            '▼',
             {
                 'fields': [
                     ('size', 'yfromIcon'),
@@ -294,7 +294,7 @@ class GridSlideOverModelInline(admin.StackedInline):
     max_num = 1
     fieldsets = [
         (
-            '＋',
+            '▼',
             {
                 'fields': [
                     ('iconsWidth', 'iconsHeight'),
@@ -325,7 +325,7 @@ class BgSlideOverModelInline(admin.StackedInline):
     form = BgSlideOverForm
     fieldsets = [
         (
-            '＋',
+            '▼',
             {
                 'fields': [
                     'positionY',
@@ -361,7 +361,7 @@ class PullSlideOverModelInline(admin.StackedInline):
     form = PullSlideOverForm
     fieldsets = [
         (
-            '＋',
+            '▼',
             {
                 'fields': [
                     ('positionX', 'positionY'),
@@ -394,7 +394,7 @@ class LabelSlideOverModelInline(admin.StackedInline):
     form = LabelSlideOverForm
     fieldsets = [
         (
-            '＋',
+            '▼',
             {
                 'fields': [
                     ('height','scale', 'yfromtop'),
