@@ -5,12 +5,28 @@ from django.contrib import admin
 from .models import *
 from django import forms
 from .views import *
+from suit.widgets import EnclosedInput
 
+class GameStripModelForm(forms.ModelForm):
+    class Meta:
+        widgets = {
+            'imgLink': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_imgLink(this)">预览</button><script language="javascript">\
+                function fun_imgLink (obj){\
+                    var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+            'bi_landing_page': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_bi_landing_page(this)">预览</button><script language="javascript">\
+                        function fun_bi_landing_page (obj){\
+                            var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+        }
 
 class GameStripInline(admin.StackedInline):
     model = GameStripModel
     extra = 0
     max_num = 10
+    form = GameStripModelForm
     fieldsets = [
         (
             '＋',
@@ -20,8 +36,10 @@ class GameStripInline(admin.StackedInline):
                     ('wxAppId', 'topath'),
                     'imgLink',
                     'isClickHide',
-                    ('bi_iconId', 'bi_landing_page_id'),
-                    ('bi_landing_page', 'bi_educe_game')
+                    'bi_iconId',
+                    'bi_landing_page_id',
+                    'bi_educe_game',
+                    'bi_landing_page',
                 ],
                 'classes': [
                     'collapse'
@@ -32,11 +50,21 @@ class GameStripInline(admin.StackedInline):
 class StripForm(forms.ModelForm):
     class Meta:
         widgets = {
-            # 'code': TextInput(attrs={'class': 'input-mini'}),
-            # 'independence_day': SuitDateWidget,
-            # 'description': AutosizedTextarea,
-            # 'architecture': AutosizedTextarea,
-            # 'continent': LinkedSelect,
+            'label': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs" type="button" onclick="fun_label()">预览</button><script language="javascript">\
+                function fun_label (){\
+                    var x=document.getElementById("id_label");window.open(x.value);}</script>',
+            ),
+            'bg':EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs" type="button" onclick="fun_bg()">预览</button><script language="javascript">\
+                function fun_bg (){\
+                    var x=document.getElementById("id_bg");window.open(x.value);}</script>',
+            ),
+            'reddot':EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs" type="button" onclick="fun_reddot()">预览</button><script language="javascript">\
+                function fun_reddot (){\
+                    var x=document.getElementById("id_reddot");window.open(x.value);}</script>',
+            ),
         }
 
 
@@ -90,11 +118,26 @@ class StripAdmin(admin.ModelAdmin):
 
 # admin.site.register(Oriented, OrientedAdmin)
 
+class GameIconSwitchForm(forms.ModelForm):
+    class Meta:
+        widgets = {
+            'imgLink': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_imgLink(this)">预览</button><script language="javascript">\
+                        function fun_imgLink (obj){\
+                            var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+            'bi_landing_page': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_bi_landing_page(this)">预览</button><script language="javascript">\
+                    function fun_bi_landing_page (obj){\
+                        var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+        }
 
 class GameIconSwitchModelInline(admin.StackedInline):
     model = GameIconSwitchModel
     extra = 0
     max_num = 10
+    form = GameIconSwitchForm
     fieldsets = [
         (
             '＋',
@@ -103,8 +146,10 @@ class GameIconSwitchModelInline(admin.StackedInline):
                     ('wxAppId', 'topath', 'scale'),
                     'imgLink',
                     ('weight', 'clickHide', 'openType'),
-                    ('bi_iconId', 'bi_landing_page_id'),
-                    ('bi_landing_page', 'bi_educe_game')
+                    'bi_iconId',
+                    'bi_landing_page_id',
+                    'bi_educe_game',
+                    'bi_landing_page',
                 ],
                 'classes': [
                     'collapse'
@@ -131,6 +176,11 @@ class PositionModelInline(admin.StackedInline):
             }
         )]
 
+class IconSwitchForm(forms.ModelForm):
+    class Meta:
+        widgets = {
+        }
+
 @admin.register(IconSwitchModel)
 class IconSwitchModelAdmin(admin.ModelAdmin):
     # listdisplay设置要显示在列表中的字段（id字段是Django模型的默认主键）
@@ -141,6 +191,7 @@ class IconSwitchModelAdmin(admin.ModelAdmin):
         PositionModelInline,
         GameIconSwitchModelInline,
     ]
+    form = IconSwitchForm
     fieldsets = [
         (
             None,
@@ -175,10 +226,26 @@ class IconSwitchModelAdmin(admin.ModelAdmin):
         super(IconSwitchModelAdmin, self).save_model(request, obj, form, change)
 
 
+class GameSlideOverForm(forms.ModelForm):
+    class Meta:
+        widgets = {
+            'imgLink': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_imgLink(this)">预览</button><script language="javascript">\
+                        function fun_imgLink (obj){\
+                            var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+            'bi_landing_page': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_bi_landing_page(this)">预览</button><script language="javascript">\
+                    function fun_bi_landing_page (obj){\
+                        var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+        }
+
 class GameSlideOverModelInline(admin.StackedInline):
     model = GameSlideOverModel
     extra = 0
     max_num = 10
+    form = GameSlideOverForm
     fieldsets = [
         (
             '＋',
@@ -188,8 +255,10 @@ class GameSlideOverModelInline(admin.StackedInline):
                     ('text', 'openUrl', 'topath'),
                     ('type', 'openType', 'isredon'),
                     'imgLink',
-                    ('bi_iconId', 'bi_landing_page_id'),
-                    ('bi_landing_page', 'bi_educe_game')
+                    'bi_iconId',
+                    'bi_landing_page_id',
+                    'bi_educe_game',
+                    'bi_landing_page',
                 ],
                 'classes': [
                     'collapse'
@@ -238,12 +307,22 @@ class GridSlideOverModelInline(admin.StackedInline):
             }
         )]
 
+class BgSlideOverForm(forms.ModelForm):
+    class Meta:
+        widgets = {
+            'imgurl': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_imgLink(this)">预览</button><script language="javascript">\
+                        function fun_imgLink (obj){\
+                            var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+        }
 
 class BgSlideOverModelInline(admin.StackedInline):
     model = BgSlideOverModel
     extra = 1
     min_num = 1
     max_num = 1
+    form = BgSlideOverForm
     fieldsets = [
         (
             '＋',
@@ -259,12 +338,27 @@ class BgSlideOverModelInline(admin.StackedInline):
             }
         )]
 
+class PullSlideOverForm(forms.ModelForm):
+    class Meta:
+        widgets = {
+            'imgurl0': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_imgurl0(this)">预览</button><script language="javascript">\
+                        function fun_imgurl0 (obj){\
+                            var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+            'imgurl1': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_imgurl1(this)">预览</button><script language="javascript">\
+                        function fun_imgurl1 (obj){\
+                            var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+        }
 
 class PullSlideOverModelInline(admin.StackedInline):
     model = PullSlideOverModel
     extra = 1
     min_num = 1
     max_num = 1
+    form = PullSlideOverForm
     fieldsets = [
         (
             '＋',
@@ -281,12 +375,23 @@ class PullSlideOverModelInline(admin.StackedInline):
             }
         )]
 
+class LabelSlideOverForm(forms.ModelForm):
+    class Meta:
+        widgets = {
+            'imgurl': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_imgLink(this)">预览</button><script language="javascript">\
+                        function fun_imgLink (obj){\
+                            var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+        }
+
 
 class LabelSlideOverModelInline(admin.StackedInline):
     model = LabelSlideOverModel
     extra = 1
     min_num = 1
     max_num = 1
+    form = LabelSlideOverForm
     fieldsets = [
         (
             '＋',
@@ -301,6 +406,20 @@ class LabelSlideOverModelInline(admin.StackedInline):
             }
         )]
 
+class SlideOverForm(forms.ModelForm):
+    class Meta:
+        widgets = {
+            'reddot': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_reddot(this)">预览</button><script language="javascript">\
+                        function fun_reddot (obj){\
+                            var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+            'mask': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_mask(this)">预览</button><script language="javascript">\
+                                function fun_mask (obj){\
+                                    var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+        }
 
 @admin.register(SlideOverModel)
 class SlideOverModelAdmin(admin.ModelAdmin):
@@ -316,6 +435,7 @@ class SlideOverModelAdmin(admin.ModelAdmin):
         TextSlideOverModelInline,
         GameSlideOverModelInline,
     ]
+    form = SlideOverForm
     fieldsets = [
         (
             None,
