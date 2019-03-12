@@ -267,53 +267,33 @@ class GameSlideOverModelInline(admin.StackedInline):
         )]
 
 
-class TextSlideOverModelInline(admin.StackedInline):
-    model = TextSlideOverModel
-    extra = 1
-    min_num = 1
-    max_num = 1
-    fieldsets = [
-        (
-            '▼',
-            {
-                'fields': [
-                    ('size', 'yfromIcon'),
-                    ('colorR', 'colorG', 'colorB')
-                ],
-                'classes': [
-                    'collapse'
-                ]
-            }
-        )]
 
 
-class GridSlideOverModelInline(admin.StackedInline):
-    model = GridSlideOverModel
-    extra = 1
-    min_num = 1
-    max_num = 1
-    fieldsets = [
-        (
-            '▼',
-            {
-                'fields': [
-                    ('iconsWidth', 'iconsHeight'),
-                    ('spacingX', 'spacingY'),
-                    ('paddingLeft', 'paddingRight')
-                ],
-                'classes': [
-                    'collapse'
-                ]
-            }
-        )]
+
+
 
 class BgSlideOverForm(forms.ModelForm):
     class Meta:
         widgets = {
-            'imgurl': EnclosedInput(
-                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_imgLink(this)">预览</button><script language="javascript">\
-                        function fun_imgLink (obj){\
+            'bt_imgurl': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_bt_imgurl(this)">预览</button><script language="javascript">\
+                        function fun_bt_imgurl (obj){\
                             var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+            'kuang_imgurl': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_kuang_imgurl(this)">预览</button><script language="javascript">\
+                                function fun_kuang_imgurl (obj){\
+                                    var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+            'la_imgurl0': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_la_imgurl0(this)">预览</button><script language="javascript">\
+                                function fun_la_imgurl0 (obj){\
+                                    var x = obj.previousSibling;; window.open(x.value);}</script>',
+            ),
+            'la_imgurl1': EnclosedInput(
+                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_la_imgurl1(this)">预览</button><script language="javascript">\
+                                function fun_la_imgurl1 (obj){\
+                                    var x = obj.previousSibling;; window.open(x.value);}</script>',
             ),
         }
 
@@ -325,86 +305,72 @@ class BgSlideOverModelInline(admin.StackedInline):
     form = BgSlideOverForm
     fieldsets = [
         (
-            '▼',
+            '标题',
             {
                 'fields': [
-                    'positionY',
-                    'bottomBlkHeight',
-                    'imgurl'
+                    ('bt_height', 'bt_scale', 'bt_yfromtop'),
+                    'bt_imgurl',
                 ],
                 'classes': [
                     'collapse'
                 ]
             }
-        )]
-
-class PullSlideOverForm(forms.ModelForm):
-    class Meta:
-        widgets = {
-            'imgurl0': EnclosedInput(
-                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_imgurl0(this)">预览</button><script language="javascript">\
-                        function fun_imgurl0 (obj){\
-                            var x = obj.previousSibling;; window.open(x.value);}</script>',
-            ),
-            'imgurl1': EnclosedInput(
-                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_imgurl1(this)">预览</button><script language="javascript">\
-                        function fun_imgurl1 (obj){\
-                            var x = obj.previousSibling;; window.open(x.value);}</script>',
-            ),
-        }
-
-class PullSlideOverModelInline(admin.StackedInline):
-    model = PullSlideOverModel
-    extra = 1
-    min_num = 1
-    max_num = 1
-    form = PullSlideOverForm
-    fieldsets = [
+        ),
         (
-            '▼',
+            '底框',
             {
                 'fields': [
-                    ('positionX', 'positionY'),
-                    ('scale','isredon'),
-                    'imgurl0',
-                    'imgurl1',
+                    'kuang_positionY',
+                    'kuang_bottomBlkHeight',
+                    'kuang_imgurl'
                 ],
                 'classes': [
                     'collapse'
                 ]
             }
-        )]
-
-class LabelSlideOverForm(forms.ModelForm):
-    class Meta:
-        widgets = {
-            'imgurl': EnclosedInput(
-                append='<button class="layui-btn layui-btn-xs"type="button" onclick="fun_imgLink(this)">预览</button><script language="javascript">\
-                        function fun_imgLink (obj){\
-                            var x = obj.previousSibling;; window.open(x.value);}</script>',
-            ),
-        }
-
-
-class LabelSlideOverModelInline(admin.StackedInline):
-    model = LabelSlideOverModel
-    extra = 1
-    min_num = 1
-    max_num = 1
-    form = LabelSlideOverForm
-    fieldsets = [
+        ),
         (
-            '▼',
+            '按钮',
             {
                 'fields': [
-                    ('height','scale', 'yfromtop'),
-                    'imgurl',
+                    ('la_positionX', 'la_positionY'),
+                    ('la_scale', 'la_isredon'),
+                    'la_imgurl0',
+                    'la_imgurl1',
                 ],
                 'classes': [
                     'collapse'
                 ]
             }
-        )]
+        ),
+        (
+            'icon布局',
+            {
+                'fields': [
+                    ('icon_iconsWidth', 'icon_iconsHeight'),
+                    ('icon_spacingX', 'icon_spacingY'),
+                    ('icon_paddingLeft', 'icon_paddingRight')
+                ],
+                'classes': [
+                    'collapse'
+                ]
+            }
+        ),
+        (
+            '文本',
+            {
+                'fields': [
+                    ('text_size', 'text_yfromIcon'),
+                    ('text_colorR', 'text_colorG', 'text_colorB')
+                ],
+                'classes': [
+                    'collapse'
+                ]
+            }
+        )
+    ]
+
+
 
 class SlideOverForm(forms.ModelForm):
     class Meta:
@@ -428,11 +394,7 @@ class SlideOverModelAdmin(admin.ModelAdmin):
     list_display_links = ['game_name']
     # 内联
     inlines = [
-        LabelSlideOverModelInline,
-        PullSlideOverModelInline,
         BgSlideOverModelInline,
-        GridSlideOverModelInline,
-        TextSlideOverModelInline,
         GameSlideOverModelInline,
     ]
     form = SlideOverForm

@@ -142,82 +142,51 @@ class SlideOverModel(models.Model):
         verbose_name = '侧拉框'
         verbose_name_plural = verbose_name
 
-class LabelSlideOverModel(models.Model):
-    height = models.PositiveIntegerField(verbose_name='高度')
-    scale = models.FloatField(verbose_name='缩放比例')
-    yfromtop = models.PositiveIntegerField(verbose_name='图片中心点离上方距离')
-    imgurl = models.CharField(verbose_name='标题ICON', max_length=512)
-    foreignkey_labelSlideOver = models.OneToOneField(SlideOverModel, verbose_name="侧拉框")
-
-    def __str__(self):
-        return '标题'
-
-    class Meta:
-        verbose_name = '标题'
-        verbose_name_plural = verbose_name
-
-
-class PullSlideOverModel(models.Model):
-    scale = models.FloatField(verbose_name='缩放比例')
-    positionX = models.FloatField(verbose_name='positionX')
-    positionY = models.FloatField(verbose_name='positionY')
-    imgurl0 = models.CharField(verbose_name='未拉取时图', max_length=512)
-    imgurl1 = models.CharField(verbose_name='拉取时图', max_length=512)
-    isredon = models.BooleanField(verbose_name='显示红点', default=1)
-    foreignkey_labelSlideOver = models.OneToOneField(SlideOverModel, verbose_name="侧拉框")
-
-    def __str__(self):
-        return '拉按钮'
-
-    class Meta:
-        verbose_name = '拉按钮'
-        verbose_name_plural = verbose_name
-
 class BgSlideOverModel(models.Model):
-    positionY = models.FloatField(verbose_name='positionY_框中心点占整个屏幕的比例')
-    bottomBlkHeight = models.PositiveIntegerField(verbose_name='框内的下方空白的高')
-    imgurl = models.CharField(verbose_name='框的背景图', max_length=512)
+    # 标题 4
+    bt_height = models.PositiveIntegerField(verbose_name='高度')
+    bt_scale = models.FloatField(verbose_name='缩放比例')
+    bt_yfromtop = models.PositiveIntegerField(verbose_name='图片中心点离上方距离')
+    bt_imgurl = models.CharField(verbose_name='标题ICON', max_length=512)
+
+    # 框 3
+    kuang_positionY = models.FloatField(verbose_name='框中心点占整个屏幕比例')
+    kuang_bottomBlkHeight = models.PositiveIntegerField(verbose_name='框内的下方空白高')
+    kuang_imgurl = models.CharField(verbose_name='框背景图', max_length=512)
+
+    # 拉按钮 6
+    la_scale = models.FloatField(verbose_name='缩放比例')
+    la_positionX = models.FloatField(verbose_name='positionX')
+    la_positionY = models.FloatField(verbose_name='positionY')
+    la_imgurl0 = models.CharField(verbose_name='未拉取时图', max_length=512)
+    la_imgurl1 = models.CharField(verbose_name='拉取时图', max_length=512)
+    la_isredon = models.BooleanField(verbose_name='显示红点', default=1)
+
+    # icon布局 6
+    icon_iconsWidth = models.IntegerField(verbose_name='iconsWidth')
+    icon_iconsHeight = models.IntegerField(verbose_name='iconsHeight')
+    icon_spacingX = models.IntegerField(verbose_name='spacingX')
+    icon_spacingY = models.IntegerField(verbose_name='spacingY')
+    icon_paddingLeft = models.IntegerField(verbose_name='paddingLeft')
+    icon_paddingRight = models.IntegerField(verbose_name='paddingRight')
+
+    # 文本 5
+    text_size = models.PositiveIntegerField(verbose_name='size')
+    text_yfromIcon = models.PositiveIntegerField(verbose_name='yfromIcon')
+    text_colorR = models.PositiveIntegerField(verbose_name='colorR')
+    text_colorG = models.PositiveIntegerField(verbose_name='colorG')
+    text_colorB = models.PositiveIntegerField(verbose_name='colorB')
+
     foreignkey_labelSlideOver = models.OneToOneField(SlideOverModel, verbose_name="侧拉框")
 
     def __str__(self):
-        return '框'
+        return '背景框'
 
     class Meta:
-        verbose_name = '框'
+        verbose_name = '背景框'
         verbose_name_plural = verbose_name
 
 
-class GridSlideOverModel(models.Model):
-    iconsWidth = models.IntegerField(verbose_name='iconsWidth')
-    iconsHeight = models.IntegerField(verbose_name='iconsHeight')
-    spacingX = models.IntegerField(verbose_name='spacingX')
-    spacingY = models.IntegerField(verbose_name='spacingY')
-    paddingLeft = models.IntegerField(verbose_name='paddingLeft')
-    paddingRight = models.IntegerField(verbose_name='paddingRight')
-    foreignkey_labelSlideOver = models.OneToOneField(SlideOverModel, verbose_name="侧拉框")
-
-    def __str__(self):
-        return 'Icon布局'
-
-    class Meta:
-        verbose_name = 'Icon布局'
-        verbose_name_plural = verbose_name
-
-
-class TextSlideOverModel(models.Model):
-    size = models.PositiveIntegerField(verbose_name='size')
-    yfromIcon = models.PositiveIntegerField(verbose_name='yfromIcon')
-    colorR = models.PositiveIntegerField(verbose_name='colorR')
-    colorG = models.PositiveIntegerField(verbose_name='colorG')
-    colorB = models.PositiveIntegerField(verbose_name='colorB')
-    foreignkey_labelSlideOver = models.OneToOneField(SlideOverModel, verbose_name="侧拉框")
-
-    def __str__(self):
-        return '文本'
-
-    class Meta:
-        verbose_name = '文本'
-        verbose_name_plural = verbose_name
 
 
 class GameSlideOverModel(models.Model):
