@@ -88,7 +88,7 @@ class PositionModel(models.Model):
     foreignkey_iconswitch = models.ForeignKey(IconSwitchModel, verbose_name="Icon切换")
 
     def __str__(self):
-        return ''
+        return self.id
 
     class Meta:
         verbose_name = '位置设定'
