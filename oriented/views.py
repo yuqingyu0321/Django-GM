@@ -14,8 +14,10 @@ def get_curr_oriented(basic_id, type):
 def get_all_oriented(type):
     return ORIENTED_TYPE_MODEL[type].objects.all().order_by('-id')
 
+
 def get_wxAppId_oriented(type, wxApppId):
     return ORIENTED_TYPE_MODEL[type].objects.filter(name=wxApppId).order_by('-id')
+
 
 def get_all_gameStrip_data(basic_id):
     response = {}
@@ -137,47 +139,43 @@ def get_all_SlideOver_data(basic_id):
     response['mask'] = obj_slideover[0].mask
     response['viewAdCounts'] = obj_slideover[0].viewAdCounts
 
+    bg = {}
+    obj_bg = BgSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(basic_id))
+    bg['positionY'] = float(obj_bg[0].kuang_positionY)
+    bg['bottomBlkHeight'] = int(obj_bg[0].kuang_bottomBlkHeight)
+    bg['imgurl'] = str(obj_bg[0].kuang_imgurl)
+    response['bg'] = bg
+
     label = {}
-    obj_label = LabelSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(basic_id))
-    label['height'] = int(obj_label[0].height)
-    label['scale'] = float(obj_label[0].scale)
-    label['yfromtop'] = int(obj_label[0].yfromtop)
-    label['imgurl'] = str(obj_label[0].imgurl)
+    label['height'] = obj_bg[0].bt_height
+    label['scale'] = obj_bg[0].bt_scale
+    label['yfromtop'] = obj_bg[0].bt_yfromtop
+    label['imgurl'] = obj_bg[0].bt_imgurl
     response['label'] = label
 
     pull = {}
-    obj_pull = PullSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(basic_id))
-    pull['scale'] = float(obj_pull[0].scale)
-    pull['positionX'] = int(obj_pull[0].positionX)
-    pull['positionY'] = float(obj_pull[0].positionY)
-    pull['imgurl0'] = str(obj_pull[0].imgurl0)
-    pull['imgurl1'] = str(obj_pull[0].imgurl1)
-    pull['isredon'] = int(obj_pull[0].isredon)
+    pull['scale'] = obj_bg[0].la_scale
+    pull['positionX'] = obj_bg[0].la_positionX
+    pull['positionY'] = obj_bg[0].la_positionY
+    pull['imgurl0'] = obj_bg[0].la_imgurl0
+    pull['imgurl1'] = obj_bg[0].la_imgurl1
+    pull['isredon'] = obj_bg[0].la_isredon
     response['pull'] = pull
 
-    bg = {}
-    obj_bg = BgSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(basic_id))
-    bg['positionY'] = float(obj_bg[0].positionY)
-    bg['bottomBlkHeight'] = int(obj_bg[0].bottomBlkHeight)
-    bg['imgurl'] = str(obj_bg[0].imgurl)
-    response['bg'] = bg
-
     grid = {}
-    obj_grid = GridSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(basic_id))
-    grid['iconsWidth'] = int(obj_grid[0].iconsWidth)
-    grid['iconsHeight'] = int(obj_grid[0].iconsHeight)
-    grid['spacingX'] = int(obj_grid[0].spacingX)
-    grid['spacingY'] = int(obj_grid[0].spacingY)
-    grid['paddingLeft'] = int(obj_grid[0].paddingLeft)
-    grid['paddingRight'] = int(obj_grid[0].paddingRight)
+    grid['iconsWidth'] = obj_bg[0].icon_iconsWidth
+    grid['iconsHeight'] = obj_bg[0].icon_iconsHeight
+    grid['spacingX'] = obj_bg[0].icon_spacingX
+    grid['spacingY'] = obj_bg[0].icon_spacingY
+    grid['paddingLeft'] = obj_bg[0].icon_paddingLeft
+    grid['paddingRight'] = obj_bg[0].icon_paddingRight
     response['grid'] = grid
 
     text = {}
-    obj_text = TextSlideOverModel.objects.filter(id=int(basic_id))
-    text['size'] = int(obj_text[0].size)
-    text['yfromIcon'] = int(obj_text[0].yfromIcon)
+    text['size'] = obj_bg[0].text_size
+    text['yfromIcon'] = obj_bg[0].text_yfromIcon
     text['color'] = [
-        int(obj_text[0].colorR), int(obj_text[0].colorG), int(obj_text[0].colorB)
+        obj_bg[0].text_colorR, obj_bg[0].text_colorG, obj_bg[0].text_colorB
     ]
     response['text'] = text
 
