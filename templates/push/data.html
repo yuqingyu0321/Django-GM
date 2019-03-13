@@ -22,7 +22,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">游戏名称</label>
             <div class="layui-input-inline">
-                <select name="search_wxAppId" lay-verify="required" lay-search>
+                <select name="search_wxAppId" lay-search>
                     <option value="">请选择游戏</option>
                     {% for wxappid, name in gameChoice.items %}
                         <option value="{{ wxappid }}">{{ name }}</option>

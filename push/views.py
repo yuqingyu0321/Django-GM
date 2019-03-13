@@ -176,26 +176,30 @@ def look_data(request, basic_id, type_id, version_id, fz=True):
 # 游戏选择
 def search_game(request, type_id):
     game_wxAppId = request.GET.get('search_wxAppId')
-    game_wxAppId_datas = or_view.get_wxAppId_oriented(type_id, game_wxAppId)
 
-    educe_game_dict = {}
-    for i in game_wxAppId_datas:
-        i.name = config.OWN_WXAPPID_CONFIG.get(i.name, '')
-        educe_game = ''
-        func = or_view.ORIENTED_TYPE_GET_EDUCENAME_FUNC.get(type_id)
-        if func:
-            educe_game = func(i.id)
-        educe_game_dict[i.id] = educe_game if educe_game else '_'
+    if game_wxAppId:
+        game_wxAppId_datas = or_view.get_wxAppId_oriented(type_id, game_wxAppId)
 
-    content = {
-        'wxAppIdData': game_wxAppId_datas,
-        'educe': educe_game_dict,
-        'type': '推送管理--' + or_view.ORIENTED_TYPE.get(type_id, ''),
-        'typeId': type_id,
-        'gameChoice': config.OWN_WXAPPID_CONFIG
-    }
+        educe_game_dict = {}
+        for i in game_wxAppId_datas:
+            i.name = config.OWN_WXAPPID_CONFIG.get(i.name, '')
+            educe_game = ''
+            func = or_view.ORIENTED_TYPE_GET_EDUCENAME_FUNC.get(type_id)
+            if func:
+                educe_game = func(i.id)
+            educe_game_dict[i.id] = educe_game if educe_game else '_'
 
-    return render(request, 'push/data.html', content)
+        content = {
+            'wxAppIdData': game_wxAppId_datas,
+            'educe': educe_game_dict,
+            'type': '推送管理--' + or_view.ORIENTED_TYPE.get(type_id, ''),
+            'typeId': type_id,
+            'gameChoice': config.OWN_WXAPPID_CONFIG
+        }
+
+        return render(request, 'push/data.html', content)
+    else:
+        return render(request, 'push/data.html', get_use_dict(type_id))
 
 # 备份管理
 def save_push_data_in_redis(gameId, fz, typeId, value):
