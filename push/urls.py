@@ -1,4 +1,4 @@
-from django.conf.urls import include, url,static
+from django.conf.urls import url
 
 from .views import *
 
@@ -10,6 +10,4 @@ urlpatterns = [
     url(r'online/(?P<basic_id>\d+)/(?P<type_id>\d+)/(?P<version_id>\d+)', push_online),
     url(r'onlinedata/(?P<basic_id>\d+)/(?P<type_id>\d+)/(?P<version_id>\d+)', look_online),
     url(r'search/(?P<type_id>\d+)', search_game)
-    #url(r'back/', get_all_back_data),
-    #url(r'backup/(?P<type_id>\d+)', get_backup_data),
 ]

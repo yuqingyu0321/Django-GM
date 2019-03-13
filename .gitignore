@@ -38,7 +38,7 @@ migrations/
 *.log.*
 *.log
 
-
+media/
 
 # PyCharm
 # http://www.jetbrains.com/pycharm/webhelp/project.html

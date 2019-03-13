@@ -16,15 +16,16 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from django.views.generic.base import TemplateView
 from management import views as ma_view
-import oriented.urls
 import push.urls
+from django.conf import settings
+from django.views.static import serve
 
 urlpatterns = [
     url(r'^$', ma_view.home),
     url(r'^admin/', admin.site.urls),
     url(r'^admin/push/', include(push.urls)),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})
 ]
 
 
