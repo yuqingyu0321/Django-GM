@@ -57,11 +57,11 @@ def show_game_upload(request):
 
 
 def upload_load(request, upload_id):
-    upload_datas = uploadModel.objects.get(id=upload_id)
     ret = False
     content = {}
-    if upload_datas.status == 0:
-        try:
+    try:
+        upload_datas = uploadModel.objects.get(id=upload_id)
+        if upload_datas.status == 0:
             gameId = upload_datas.game_id
             wxappId = upload_datas.name
             oriented = upload_datas.oriented_type
@@ -75,8 +75,8 @@ def upload_load(request, upload_id):
             if ret:
                 upload_datas.status = 1
                 upload_datas.save()
-        except Exception, e:
-            content['error'] = '失败! %s' % e
+    except Exception, e:
+        content['error'] = '失败! %s' % e
     content = {'info': ret}
     return HttpResponse(json.dumps(content, indent=4, ensure_ascii=False, separators=(',', ':')),
                         content_type="application/json,charset=utf-8")
