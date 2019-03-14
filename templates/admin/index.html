@@ -60,6 +60,11 @@
                                         <dd><a href="javascript:;" href-url="{{ model.admin_url }}">
                                             {{ model.name }}</a>
                                         </dd>
+                                        {% if 'upload' in model.admin_url %}
+                                            <dd><a href="javascript:;" href-url="/admin/upload/">
+                                                文件加载</a>
+                                            </dd>
+                                        {% endif %}
                                     {% endif %}
                                 {% endfor %}
                             </dl>

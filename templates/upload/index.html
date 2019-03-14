@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <script src="/static/layui/layui.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
+    <title>祖玛管理系统</title>
+</head>
+<body class="layui-layout-body">
+
+<div>
+    <fieldset class="layui-elem-field layui-field-title site-demo-button" style="margin-top: 30px;">
+
+    </fieldset>
+</div>
+
+<div>
+    <form class="layui-form" action="/admin/upload/search/" method="get">
+        <div class="layui-form-item">
+            <label class="layui-form-label">游戏名称</label>
+            <div class="layui-input-inline">
+                <select name="search_wxAppId" lay-search>
+                    <option value="">请选择游戏</option>
+                    {% for wxappid, name in gameChoice.items %}
+                        <option value="{{ wxappid }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+            <div class="layui-input-inline">
+                <button class="layui-btn" lay-submit lay-filter="query">查询</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+<div>
+    <table class="layui-table" lay-even>
+        <colgroup>
+            <col>
+            <col>
+            <col>
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th> 序号</th>
+            <th> 游戏名称</th>
+            <th> 导流类型</th>
+            <th> 状态</th>
+            <th> 操作</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in uploadData %}
+            <td>{{ i.id }}</td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.oriented_type }}</td>
+            <td>{{ i.status }}</td>
+            <td>
+                <a class="site-demo-button" id="m_upload" style="margin-bottom: 0;">
+                    <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal"
+                            upload_id="{{ i.id }}">载入
+                    </button>
+                </a>
+            </td>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div>
+    {% if messages %}
+        <script>
+            {% for msg in messages %}
+                alert('{{ msg.message }}');
+            {% endfor %}
+        </script>
+    {% endif %}
+</div>
+
+
+<script src="/static/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+
+    layui.use('form', function () {
+        var form = layui.form;
+        form.on('submit(query)', function (data) {
+        });
+    });
+
+    layui.use('layer', function () {
+
+        var $ = layui.jquery, layer = layui.layer;
+        var m_upload = {
+            offset: function (othis) {
+                var m_content = '/admin/upload/load/' + this.getAttribute('upload_id');
+                layer.open({
+                    skin: 'layui-layer-molv',
+                    type: 2,
+                    title: '当前数据',
+                    shadeClose: true,
+                    shade: 0.6,
+                    area: ['1000px', '90%'],
+                    content: m_content,
+                    maxmin: true,
+
+                });
+            }
+        };
+
+        $('#m_upload .layui-btn').on('click', function () {
+            var othis = $(this), method = othis.data('method');
+            m_upload[method] ? m_upload[method].call(this, othis) : '';
+        });
+    });
+</script>
+
+
+</div>
+
+<div class="layui-footer">
+    <!-- 底部固定区域 -->
+</div>
+
+</body>
+</html>
+
+
