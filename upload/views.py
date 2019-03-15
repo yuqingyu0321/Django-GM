@@ -147,7 +147,7 @@ def upload_oriented_Strip(gameId, wxappId, oriented_model, socket, upload_datas)
         icon_obj.wxAppId = _icon['openUrl']
         icon_obj.imgLink = _icon['imgLink']
         icon_obj.topath = _icon['topath']
-        icon_obj.isClickHide = _icon['isClickHide']
+        icon_obj.isClickHide = _icon.get('isClickHide', 0)
         icon_obj.bi_iconId = _icon['biparam'][0]
         icon_obj.bi_educe_game = _icon['biparam'][4]
         icon_obj.bi_landing_page_id = _icon['biparam'][5]
