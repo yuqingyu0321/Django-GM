@@ -47,10 +47,10 @@ class GameStripModel(models.Model):
     isClickHide = models.BooleanField(verbose_name='是否隐藏')
     foreignkey_strip = models.ForeignKey(StripModel, verbose_name="导流条")
 
-    bi_iconId = models.CharField(verbose_name='bI_IconId',  max_length=10)
+    bi_iconId = models.CharField(verbose_name='bI_IconId',  max_length=255)
     bi_landing_page = models.CharField(verbose_name='bI_落地页', max_length=512)
-    bi_landing_page_id = models.CharField(verbose_name='bI_落地页Id', max_length=10)
-    bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=10)
+    bi_landing_page_id = models.CharField(verbose_name='bI_落地页Id', max_length=255)
+    bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=255)
 
     def __str__(self):
         return WXAPPID_CONFIG.get(self.wxAppId, '')
@@ -105,10 +105,10 @@ class GameIconSwitchModel(models.Model):
     topath = models.CharField(verbose_name='topath', max_length=512)
     foreignkey_iconswitch = models.ForeignKey(IconSwitchModel, verbose_name="Icon切换")
 
-    bi_iconId = models.CharField(verbose_name='bI_IconId',  max_length=10)
+    bi_iconId = models.CharField(verbose_name='bI_IconId',  max_length=255)
     bi_landing_page = models.CharField(verbose_name='bI_落地页', max_length=512)
-    bi_landing_page_id = models.CharField(verbose_name='bI_落地页Id', max_length=10)
-    bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=10)
+    bi_landing_page_id = models.CharField(verbose_name='bI_落地页Id', max_length=255)
+    bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=255)
 
     def __str__(self):
         return WXAPPID_CONFIG.get(self.wxAppId, '')
@@ -200,10 +200,10 @@ class GameSlideOverModel(models.Model):
     topath = models.CharField(verbose_name='topath', max_length=512)
     foreignkey_labelSlideOver = models.ForeignKey(SlideOverModel, verbose_name="侧拉框")
 
-    bi_iconId = models.CharField(verbose_name='bI_IconId',  max_length=10)
+    bi_iconId = models.CharField(verbose_name='bI_IconId',  max_length=255)
     bi_landing_page = models.CharField(verbose_name='bI_落地页', max_length=512)
-    bi_landing_page_id = models.CharField(verbose_name='bI_落地页Id', max_length=10)
-    bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=10)
+    bi_landing_page_id = models.CharField(verbose_name='bI_落地页Id', max_length=255)
+    bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=255)
 
     def __str__(self):
         return WXAPPID_CONFIG.get(self.openUrl, '')
