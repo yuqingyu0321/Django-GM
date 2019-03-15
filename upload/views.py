@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import json
-import copy
 from django.shortcuts import render
 
 from common import config
@@ -61,23 +60,24 @@ def upload_load(request, upload_id):
     content = {}
     try:
         upload_datas = uploadModel.objects.get(id=upload_id)
-        if upload_datas.status == 0:
+        print upload_datas.status
+        if not upload_datas.status:
             gameId = upload_datas.game_id
             wxappId = upload_datas.name
             oriented = upload_datas.oriented_type
             socket = upload_datas.socket_url
 
             upload_datas.file.open()
-            json_datas = upload_datas.file.read()
+            json_datas = upload_datas.file.read().decode("utf-8-sig")
             upload_datas.file.close()
-            json_datas = json.loads(json_datas, encoding='utf-8')
-            ret = handle_oriented_upload(gameId, wxappId, oriented, socket, json_datas)
+            temp_datas = json.loads(json_datas, encoding='utf-8')
+            ret = handle_oriented_upload(gameId, wxappId, oriented, socket, temp_datas)
             if ret:
                 upload_datas.status = 1
                 upload_datas.save()
     except Exception, e:
         content['error'] = '失败! %s' % e
-    content = {'info': ret}
+    content['info'] = ret
     return HttpResponse(json.dumps(content, indent=4, ensure_ascii=False, separators=(',', ':')),
                         content_type="application/json,charset=utf-8")
 
@@ -156,7 +156,66 @@ def upload_oriented_Strip(gameId, wxappId, oriented_model, socket, upload_datas)
     return True
 
 def upload_oriented_SlideOver(gameId, wxappId, oriented_model, socket, upload_datas):
-    pass
+    obj = oriented_model()
+    obj.game_id = gameId
+    obj.name = wxappId
+    obj.socket_url = socket
+    obj.switch = upload_datas['switch']
+    obj.fromWhere = upload_datas['fromWhere']
+    obj.reddot = upload_datas['reddot']
+    obj.mask = upload_datas['mask']
+    obj.viewAdCounts = upload_datas['viewAdCounts']
+    obj.user = 'import'
+    obj.save()
+
+    bg_obj = BgSlideOverModel(foreignkey_labelSlideOver=obj)
+    bg_obj.bt_height = upload_datas['label']['height']
+    bg_obj.bt_scale = upload_datas['label']['scale']
+    bg_obj.bt_yfromtop = upload_datas['label']['yfromtop']
+    bg_obj.bt_imgurl = upload_datas['label']['imgurl']
+
+    bg_obj.kuang_positionY = upload_datas['bg']['positionY']
+    bg_obj.kuang_bottomBlkHeight = upload_datas['bg']['bottomBlkHeight']
+    bg_obj.kuang_imgurl = upload_datas['bg']['imgurl']
+
+    bg_obj.la_scale = upload_datas['pull']['scale']
+    bg_obj.la_positionX = upload_datas['pull']['positionX']
+    bg_obj.la_positionY = upload_datas['pull']['positionY']
+    bg_obj.la_imgurl0 = upload_datas['pull']['imgurl0']
+    bg_obj.la_imgurl1 = upload_datas['pull']['imgurl1']
+    bg_obj.la_isredon = upload_datas['pull']['isredon']
+
+    bg_obj.icon_iconsWidth = upload_datas['grid']['iconsWidth']
+    bg_obj.icon_iconsHeight = upload_datas['grid']['iconsHeight']
+    bg_obj.icon_spacingX = upload_datas['grid']['spacingX']
+    bg_obj.icon_spacingY = upload_datas['grid']['spacingY']
+    bg_obj.icon_paddingLeft = upload_datas['grid']['paddingLeft']
+    bg_obj.icon_paddingRight = upload_datas['grid']['paddingRight']
+
+    bg_obj.text_size = upload_datas['text']['size']
+    bg_obj.text_yfromIcon = upload_datas['text']['yfromIcon']
+    bg_obj.text_colorR = upload_datas['text']['color'][0]
+    bg_obj.text_colorG = upload_datas['text']['color'][1]
+    bg_obj.text_colorB = upload_datas['text']['color'][2]
+
+    bg_obj.save()
+
+    for _icon in upload_datas['icons']:
+        icon_obj = GameSlideOverModel(foreignkey_labelSlideOver=obj)
+        icon_obj.index = _icon['index']
+        icon_obj.text = _icon['text']
+        icon_obj.type = _icon['type']
+        icon_obj.imgLink = _icon['imgLink']
+        icon_obj.openType = _icon['openType']
+        icon_obj.openUrl = _icon['openUrl']
+        icon_obj.isredon = _icon['isredon']
+        icon_obj.topath = _icon['topath']
+        icon_obj.bi_iconId = _icon['biparam'][0]
+        icon_obj.bi_educe_game = _icon['biparam'][4]
+        icon_obj.bi_landing_page_id = _icon['biparam'][5]
+        icon_obj.bi_landing_page = _icon['biparam'][2]
+        icon_obj.save()
+    return True
 
 
 UPLOAD_ORIENTED = {
