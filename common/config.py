@@ -82,9 +82,11 @@ def wxappid_init():
 
 WXAPPID_CONFIG, OWN_WXAPPID_CONFIG, OWN_WXAPPID_CHOICE = wxappid_init()
 
+SANXIAO_SOCKET_URL_TEST = 'http://192.168.20.140:8000/'
 SANXIAO_SOCKET_URL_FZ = 'https://xyxsxfz.nalrer.cn/'
 SANXIAO_SOCKET_URL_ONLINE = 'https://xyxsx.nalrer.cn/'
 
+FUHAO_SOCKET_URL_TEST = 'http://192.168.20.108:8000/'
 FUHAO_SOCKET_URL_FZ = 'https://fz.nalrer.cn/'
 FUHAO_SOCKET_URL_ONLINE = 'https://openrich.nalrer.cn/'
 
@@ -100,7 +102,7 @@ def getSocketUrl(id):
 
 def gain_SetSocketApi(id):
     if id == 0:
-        return ''
+        return 'v3/game/zmgm/set'
     elif id == 1:
         return 'api/wx/zmgm/set'
     else:
@@ -108,7 +110,7 @@ def gain_SetSocketApi(id):
 
 def gain_GetSocketApi(id):
     if id == 0:
-        return ''
+        return 'v3/game/zmgm/get'
     elif id == 1:
         return 'api/wx/zmgm/get'
     else:
