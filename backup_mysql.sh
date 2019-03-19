@@ -17,5 +17,6 @@ find $DIR -mtime +30 -name "data_[1-9]*.sql" -exec rm -rf {} \;
 
 # git
 git add "$DIR/*"
+git add media/*
 git commit -m 'backup'
 git push origin master
