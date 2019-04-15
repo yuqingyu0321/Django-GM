@@ -10,6 +10,8 @@ from django.shortcuts import render
 from oriented import views as or_view
 from common import config
 from common.gm_redis import BackUpDao
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 import logging
 
 logger = logging.getLogger('GM')
