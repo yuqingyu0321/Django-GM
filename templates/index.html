@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>导流管理系统</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="/static/css/font.css">
+    <link rel="stylesheet" href="/static/css/weadmin.css">
+    <script type="text/javascript" src="/static/layui/layui.js" charset="utf-8"></script>
+    <style>
+        .layui-select-title input {
+            color: #fff;
+            background-color: #222;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 顶部开始 -->
+<div class="container">
+    <div class="logo">
+        <a href="/">导流管理系统 v3.0</a>
+    </div>
+    <div class="left_open">
+        <i title="展开左侧栏" class="iconfont">&#xe699;</i>
+    </div>
+    <div class="select_nav left layui-form">
+        <select name="" lay-filter="basicList" id="basicList" lay-search="">
+            <option value="">请选择游戏</option>
+            {% for wxappid, name in gameChoice.items %}
+                <option value="{{ wxappid }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+
+    </div>
+    {#    <ul class="layui-nav right" lay-filter="">#}
+    {#        <li class="layui-nav-item">#}
+    {#            <a href="javascript:;">Admin</a>#}
+    {#            <dl class="layui-nav-child">#}
+    {#                <!-- 二级菜单 -->#}
+    {#                <dd>#}
+    {#                    <a onclick="WeAdminShow('个人信息','http://www.baidu.com')">个人信息</a>#}
+    {#                </dd>#}
+    {#                <dd>#}
+    {#                    <a onclick="WeAdminShow('切换帐号','./login.html')">切换帐号</a>#}
+    {#                </dd>#}
+    {#                <dd>#}
+    {#                    <a class="loginout" href="login.html">退出</a>#}
+    {#                </dd>#}
+    {#            </dl>#}
+    {#        </li>#}
+    {#    </ul>#}
+
+</div>
+<!-- 顶部结束 -->
+<!-- 中部开始 -->
+<!-- 左侧菜单开始 -->
+<div class="left-nav">
+    <div id="side-nav">
+        <ul id="nav">
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#59044;</i>
+                    <cite>游戏配置</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="./gameInfo/list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>游戏信息</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe705;</i>
+                    <cite>文件管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="./pages/article/list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>文章上传</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="./pages/article/category.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>文件加载</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#59054;</i>
+                    <cite>导流配置</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu" id="custonConfig">
+                    <li>
+                        <a _href="./iconConfig/list.html?appid=0">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>Icon切换</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="./slideoverConfig/list.html?appid=0">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>侧拉框</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="./stripConfig/list.html?appid=0">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>导流条</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#59156;</i>
+                    <cite>推送管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu" id="push">
+                    <li>
+                        <a _href="./push/list.html?appid=0&type=0">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>Icon切换</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="./push/list.html?appid=0&type=2">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>侧拉框</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="./push/list.html?appid=0&type=1">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>导流条</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- <div class="x-slide_left"></div> -->
+<!-- 左侧菜单结束 -->
+<!-- 右侧主体开始 -->
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="wenav_tab" id="WeTabTip" lay-allowclose="true">
+        <ul class="layui-tab-title" id="tabName">
+            <li>首页</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <iframe src='welcome.html' frameborder="0" scrolling="yes" class="weIframe"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content-bg"></div>
+<!-- 右侧主体结束 -->
+<!-- 中部结束 -->
+<!-- 底部开始 -->
+<div class="footer">
+    <div class="copyright">Copyright ©2018 WeAdmin v1.0 All Rights Reserved</div>
+</div>
+<!-- 底部结束 -->
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script type="text/javascript" src="/static/common.js" charset="utf-8"></script>
+<script type="text/javascript">
+    layui.config({
+        base: '/static/js/'
+        , version: '101100'
+    }).use('admin');
+
+    layui.use(['jquery', 'admin', 'form', 'element'], function () {
+        var $ = layui.jquery;
+        var form = layui.form;
+        var element = layui.element;
+        window.changeId = function (appid, name) {
+            sessionStorage.appid = appid;
+            sessionStorage.name = name;
+        };
+        var appid = sessionStorage.appid;
+        console.log('init', appid);
+        if (appid == null) {
+            appid = 0;
+            sessionStorage.appid = 0;
+        } else {
+            var myUl = $("#basicList").find("option");
+            myUl.each(function (index, e) {
+                var lay_appid = $(e).attr('value');
+                if (lay_appid == appid) {
+                    $(e).attr("selected", true);
+                    form.render();
+                }
+            })
+        }
+
+        $(".weIframe").each(function (i, v) {
+            var url_b = $(this).attr('src');
+            var url_n = delParam(url_b, "appid");
+            var url_now = addParam(url_n, "appid", appid);
+            $(this).attr("src", url_now);
+        });
+
+        $("#custonConfig").find("a").each(function (i, v) {
+            var url_b = $(v).attr('_href');
+            var url_n = delParam(url_b, "appid");
+            var url_now = addParam(url_n, "appid", appid);
+            $(this).attr("_href", url_now);
+        });
+
+        $("#push").find("a").each(function (i, v) {
+            var url_b = $(v).attr('_href');
+            var url_n = delParam(url_b, "appid");
+            var url_now = addParam(url_n, "appid", appid);
+            $(this).attr("_href", url_now);
+        });
+
+        //监听下拉框
+        form.on('select(basicList)', function (data) {
+            var appid = data.value;
+            var name = $(data.elem).find("option:selected").text();
+            sessionStorage.appid = appid;
+            sessionStorage.name = name;
+            $(".weIframe").each(function (i, v) {
+                var url_b = $(this).attr('src');
+                var url_n = delParam(url_b, "appid");
+                var url_now = addParam(url_n, "appid", appid);
+                $(this).attr("src", url_now);
+            });
+
+            $("#custonConfig").find("a").each(function (i, v) {
+                var url_b = $(v).attr('_href');
+                var url_n = delParam(url_b, "appid");
+                var url_now = addParam(url_n, "appid", appid);
+                $(this).attr("_href", url_now);
+            })
+
+            $("#push").find("a").each(function (i, v) {
+                var url_b = $(v).attr('_href');
+                var url_n = delParam(url_b, "appid");
+                var url_now = addParam(url_n, "appid", appid);
+                $(this).attr("_href", url_now);
+            });
+        });
+    });
+
+
+</script>
+</body>
+<!--Tab菜单右键弹出菜单-->
+<ul class="rightMenu" id="rightMenu">
+    <li data-type="fresh">刷新</li>
+    <li data-type="current">关闭当前</li>
+    <li data-type="other">关闭其它</li>
+    <li data-type="all">关闭所有</li>
+</ul>
+
+</html>

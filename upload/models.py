@@ -8,13 +8,10 @@ from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from django.conf import settings
 from django.db import models
-from common.config import (
-    WXAPPID_CHOICES,
-    SOCKET_URL,
-    OWN_WXAPPID_CHOICE,
-    OWN_WXAPPID_CONFIG,
-    WXAPPID_CONFIG,
-)
+from common.config import SOCKET_URL
+from gameInfo.game import allGame
+
+
 
 def file_name(instance, filename):
     ext = filename.split('.')[-1]
@@ -33,7 +30,7 @@ class uploadModel(models.Model):
 
     game_id = models.PositiveIntegerField(verbose_name='gameId')
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
-    name = models.CharField(verbose_name='游戏名称', choices=OWN_WXAPPID_CHOICE, max_length=255)
+    name = models.CharField(verbose_name='游戏名称', max_length=255)
     oriented_type = models.CharField(verbose_name='导流类型', choices=ORIENTED_TYPE, max_length=255)
     status = models.BooleanField(verbose_name='文件状态', default=0, editable=False)
     file = models.FileField(upload_to=file_name, verbose_name='json文件')
@@ -41,7 +38,7 @@ class uploadModel(models.Model):
     user = models.CharField(editable=False, null=True, verbose_name='操作人', max_length=255)
 
     def __str__(self):
-        return OWN_WXAPPID_CONFIG.get(self.name, '')
+        return allGame.get(self.name, '')
 
     class Meta:
         verbose_name = '文件上传'

@@ -16,17 +16,20 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from management import views as ma_view
-import push.urls
-import upload.urls
 from django.conf import settings
 from django.views.static import serve
+from django.http.response import HttpResponseRedirect
+import custom.urls
+import gameInfo.urls
+
+def home(request):
+    return HttpResponseRedirect("/Home")
 
 urlpatterns = [
-    url(r'^$', ma_view.home),
-    url(r'^admin/push/', include(push.urls)),
-    url(r'^admin/upload/', include(upload.urls)),
+    url(r'^$', home),
     url(r'^admin/', admin.site.urls),
+    url(r'^Home/', include(custom.urls)),
+    url(r'^Home/', include(gameInfo.urls)),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})
 ]
 

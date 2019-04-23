@@ -2,17 +2,12 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
-from common.config import (
-    WXAPPID_CHOICES,
-    SOCKET_URL,
-    OWN_WXAPPID_CHOICE,
-    OWN_WXAPPID_CONFIG,
-    WXAPPID_CONFIG,
-)
+from common.config import SOCKET_URL
+from gameInfo.game import allGame
 
 class StripModel(models.Model):
     game_id = models.PositiveIntegerField(verbose_name='gameId')
-    name = models.CharField(verbose_name='游戏名称', choices=OWN_WXAPPID_CHOICE, max_length=255)
+    name = models.CharField(verbose_name='游戏名称',  max_length=255)
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
     label = models.CharField(verbose_name='标题', max_length=512)
     bg = models.CharField(verbose_name='背景图', max_length=512)
@@ -31,7 +26,7 @@ class StripModel(models.Model):
     online_user = models.CharField(editable=False, null=True, verbose_name='推送操作人', max_length=255)
 
     def __str__(self):
-        return OWN_WXAPPID_CONFIG.get(self.name, '')
+        return allGame.get(self.name, '')
 
     class Meta:
         verbose_name = '导流条'
@@ -40,7 +35,7 @@ class StripModel(models.Model):
 
 class GameStripModel(models.Model):
     index = models.PositiveIntegerField(verbose_name='序号', help_text='输入数字')
-    wxAppId = models.CharField(verbose_name="wxAppId", choices=WXAPPID_CHOICES, max_length=20)
+    wxAppId = models.CharField(verbose_name="wxAppId",  max_length=20)
 
     imgLink = models.CharField(verbose_name="ICON", max_length=512)
     topath = models.CharField(verbose_name='topath', max_length=512)
@@ -53,7 +48,7 @@ class GameStripModel(models.Model):
     bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=255)
 
     def __str__(self):
-        return WXAPPID_CONFIG.get(self.wxAppId, '')
+        return allGame.get(self.wxAppId, '')
 
     class Meta:
         verbose_name = '导出游戏'
@@ -62,7 +57,7 @@ class GameStripModel(models.Model):
 
 class IconSwitchModel(models.Model):
     game_id = models.PositiveIntegerField(verbose_name='gameId')
-    name = models.CharField(verbose_name='游戏名称', choices=OWN_WXAPPID_CHOICE, max_length=255)
+    name = models.CharField(verbose_name='游戏名称',  max_length=255)
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
     switch = models.PositiveIntegerField(verbose_name='switch', default=1)
     framesInterval = models.PositiveIntegerField(verbose_name='播放速度', default=10000)
@@ -74,7 +69,7 @@ class IconSwitchModel(models.Model):
     online_user = models.CharField(editable=False, null=True, verbose_name='推送操作人', max_length=255)
 
     def __str__(self):
-        return OWN_WXAPPID_CONFIG.get(self.name, '')
+        return allGame.get(self.name, '')
 
     class Meta:
         verbose_name = 'Icon切换'
@@ -96,7 +91,7 @@ class PositionModel(models.Model):
 
 
 class GameIconSwitchModel(models.Model):
-    wxAppId = models.CharField(verbose_name="wxAppId", choices=WXAPPID_CHOICES, max_length=20)
+    wxAppId = models.CharField(verbose_name="wxAppId",  max_length=20)
     weight = models.PositiveIntegerField(verbose_name='权重')
     scale = models.FloatField(verbose_name='缩放比例')
     imgLink = models.CharField(verbose_name="ICON", max_length=512)
@@ -111,7 +106,7 @@ class GameIconSwitchModel(models.Model):
     bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=255)
 
     def __str__(self):
-        return WXAPPID_CONFIG.get(self.wxAppId, '')
+        return allGame.get(self.wxAppId, '')
 
     class Meta:
         verbose_name = '导出游戏'
@@ -120,7 +115,7 @@ class GameIconSwitchModel(models.Model):
 
 class SlideOverModel(models.Model):
     game_id = models.PositiveIntegerField(verbose_name='gameId')
-    name = models.CharField(verbose_name='游戏名称', choices=OWN_WXAPPID_CHOICE, max_length=255)
+    name = models.CharField(verbose_name='游戏名称',  max_length=255)
     socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
     switch = models.PositiveIntegerField(verbose_name='switch', default=1)
     fromWhere = models.PositiveIntegerField(verbose_name='展开方向', default=0)
@@ -136,7 +131,7 @@ class SlideOverModel(models.Model):
     online_user = models.CharField(editable=False, null=True, verbose_name='推送操作人', max_length=255)
 
     def __str__(self):
-        return OWN_WXAPPID_CONFIG.get(self.name, '')
+        return allGame.get(self.name, '')
 
     class Meta:
         verbose_name = '侧拉框'
@@ -195,7 +190,7 @@ class GameSlideOverModel(models.Model):
     type = models.BooleanField(verbose_name='动图icon', default=0)
     imgLink = models.CharField(verbose_name="ICON", max_length=512)
     openType = models.BooleanField(verbose_name='打开方式', default=1)
-    openUrl = models.CharField(verbose_name="wxAppId", choices=WXAPPID_CHOICES, max_length=20)
+    openUrl = models.CharField(verbose_name="wxAppId",  max_length=20)
     isredon = models.BooleanField(verbose_name='显示红点', default=1)
     topath = models.CharField(verbose_name='topath', max_length=512)
     foreignkey_labelSlideOver = models.ForeignKey(SlideOverModel, verbose_name="侧拉框")
@@ -206,7 +201,7 @@ class GameSlideOverModel(models.Model):
     bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=255)
 
     def __str__(self):
-        return WXAPPID_CONFIG.get(self.openUrl, '')
+        return allGame.get(self.openUrl, '')
 
     class Meta:
         verbose_name = '导出游戏'

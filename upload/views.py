@@ -4,6 +4,7 @@ import json
 from django.shortcuts import render
 
 from common import config
+from gameInfo.game import allGame
 from .models import *
 from oriented.views import ORIENTED_TYPE, ORIENTED_TYPE_MODEL
 from django.http import HttpResponse
@@ -22,12 +23,12 @@ def get_use_dict():
     show_all = get_all_uploadModel_data()
     temp_data = show_all.filter(status=0)
     for i in temp_data:
-        i.name = config.OWN_WXAPPID_CONFIG.get(i.name, '')
+        i.name = allGame.get(i.name, '')
         i.oriented_type = ORIENTED_TYPE.get(i.oriented_type, '')
         i.status = '已加载' if i.status else '未加载'
     content = {
         'uploadData': temp_data,
-        'gameChoice': config.OWN_WXAPPID_CONFIG,
+        'gameChoice': allGame,
     }
 
     return content
@@ -42,12 +43,12 @@ def show_game_upload(request):
     if wxAppId:
         data = get_wxappId_uploadModel_data(wxAppId)
         for i in data:
-            i.name = config.OWN_WXAPPID_CONFIG.get(i.name, '')
+            i.name = allGame.get(i.name, '')
             i.oriented_type = ORIENTED_TYPE.get(i.oriented_type, '')
             i.status = '已加载' if i.status else '未加载'
         content = {
             'uploadData': data,
-            'gameChoice': config.OWN_WXAPPID_CONFIG,
+            'gameChoice': allGame,
         }
     else:
         content = get_use_dict()

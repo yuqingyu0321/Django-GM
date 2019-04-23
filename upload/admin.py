@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
-from common.config import OWN_WXAPPID_CONFIG
+from gameInfo.game import allGame
 from django.contrib import admin
 from .models import *
 from oriented.views import ORIENTED_TYPE
@@ -16,7 +15,7 @@ class uploadModelAdmin(admin.ModelAdmin):
     ordering = ('-id',)
 
     def game_name(self, obj):
-        return OWN_WXAPPID_CONFIG.get(obj.name, '')
+        return allGame.get(obj.name, '')
     game_name.short_description = '游戏名称'
 
     def oriented(self, obj):

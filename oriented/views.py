@@ -4,8 +4,7 @@ import json
 from datetime import datetime
 from django.shortcuts import render, HttpResponse, render_to_response
 from .models import *
-from common.config import WXAPPID_CONFIG
-
+from gameInfo.game import allGame
 
 def get_curr_oriented(basic_id, type):
     return ORIENTED_TYPE_MODEL[type].objects.filter(id=int(basic_id))
@@ -66,7 +65,7 @@ def get_strip_educe_name(basic_ID):
     obj_all_game = GameStripModel.objects.filter(foreignkey_strip_id=int(basic_ID))
     for obj_game in obj_all_game:
         wxAppId = str(obj_game.wxAppId)
-        allName += WXAPPID_CONFIG.get(wxAppId, '')
+        allName += allGame.get(wxAppId, '')
         allName += '；'
 
     return allName[:-1] if allName else allName
@@ -123,7 +122,7 @@ def get_iconswitch_name(basic_ID):
     obj_all_game = GameIconSwitchModel.objects.filter(foreignkey_iconswitch=int(basic_ID))
     for obj_game in obj_all_game:
         wxAppId = str(obj_game.wxAppId)
-        allName += WXAPPID_CONFIG.get(wxAppId, '')
+        allName += allGame.get(wxAppId, '')
         allName += '；'
 
     return allName[:-1] if allName else allName
@@ -214,7 +213,7 @@ def get_slideover_educe_name(basic_ID):
     obj_all_game = GameSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(basic_ID))
     for obj_game in obj_all_game:
         wxAppId = str(obj_game.openUrl)
-        allName += WXAPPID_CONFIG.get(wxAppId, '')
+        allName += allGame.get(wxAppId, '')
         allName += '；'
 
     return allName[:-1] if allName else allName
@@ -257,13 +256,13 @@ def backup_educe_name(type_id, datas):
     if type_id == '0':
         for _datas in icons_datas:
             wxAppId = _datas['openData'][0]['imgurl']
-            allName += WXAPPID_CONFIG.get(wxAppId, '')
+            allName += allGame.get(wxAppId, '')
             allName += '；'
 
     elif type_id == '1' or type_id == '2':
         for _datas in icons_datas:
             wxAppId = _datas['openUrl']
-            allName += WXAPPID_CONFIG.get(wxAppId, '')
+            allName += allGame.get(wxAppId, '')
             allName += '；'
 
     return allName[:-1] if allName else allName

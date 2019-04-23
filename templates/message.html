@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if messages %}
+<script>
+    {% for msg in messages %}
+        alert('{{ msg.message }}');
+    {% endfor %}
+</script>
+{% endif %}
+</body>
+</html>
