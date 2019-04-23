@@ -134,6 +134,9 @@
                     <input type="text" id="bi_landing_page" name="bi_landing_page" lay-verify="required"
                            autocomplete="off" class="layui-input" value="{{ node.bi_landing_page }}">
                 </div>
+                <div class="layui-input-inline">
+                    <button class="layui-btn" type="button" onclick=go2url(this,'bi_landing_page')>预览</button>
+                </div>
             </div>
 
             <div class="layui-form-item">
@@ -144,9 +147,7 @@
                     <input type="text" id="bi_landing_page_id" name="bi_landing_page_id" lay-verify="required"
                            autocomplete="off" class="layui-input" value="{{ node.bi_landing_page_id }}">
                 </div>
-                <div class="layui-input-inline">
-                    <button class="layui-btn" type="button" onclick=go2url(this,'bi_landing_page')>预览</button>
-                </div>
+
             </div>
 
             <div class="layui-form-item">
@@ -168,10 +169,11 @@
 </div>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript">
-    function go2url(obj,id) {
+    function go2url(obj, id) {
         var x = document.getElementById(id);
         window.open(x.value);
     }
+
     layui.extend({
         admin: '/static/js/admin'
     });

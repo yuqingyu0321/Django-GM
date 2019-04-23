@@ -213,6 +213,9 @@
                     <input type="text" id="bi_landing_page" name="bi_landing_page" lay-verify="required"
                            autocomplete="off" class="layui-input" value="{{ node.bi_landing_page }}">
                 </div>
+                <div class="layui-input-inline">
+                    <button class="layui-btn" type="button" onclick=go2url(this,'bi_landing_page')>预览</button>
+                </div>
             </div>
 
             <div class="layui-form-item">
@@ -223,9 +226,7 @@
                     <input type="text" id="bi_landing_page_id" name="bi_landing_page_id" lay-verify="required"
                            autocomplete="off" class="layui-input" value="{{ node.bi_landing_page_id }}">
                 </div>
-                <div class="layui-input-inline">
-                    <button class="layui-btn" type="button" onclick=go2url(this,'bi_landing_page')>预览</button>
-                </div>
+
             </div>
 
             <div class="layui-form-item">

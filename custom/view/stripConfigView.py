@@ -196,12 +196,15 @@ class StripSub(ViewHelper):
         limit = request.GET['limit'].encode("utf-8")
         resData = []
         allData = GameStripModel.objects.filter(foreignkey_strip=int(id))
+        index = 1
         for _temp in allData:
             _node = {
-                'id': _temp.id,
+                'id': index,
+                'index': _temp.index,
                 'name': game.allGame.get(_temp.wxAppId, _temp.wxAppId),
             }
             resData.append(_node)
+            index += 1
 
         startIndex = (int(page) - 1) * int(limit)
         if startIndex + int(limit) - 1 < len(resData):
