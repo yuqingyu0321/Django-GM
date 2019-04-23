@@ -17,9 +17,9 @@ FUHAO_SOCKET_URL_ONLINE = 'https://openrich.nalrer.cn/'
 
 def getSocketUrl(id):
     if id == 0:
-        return FUHAO_SOCKET_URL_TEST
+        return FUHAO_SOCKET_URL_ONLINE
     elif id == 1:
-        return SANXIAO_SOCKET_URL_TEST
+        return SANXIAO_SOCKET_URL_ONLINE
     else:
         return ''
 
