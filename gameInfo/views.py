@@ -39,7 +39,7 @@ class GameInfoView(object):
 
         startIndex = (int(page) - 1) * int(limit)
         if startIndex + int(limit) - 1 < len(resData):
-            endIndex = startIndex + int(limit) -1
+            endIndex = startIndex + int(limit)
             splitResData = resData[startIndex: endIndex]
         else:
             splitResData = resData[startIndex:]
