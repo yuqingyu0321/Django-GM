@@ -61,14 +61,14 @@ def get_all_gameStrip_data(basic_id):
 
 
 def get_strip_educe_name(basic_ID):
-    allName = ''
+    allName = []
     obj_all_game = GameStripModel.objects.filter(foreignkey_strip_id=int(basic_ID))
     for obj_game in obj_all_game:
         wxAppId = str(obj_game.wxAppId)
-        allName += allGame.get(wxAppId, '')
-        allName += '；'
+        name = allGame.get(wxAppId, '')
+        allName.append(name)
 
-    return allName[:-1] if allName else allName
+    return allName
 
 
 def get_all_iconswitch_data(basic_id):
@@ -118,14 +118,14 @@ def get_all_iconswitch_data(basic_id):
 
 
 def get_iconswitch_name(basic_ID):
-    allName = ''
+    allName = []
     obj_all_game = GameIconSwitchModel.objects.filter(foreignkey_iconswitch=int(basic_ID))
     for obj_game in obj_all_game:
         wxAppId = str(obj_game.wxAppId)
-        allName += allGame.get(wxAppId, '')
-        allName += '；'
+        name = allGame.get(wxAppId, '')
+        allName.append(name)
 
-    return allName[:-1] if allName else allName
+    return allName
 
 
 def get_all_SlideOver_data(basic_id):
@@ -209,14 +209,14 @@ def get_all_SlideOver_data(basic_id):
 
 
 def get_slideover_educe_name(basic_ID):
-    allName = ''
+    allName = []
     obj_all_game = GameSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(basic_ID))
     for obj_game in obj_all_game:
         wxAppId = str(obj_game.openUrl)
-        allName += allGame.get(wxAppId, '')
-        allName += '；'
+        name = allGame.get(wxAppId, '')
+        allName.append(name)
 
-    return allName[:-1] if allName else allName
+    return allName
 
 
 ORIENTED_TYPE_MODEL = {
