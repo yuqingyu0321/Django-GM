@@ -17,6 +17,8 @@ from oriented.views import (
     get_curr_oriented,
     ORIENTED_TYPE_SERVER_ID,
 )
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 def handle_userAndTime(basicId, typeId):
     currOrientedQuery = ORIENTED_TYPE_MODEL[typeId].objects.get(id=int(basicId))
