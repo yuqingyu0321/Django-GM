@@ -94,14 +94,14 @@
             } else if (obj.event === 'copy') {
                 // 复制操作
                 openUrl = './copy.html?id=' + data.id;
-                normal_copy('复制', openUrl, 900, 500)
+                normal_copy('复制', openUrl)
             } else if (obj.event === 'educe') {
                 // 目标游戏
                 openUrl = './sub/list.html?id=' + data.id;
-                WeAdminShow('目标游戏', openUrl, 1000, 500)
+                WeAdminShow('目标游戏', openUrl, 1200, 550)
             } else if (obj.event === 'position') {
                 openUrl = './position/list.html?id=' + data.id;
-                WeAdminShow('位置信息', openUrl, 1000, 500)
+                WeAdminShow('位置信息', openUrl, 1200, 550)
             }
         });
 

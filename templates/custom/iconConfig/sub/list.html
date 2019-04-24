@@ -67,7 +67,7 @@
             if (obj.event === 'edit') {
                 // 编辑
                 openUrl = './look.html?id=' + data.id;
-                WeAdminShow('编辑', openUrl, 900, 450)
+                WeAdminShow('编辑', openUrl, 1000, 450)
             } else if (obj.event === 'del') {
                 // 删除
                 openUrl = './del.html?id=' + data.id;
@@ -75,7 +75,7 @@
             } else if (obj.event === 'copy') {
                 // 复制操作
                 openUrl = './copy.html?id=' + data.id;
-                normal_copy('复制', openUrl, 900, 500)
+                normal_copy('复制', openUrl)
             }
         });
 
