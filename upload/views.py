@@ -9,7 +9,135 @@ from .models import *
 from oriented.views import ORIENTED_TYPE, ORIENTED_TYPE_MODEL
 from django.http import HttpResponse
 from oriented.models import *
+from gameInfo.models import GameInfoModel
+from gameInfo.views import SOCKET_URL
 
+class UpView(object):
+    @classmethod
+    def handleData(cls, request):
+        appid = request.GET['appid'].encode("utf-8")
+        if len(appid) == 18:
+            pass
+        else:
+            config.flash(request, "提示", "请先选择游戏或检查当前游戏wxAppId正确性")
+            return render(request, 'message.html')
+        page = request.GET['page'].encode("utf-8")
+        limit = request.GET['limit'].encode("utf-8")
+        gameInfoObj = GameInfoModel.objects.get(wxAppid=appid)
+        resData = []
+        allData = uploadModel.objects.filter(game_id=gameInfoObj.game_id)
+        for _temp in allData:
+            _node = {
+                'id': _temp.id,
+                'name': allGame.get(_temp.name, ''),
+                'wxAppId': appid,
+                'socketUrl': SOCKET_URL.get(str(_temp.socket_url), ''),
+                'orientedType': ORIENTED_TYPE.get(str(_temp.oriented_type), ''),
+                'gameId': _temp.game_id,
+                'status': '已加载' if _temp.status else '未加载',
+            }
+            resData.append(_node)
+
+        startIndex = (int(page) - 1) * int(limit)
+        if startIndex + int(limit) - 1 < len(resData):
+            endIndex = startIndex + int(limit)
+            splitResData = resData[startIndex: endIndex]
+        else:
+            splitResData = resData[startIndex:]
+
+        res = {
+            'code': 0,
+            'count': len(resData),
+            'msg': "",
+            'data': splitResData
+        }
+        return HttpResponse(json.dumps(res, ensure_ascii=False, separators=(',', ':')),
+                            content_type="application/json,charset=utf-8")
+
+    @classmethod
+    def handleList(cls, request):
+        return render(request, 'upload/up/list.html')
+
+    @classmethod
+    def handleAdd(cls, request):
+        appid = request.GET['appid'].encode("utf-8")
+        content = {
+            'appid': appid,
+            'orientedType': ORIENTED_TYPE,
+        }
+        return render(request, 'upload/up/add.html', content)
+
+    @classmethod
+    def handleSave(cls, request):
+        appid = request.POST['appid']
+        oriented_type = request.POST['oriented_type']
+        myFile = request.FILES['myFile']
+
+        gameObj = GameInfoModel.objects.get(wxAppid=appid)
+
+        uploadObj = uploadModel()
+        uploadObj.oriented_type = int(oriented_type)
+        uploadObj.socket_url = gameObj.socket_url
+        uploadObj.game_id = gameObj.game_id
+        uploadObj.name = appid
+        uploadObj.file = myFile
+        uploadObj.status = 0
+        uploadObj.save()
+        return HttpResponse(json.dumps({'info': '成功'}, ensure_ascii=False, separators=(',', ':')),
+                            content_type="application/json,charset=utf-8")
+    @classmethod
+    def handleLook(cls, request):
+        id = request.GET.get('id')
+        basic_data = uploadModel.objects.filter(id=int(id))
+        content = {
+            'data': basic_data,
+            'orientedType': ORIENTED_TYPE,
+        }
+        return render(request, 'upload/up/update.html', content)
+
+    @classmethod
+    def handleUpdate(cls, request):
+        id = request.POST.get('id').encode("utf-8")
+        oriented_type = request.POST['oriented_type']
+        myFile = request.FILES['myFile']
+        uploadModel.objects.filter(id=int(id)).update(oriented_type=oriented_type,
+                                                      file=myFile)
+
+        return HttpResponse(json.dumps({'info': '成功'}, ensure_ascii=False, separators=(',', ':')),
+                            content_type="application/json,charset=utf-8")
+
+    @classmethod
+    def handleDel(cls, request):
+        id = request.GET.get('id').encode("utf-8")
+        uploadModel.objects.filter(id=int(id)).delete()
+
+        return HttpResponse(json.dumps({
+            "code": 1
+        }))
+
+    @classmethod
+    def handleDelAll(cls, request):
+        res = {}
+        idstring = request.GET.get('data').encode("utf-8")
+        if idstring:
+            uploadModel.objects.extra(where=['id IN (' + idstring + ')']).delete()
+            res['code'] = 1
+        else:
+            res['code'] = 0
+            res['msg'] = '请选择有效值'
+
+        return HttpResponse(json.dumps(res))
+
+    @classmethod
+    def handleLookInfo(cls, request):
+        id = request.GET.get('id').encode("utf-8")
+        upObj = uploadModel.objects.get(id=id)
+        upObj.file.open()
+        json_datas = upObj.file.read().decode("utf-8-sig")
+        upObj.file.close()
+        res = json.loads(json_datas, encoding='utf-8')
+        return HttpResponse(json.dumps(res, indent=4, ensure_ascii=False, separators=(',', ':')),
+                            content_type="application/json,charset=utf-8")
 
 def get_all_uploadModel_data():
     return uploadModel.objects.all().order_by('-id')

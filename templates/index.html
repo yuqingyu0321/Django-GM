@@ -85,15 +85,15 @@
                     <cite>文件管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
-                <ul class="sub-menu">
+                <ul class="sub-menu" id="upload">
                     <li>
-                        <a _href="./pages/article/list.html">
+                        <a _href="./upload/up/list.html?appid=0">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>文章上传</cite>
+                            <cite>文件上传</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="./pages/article/category.html">
+                        <a _href="./upload/load/list.html?appid=0">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>文件加载</cite>
                         </a>
@@ -234,6 +234,13 @@
             $(this).attr("_href", url_now);
         });
 
+        $("#upload").find("a").each(function (i, v) {
+            var url_b = $(v).attr('_href');
+            var url_n = delParam(url_b, "appid");
+            var url_now = addParam(url_n, "appid", appid);
+            $(this).attr("_href", url_now);
+        });
+
         //监听下拉框
         form.on('select(basicList)', function (data) {
             var appid = data.value;
@@ -255,6 +262,13 @@
             })
 
             $("#push").find("a").each(function (i, v) {
+                var url_b = $(v).attr('_href');
+                var url_n = delParam(url_b, "appid");
+                var url_now = addParam(url_n, "appid", appid);
+                $(this).attr("_href", url_now);
+            });
+
+            $("#upload").find("a").each(function (i, v) {
                 var url_b = $(v).attr('_href');
                 var url_n = delParam(url_b, "appid");
                 var url_now = addParam(url_n, "appid", appid);
