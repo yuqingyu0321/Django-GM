@@ -139,76 +139,79 @@ class UpView(object):
         return HttpResponse(json.dumps(res, indent=4, ensure_ascii=False, separators=(',', ':')),
                             content_type="application/json,charset=utf-8")
 
-def get_all_uploadModel_data():
-    return uploadModel.objects.all().order_by('-id')
+    @classmethod
+    def handleLoadData(cls, request):
+        appid = request.GET['appid'].encode("utf-8")
+        if len(appid) == 18:
+            pass
+        else:
+            config.flash(request, "提示", "请先选择游戏或检查当前游戏wxAppId正确性")
+            return render(request, 'message.html')
+        page = request.GET['page'].encode("utf-8")
+        limit = request.GET['limit'].encode("utf-8")
+        upLoadDatas = uploadModel.objects.filter(name=appid)
+        resData = []
+        for _temp in upLoadDatas:
+            if _temp.status:
+                continue
+            _node = {
+                'id': _temp.id,
+                'name': allGame.get(_temp.name, ''),
+                'wxAppId': appid,
+                'socketUrl': SOCKET_URL.get(str(_temp.socket_url), ''),
+                'orientedType': ORIENTED_TYPE.get(str(_temp.oriented_type), ''),
+                'gameId': _temp.game_id,
+                'status': '已加载' if _temp.status else '未加载',
+            }
+            resData.append(_node)
 
+        startIndex = (int(page) - 1) * int(limit)
+        if startIndex + int(limit) - 1 < len(resData):
+            endIndex = startIndex + int(limit)
+            splitResData = resData[startIndex: endIndex]
+        else:
+            splitResData = resData[startIndex:]
 
-def get_wxappId_uploadModel_data(wxAppId):
-    return uploadModel.objects.filter(name=wxAppId).order_by('-id')
-
-
-def get_use_dict():
-    show_all = get_all_uploadModel_data()
-    temp_data = show_all.filter(status=0)
-    for i in temp_data:
-        i.name = allGame.get(i.name, '')
-        i.oriented_type = ORIENTED_TYPE.get(i.oriented_type, '')
-        i.status = '已加载' if i.status else '未加载'
-    content = {
-        'uploadData': temp_data,
-        'gameChoice': allGame,
-    }
-
-    return content
-
-
-def show_upload(request):
-    return render(request, 'upload/index.html', get_use_dict())
-
-
-def show_game_upload(request):
-    wxAppId = request.GET.get('search_wxAppId')
-    if wxAppId:
-        data = get_wxappId_uploadModel_data(wxAppId)
-        for i in data:
-            i.name = allGame.get(i.name, '')
-            i.oriented_type = ORIENTED_TYPE.get(i.oriented_type, '')
-            i.status = '已加载' if i.status else '未加载'
-        content = {
-            'uploadData': data,
-            'gameChoice': allGame,
+        res = {
+            'code': 0,
+            'count': len(resData),
+            'msg': "",
+            'data': splitResData
         }
-    else:
-        content = get_use_dict()
+        return HttpResponse(json.dumps(res, ensure_ascii=False, separators=(',', ':')),
+                            content_type="application/json,charset=utf-8")
 
-    return render(request, 'upload/index.html', content)
+    @classmethod
+    def handleLoadList(cls, request):
+        return render(request, 'upload/load/list.html')
 
+    @classmethod
+    def handleLoad(cls, request):
+        upload_id = request.GET.get('id').encode("utf-8")
+        ret = False
+        content = {}
+        try:
+            upload_datas = uploadModel.objects.get(id=upload_id)
+            print upload_datas.status
+            if not upload_datas.status:
+                gameId = upload_datas.game_id
+                wxappId = upload_datas.name
+                oriented = upload_datas.oriented_type
+                socket = upload_datas.socket_url
 
-def upload_load(request, upload_id):
-    ret = False
-    content = {}
-    try:
-        upload_datas = uploadModel.objects.get(id=upload_id)
-        print upload_datas.status
-        if not upload_datas.status:
-            gameId = upload_datas.game_id
-            wxappId = upload_datas.name
-            oriented = upload_datas.oriented_type
-            socket = upload_datas.socket_url
-
-            upload_datas.file.open()
-            json_datas = upload_datas.file.read().decode("utf-8-sig")
-            upload_datas.file.close()
-            temp_datas = json.loads(json_datas, encoding='utf-8')
-            ret = handle_oriented_upload(gameId, wxappId, oriented, socket, temp_datas)
-            if ret:
-                upload_datas.status = 1
-                upload_datas.save()
-    except Exception, e:
-        content['error'] = '失败! %s' % e
-    content['info'] = ret
-    return HttpResponse(json.dumps(content, indent=4, ensure_ascii=False, separators=(',', ':')),
-                        content_type="application/json,charset=utf-8")
+                upload_datas.file.open()
+                json_datas = upload_datas.file.read().decode("utf-8-sig")
+                upload_datas.file.close()
+                temp_datas = json.loads(json_datas, encoding='utf-8')
+                ret = handle_oriented_upload(gameId, wxappId, oriented, socket, temp_datas)
+                if ret:
+                    upload_datas.status = 1
+                    upload_datas.save()
+        except Exception, e:
+            content['error'] = '失败! %s' % e
+        content['info'] = ret
+        return HttpResponse(json.dumps(content, indent=4, ensure_ascii=False, separators=(',', ':')),
+                            content_type="application/json,charset=utf-8")
 
 
 def handle_oriented_upload(gameId, wxappId, oriented_type, socket, upload_datas):

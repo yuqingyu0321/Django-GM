@@ -12,7 +12,8 @@ urlpatterns = [
     url(r'upload/up/lookInfo.html', UpView.handleLookInfo),
     url(r'upload/up/look.html', UpView.handleLook),
     url(r'upload/up/update.html', UpView.handleUpdate),
-    #url(r'^$', show_upload),
-    #url(r'search/', show_game_upload),
-    #url(r'load/(?P<upload_id>\d+)', upload_load),
+
+    url(r'upload/load/list.html', UpView.handleLoadList),
+    url(r'upload/load/data.html', UpView.handleLoadData),
+    url(r'upload/load/load.html', UpView.handleLoad),
 ]
