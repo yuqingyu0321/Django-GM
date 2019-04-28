@@ -158,7 +158,7 @@ def get_all_SlideOver_data(basic_id):
     pull['positionY'] = obj_bg[0].la_positionY
     pull['imgurl0'] = obj_bg[0].la_imgurl0
     pull['imgurl1'] = obj_bg[0].la_imgurl1
-    pull['isredon'] = obj_bg[0].la_isredon
+    pull['isredon'] = 1 if obj_bg[0].la_isredon else 0
     response['pull'] = pull
 
     grid = {}
@@ -187,6 +187,7 @@ def get_all_SlideOver_data(basic_id):
         temp_dict['text'] = str(obj_game.text)
         temp_dict['type'] = int(obj_game.type)
         temp_dict['imgLink'] = str(obj_game.imgLink)
+        temp_dict['openType'] = int(obj_game.openType)
         temp_dict['openUrl'] = str(obj_game.openUrl)
         temp_dict['isredon'] = int(obj_game.isredon)
         temp_dict['topath'] = str(obj_game.topath)
