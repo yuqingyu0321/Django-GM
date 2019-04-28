@@ -187,6 +187,7 @@ def get_all_SlideOver_data(basic_id):
         temp_dict['text'] = str(obj_game.text)
         temp_dict['type'] = int(obj_game.type)
         temp_dict['imgLink'] = str(obj_game.imgLink)
+        temp_dict['openType'] = int(obj_game.openType)
         temp_dict['openUrl'] = str(obj_game.openUrl)
         temp_dict['isredon'] = int(obj_game.isredon)
         temp_dict['topath'] = str(obj_game.topath)
