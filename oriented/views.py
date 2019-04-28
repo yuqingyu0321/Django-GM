@@ -158,7 +158,7 @@ def get_all_SlideOver_data(basic_id):
     pull['positionY'] = obj_bg[0].la_positionY
     pull['imgurl0'] = obj_bg[0].la_imgurl0
     pull['imgurl1'] = obj_bg[0].la_imgurl1
-    pull['isredon'] = obj_bg[0].la_isredon
+    pull['isredon'] = 1 if obj_bg[0].la_isredon else 0
     response['pull'] = pull
 
     grid = {}
