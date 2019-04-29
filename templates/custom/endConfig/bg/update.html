@@ -1,0 +1,322 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>导流管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/static/css/font.css">
+    <link rel="stylesheet" href="/static/css/weadmin.css">
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link id="layuicss-layer" rel="stylesheet"
+          href="http://tywx.touch4.me/src/lib/layui/css/modules/layer/default/layer.css?v=3.1.1" media="all">
+</head>
+
+<body>
+<div class="weadmin-body">
+    <form class="layui-form" method="get" action="" enctype="multipart/form-data"
+          id="form2">
+        {% csrf_token %}
+        {% if data %}
+            {% for node in data %}
+                <div class="layui-form-item">
+                    <blockquote class="layui-elem-quote">注意：下述表格参数为————label相关</blockquote>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="we-red">*</span>高度
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="label_height" name="label_height" lay-verify="required"
+                               autocomplete="off" class="layui-input" value="{{ node.label_height }}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="we-red">*</span>缩放比例
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="label_scale" name="label_scale" lay-verify="required"
+                               autocomplete="off" class="layui-input" value="{{ node.label_scale }}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="we-red">*</span>图片中心点离上方距离
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="label_yfromtop" name="label_yfromtop" lay-verify="required"
+                               autocomplete="off" class="layui-input" value="{{ node.label_yfromtop }}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="we-red">*</span>标题ICON
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="label_imgurl" name="label_imgurl" lay-verify="required"
+                               autocomplete="off" class="layui-input" value="{{ node.label_imgurl }}">
+                    </div>
+                    <div class="layui-input-inline">
+                        <button class="layui-btn" type="button" onclick=go2url(this,'label_imgurl')>预览</button>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <blockquote class="layui-elem-quote">注意：下述表格参数为————bg相关</blockquote>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="we-red">*</span>宽度
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="bg_width" name="bg_width" lay-verify="required"
+                               autocomplete="off" class="layui-input" value="{{ node.bg_width }}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="we-red">*</span>高度
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="bg_height" name="bg_height" lay-verify="required"
+                               autocomplete="off" class="layui-input" value="{{ node.bg_height }}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="we-red">*</span>positionY
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="bg_positionY" name="bg_positionY" lay-verify="required"
+                               autocomplete="off" class="layui-input" value="{{ node.bg_positionY }}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="we-red">*</span>图
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="bg_imgurl" name="bg_imgurl" lay-verify="required"
+                               autocomplete="off" class="layui-input" value="{{ node.bg_imgurl }}">
+                    </div>
+                    <div class="layui-input-inline">
+                        <button class="layui-btn" type="button" onclick=go2url(this,'bg_imgurl')>预览</button>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <blockquote class="layui-elem-quote">注意：下述表格参数为————gird相关</blockquote>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="we-red">*</span>宽度
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="gird_iconsWidth" name="gird_iconsWidth" lay-verify="required"
+                               autocomplete="off" class="layui-input" value="{{ node.gird_iconsWidth }}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="we-red">*</span>高度
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="gird_iconsHeight" name="gird_iconsHeight" lay-verify="required"
+                               autocomplete="off" class="layui-input" value="{{ node.gird_iconsHeight }}">
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="layui-form-item">
+                <blockquote class="layui-elem-quote">注意：下述表格参数为————label相关</blockquote>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="we-red">*</span>高度
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="label_height" name="label_height" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="we-red">*</span>缩放比例
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="label_scale" name="label_scale" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="we-red">*</span>图片中心点离上方距离
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="label_yfromtop" name="label_yfromtop" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="we-red">*</span>标题ICON
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="label_imgurl" name="label_imgurl" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-input-inline">
+                    <button class="layui-btn" type="button" onclick=go2url(this,'label_imgurl')>预览</button>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <blockquote class="layui-elem-quote">注意：下述表格参数为————bg相关</blockquote>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="we-red">*</span>宽度
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="bg_width" name="bg_width" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="we-red">*</span>高度
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="bg_height" name="bg_height" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="we-red">*</span>positionY
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="bg_positionY" name="bg_positionY" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="we-red">*</span>图
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="bg_imgurl" name="bg_imgurl" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-input-inline">
+                    <button class="layui-btn" type="button" onclick=go2url(this,'bg_imgurl')>预览</button>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <blockquote class="layui-elem-quote">注意：下述表格参数为————gird相关</blockquote>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="we-red">*</span>宽度
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="gird_iconsWidth" name="gird_iconsWidth" lay-verify="required"
+                           autocomplete="off" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="we-red">*</span>高度
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="gird_iconsHeight" name="gird_iconsHeight" lay-verify="required"
+                           autocomplete="off" class="layui-input" >
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="layui-form-item">
+            <label for="" class="layui-form-label"></label>
+            <button class="layui-btn" lay-filter="bgupdate" lay-submit="">保存</button>
+            <button class="layui-btn" id="cancelBtn">取消</button>
+        </div>
+    </form>
+</div>
+<script src="/static/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript">
+    function go2url(obj, id) {
+        var x = document.getElementById(id);
+        window.open(x.value);
+    }
+
+    layui.extend({
+        admin: '/static/js/admin'
+    });
+    layui.use(["jquery", 'form', 'layer', 'admin'], function () {
+        var form = layui.form,
+            admin = layui.admin,
+            layer = layui.layer;
+        var $ = layui.jquery;
+        //自定义验证规则
+        form.verify({});
+
+        //监听提交
+        form.on('submit(bgupdate)', function (data) {
+            layer.confirm('确定保存本次操作?', {
+                btn: ['是', '否'], btn1: function () {
+                    $.ajax({
+                        type: "get",
+                        url: "/Home/endConfig/bg/update.html?id=" + {{ fId }},
+                        async: true,
+                        data: data.field,
+                        success: function (data) {
+                            var data = JSON.parse(data);
+                            if (data.code != 1) {
+                                layer.msg(data.msg);
+                                return false;
+                            }
+                            //发异步，把数据提交给php
+                            layer.alert("保存成功", {
+                                icon: 6
+                            }, function () {
+                                // 获得frame索引
+                                var index = parent.layer.getFrameIndex(window.name);
+                                //关闭当前frame
+                                parent.layer.close(index);
+                                parent.location.reload();
+                            });
+                        },
+                        error: function (data) {
+                            layer.msg("保存失败，请重试！")
+                        }
+                    })
+                },
+                btn2: function () {
+                    '取消成功'
+                }
+            });
+
+            return false;
+        });
+        $("#cancelBtn").click(function () {
+            var index = parent.layer.getFrameIndex(window.name);
+            //关闭当前frame
+            parent.layer.close(index);
+            return false;
+        })
+
+    });
+</script>
+
+
+</body>
+</html>

@@ -80,6 +80,28 @@ urlpatterns = [
     url(r'slideoverConfig/bg/look.html', SlideoverConfig.handleBgLook),
     url(r'slideoverConfig/bg/update.html', SlideoverConfig.handleBgUpdate),
 
+    url(r'endConfig/list.html', EndConfig.handleList),
+    url(r'endConfig/add.html', EndConfig.handleAdd),
+    url(r'endConfig/save.html', EndConfig.handleSave),
+    url(r'endConfig/look.html', EndConfig.handleLook),
+    url(r'endConfig/update.html', EndConfig.handleUpdate),
+    url(r'endConfig/data.html', EndConfig.handleData),
+    url(r'endConfig/del.html', EndConfig.handleDel),
+    url(r'endConfig/delAll.html', EndConfig.handleDelAll),
+    url(r'endConfig/copy.html', EndConfig.handleCopy),
+
+    url(r'endConfig/sub/list.html', EndConfigSub.handleList),
+    url(r'endConfig/sub/add.html', EndConfigSub.handleAdd),
+    url(r'endConfig/sub/save.html', EndConfigSub.handleSave),
+    url(r'endConfig/sub/look.html', EndConfigSub.handleLook),
+    url(r'endConfig/sub/update.html', EndConfigSub.handleUpdate),
+    url(r'endConfig/sub/data.html', EndConfigSub.handleData),
+    url(r'endConfig/sub/del.html', EndConfigSub.handleDel),
+    url(r'endConfig/sub/delAll.html', EndConfigSub.handleDelAll),
+    url(r'endConfig/sub/copy.html', EndConfigSub.handleCopy),
+
+    url(r'endConfig/bg/look.html', EndConfig.handleBgLook),
+    url(r'endConfig/bg/update.html', EndConfig.handleBgUpdate),
 
     url(r'push/list.html', PushView.handleList),
     url(r'push/data.html', PushView.handleData),

@@ -208,3 +208,75 @@ class GameSlideOverModel(models.Model):
         verbose_name_plural = verbose_name
 
 
+class EndModel(models.Model):
+    game_id = models.PositiveIntegerField(verbose_name='gameId')
+    name = models.CharField(verbose_name='游戏名称',  max_length=255)
+    socket_url = models.PositiveIntegerField(verbose_name='服务器', choices=SOCKET_URL)
+    switch = models.PositiveIntegerField(verbose_name='switch', default=1)
+
+    reddot = models.CharField(verbose_name='角标', max_length=512, default='https://sanxqn.nalrer.cn/tysanxiao/test/LikeConfigRes/reddot.png')
+    viewAdCounts = models.PositiveIntegerField(verbose_name='viewAdCounts', default=3)
+    create_time = models.DateTimeField('创建时间', auto_now_add=True)
+    modifi_time = models.DateTimeField('最后修改时间', auto_now=True)
+    user = models.CharField(editable=False, null=True, verbose_name='操作人', max_length=255)
+
+    online_modifi_time = models.DateTimeField('线上最后修改时间', editable=False, null=True)
+    online_user = models.CharField(editable=False, null=True, verbose_name='推送操作人', max_length=255)
+
+    def __str__(self):
+        return allGame.get(self.name, '')
+
+    class Meta:
+        verbose_name = '结算页'
+        verbose_name_plural = verbose_name
+
+
+class BgEndModel(models.Model):
+    # label 4
+    label_height = models.FloatField(verbose_name='宽度')
+    label_scale = models.FloatField(verbose_name='缩放比例')
+    label_yfromtop = models.FloatField(verbose_name='图片中心点离上方距离')
+    label_imgurl = models.CharField(verbose_name='标题ICON', max_length=512)
+
+    # bg 4
+    bg_width = models.FloatField(verbose_name='宽度')
+    bg_height = models.FloatField(verbose_name='高度')
+    bg_positionY = models.FloatField(verbose_name='positionY')
+    bg_imgurl = models.CharField(verbose_name='背景ICON',default='https://sanxqn.nalrer.cn/tysanxiao/test/LikeConfigRes/3sbg.png', max_length=512)
+
+    # gird 2
+    gird_iconsWidth = models.FloatField(verbose_name='宽度')
+    gird_iconsHeight = models.FloatField(verbose_name='高度')
+
+    foreignkey_EndModel = models.OneToOneField(EndModel, verbose_name="结算页")
+
+    def __str__(self):
+        return '背景参数'
+
+    class Meta:
+        verbose_name = '背景参数'
+        verbose_name_plural = verbose_name
+
+
+class GameEndModel(models.Model):
+    index = models.PositiveIntegerField(verbose_name='序号', help_text='输入数字')
+    text = models.CharField(verbose_name='text',max_length=512)
+    type = models.BooleanField(verbose_name='动图icon', default=0)
+    imgLink = models.CharField(verbose_name="ICON", max_length=512)
+    openType = models.BooleanField(verbose_name='打开方式', default=1)
+    openUrl = models.CharField(verbose_name="wxAppId",  max_length=20)
+    isredon = models.BooleanField(verbose_name='显示红点', default=1)
+    topath = models.CharField(verbose_name='topath', max_length=512)
+    foreignkey_EndModel = models.ForeignKey(EndModel, verbose_name="结算页")
+
+    bi_iconId = models.CharField(verbose_name='bI_IconId',  max_length=255)
+    bi_landing_page = models.CharField(verbose_name='bI_落地页', max_length=512)
+    bi_landing_page_id = models.CharField(verbose_name='bI_落地页Id', max_length=255)
+    bi_educe_game = models.CharField(verbose_name='bI_渠道标识', max_length=255)
+
+    def __str__(self):
+        return allGame.get(self.openUrl, '')
+
+    class Meta:
+        verbose_name = '导出游戏'
+        verbose_name_plural = verbose_name
