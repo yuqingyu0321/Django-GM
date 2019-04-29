@@ -15,7 +15,7 @@
 <body>
 <div class="weadmin-body">
     <div class="weadmin-block demoTable">
-        <button class="layui-btn layui-btn-danger" onclick=newDelAll(this,'./delAll.html','slideoverConfigTableSubId')>
+        <button class="layui-btn layui-btn-danger" onclick=newDelAll(this,'./delAll.html','endConfigTableSubId')>
             <i class="layui-icon">&#xe640;</i>选中删除
         </button>
         <button class="layui-btn" onclick="WeAdminShow('添加目标游戏','./add.html?id={{ fId }}',900,450)">
@@ -26,9 +26,9 @@
             <i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
     </div>
 
-    <table id="slideoverConfigTableSubId" lay-filter="slideoverConfigTableInfoSub"></table>
+    <table id="endConfigTableSubId" lay-filter="endConfigTableInfoSub"></table>
 
-    <script type="text/html" id="barslideoverConfigTableSubId">
+    <script type="text/html" id="barendConfigTableSubId">
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="copy">复制</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -43,7 +43,7 @@
         var table = layui.table;
         //第一个实例
         table.render({
-            elem: '#slideoverConfigTableSubId'
+            elem: '#endConfigTableSubId'
             , method: 'get'
             , url: './data.html?id=' + {{ fId }} //数据接口
             , cols: [[ //表头
@@ -56,14 +56,14 @@
                     title: '操作',
                     width: 200,
                     align: 'center',
-                    toolbar: '#barslideoverConfigTableSubId',
+                    toolbar: '#barendConfigTableSubId',
                 }
             ]]
             , page: true
         });
 
         //监听工具条
-        table.on('tool(slideoverConfigTableInfoSub)', function (obj) {
+        table.on('tool(endConfigTableInfoSub)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
                 // 编辑

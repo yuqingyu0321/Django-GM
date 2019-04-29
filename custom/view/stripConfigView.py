@@ -199,7 +199,7 @@ class StripSub(ViewHelper):
         index = 1
         for _temp in allData:
             _node = {
-                'id': index,
+                'id': _temp.id,
                 'index': _temp.index,
                 'name': game.allGame.get(_temp.wxAppId, _temp.wxAppId),
             }

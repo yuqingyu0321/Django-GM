@@ -6,6 +6,7 @@ from custom.view.iconConfigView import OrientedIconConfig, OrientedIconSub, Orie
 from custom.view.stripConfigView import StripConfig, StripSub
 from custom.view.slideoverConfigView import SlideoverConfig, SlideoverSub
 from custom.view.pushView import PushView
+from custom.view.endConfigView import EndConfig, EndConfigSub
 __ALL__ = [
     OrientedIconConfig,
     OrientedIconSub,
@@ -15,6 +16,8 @@ __ALL__ = [
     SlideoverConfig,
     SlideoverSub,
     PushView,
+    EndConfig,
+    EndConfigSub,
 ]
 
 

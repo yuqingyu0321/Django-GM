@@ -431,3 +431,22 @@ class SlideOverModelAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.user = request.user.username
         super(SlideOverModelAdmin, self).save_model(request, obj, form, change)
+
+class BgEndModelInline(admin.StackedInline):
+    model = BgEndModel
+    extra = 1
+    min_num = 1
+    max_num = 1
+
+class GameEndModelInline(admin.StackedInline):
+    model = GameEndModel
+    extra = 1
+    min_num = 1
+    max_num = 1
+
+@admin.register(EndModel)
+class EndModelAdmin(admin.ModelAdmin):
+    inlines = [
+        BgEndModelInline,
+        GameEndModelInline,
+    ]

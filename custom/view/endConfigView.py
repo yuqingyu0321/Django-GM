@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
 '''
-侧拉框配置
+结束页配置
 '''
 import json
-from django.shortcuts import render
-from common import config
-from oriented.models import SlideOverModel, BgSlideOverModel, GameSlideOverModel
-from gameInfo.models import *
+
 from django.http import HttpResponse
-from gameInfo import game
+from django.shortcuts import render
+
+from common import config
 from custom.view.view import ViewHelper
+from gameInfo import game
+from gameInfo.models import *
+from oriented.models import EndModel, GameEndModel, BgEndModel
 
 
-class SlideoverConfig(ViewHelper):
+class EndConfig(ViewHelper):
     @classmethod
     def handleData(cls, request):
         appid = request.GET['appid'].encode("utf-8")
@@ -25,9 +27,9 @@ class SlideoverConfig(ViewHelper):
         page = request.GET['page'].encode("utf-8")
         limit = request.GET['limit'].encode("utf-8")
         resData = []
-        allData = SlideOverModel.objects.filter(name=appid)
+        allData = EndModel.objects.filter(name=appid)
         for _temp in allData:
-            gameInfo = GameSlideOverModel.objects.filter(foreignkey_labelSlideOver=_temp.id)
+            gameInfo = GameEndModel.objects.filter(foreignkey_EndModel=_temp.id)
             educeGame = [game.allGame.get(i.openUrl, i.openUrl) for i in gameInfo]
             _node = {
                 'id': _temp.id,
@@ -58,37 +60,32 @@ class SlideoverConfig(ViewHelper):
     def handleList(cls, request):
         appid = request.GET['appid'].encode("utf-8")
         if len(appid) == 18:
-            return render(request, 'custom/slideoverConfig/list.html')
+            return render(request, 'custom/endConfig/list.html')
         else:
             config.flash(request, "提示", "请先选择游戏或检查当前游戏wxAppId正确性")
             return render(request, 'message.html')
 
     @classmethod
     def handleAdd(cls, request):
-        return render(request, 'custom/slideoverConfig/add.html')
-
-
+        return render(request, 'custom/endConfig/add.html')
 
     @classmethod
     def handleSave(cls, request):
         appid = request.GET['appid'].encode("utf-8")
+
         reddot = request.GET['reddot'].encode("utf-8")
-        mask = request.GET['mask'].encode("utf-8")
-        fromWhere = request.GET['fromWhere'].encode("utf-8")
         viewAdCounts = request.GET['viewAdCounts'].encode("utf-8")
         switch = request.GET['switch'].encode("utf-8")
 
-
         gameObj = GameInfoModel.objects.get(wxAppid=appid)
 
-        obj = SlideOverModel()
+        obj = EndModel()
         obj.name = gameObj.wxAppid
         obj.game_id = int(gameObj.game_id)
         obj.wxAppid = appid
         obj.socket_url = int(gameObj.socket_url)
         obj.reddot = reddot
-        obj.mask = mask
-        obj.fromWhere = fromWhere
+
         obj.viewAdCounts = viewAdCounts
         obj.switch = switch
         obj.save()
@@ -100,27 +97,21 @@ class SlideoverConfig(ViewHelper):
     @classmethod
     def handleLook(cls, request):
         id = request.GET.get('id')
-        basic_data = SlideOverModel.objects.filter(id=int(id))
+        basic_data = EndModel.objects.filter(id=int(id))
         content = {
             'data': basic_data
         }
-        return render(request, 'custom/slideoverConfig/update.html', content)
+        return render(request, 'custom/endConfig/update.html', content)
 
     @classmethod
     def handleUpdate(cls, request):
         id = request.GET.get('id').encode("utf-8")
         reddot = request.GET['reddot'].encode("utf-8")
-        mask = request.GET['mask'].encode("utf-8")
-        fromWhere = request.GET['fromWhere'].encode("utf-8")
         viewAdCounts = request.GET['viewAdCounts'].encode("utf-8")
         switch = request.GET['switch'].encode("utf-8")
-        SlideOverModel.objects.filter(id=int(id)).update(reddot=reddot,
-                                                         mask=mask,
-                                                         fromWhere=fromWhere,
-                                                         viewAdCounts=viewAdCounts,
-                                                         switch=switch)
-
-
+        EndModel.objects.filter(id=int(id)).update(reddot=reddot,
+                                                   viewAdCounts=viewAdCounts,
+                                                   switch=switch)
 
         return HttpResponse(json.dumps({
             "code": 1
@@ -129,12 +120,12 @@ class SlideoverConfig(ViewHelper):
     @classmethod
     def handleDel(cls, request):
         id = request.GET.get('id').encode("utf-8")
-        obj = SlideOverModel.objects.get(id=int(id))
+        obj = EndModel.objects.get(id=int(id))
         # 删除子节点数据
-        GameSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(id)).delete()
-        BgSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(id)).delete()
+        GameEndModel.objects.filter(foreignkey_EndModel=int(id)).delete()
+        BgEndModel.objects.filter(foreignkey_EndModel=int(id)).delete()
         # 删除父节点数据
-        SlideOverModel.objects.filter(id=int(id)).delete()
+        EndModel.objects.filter(id=int(id)).delete()
 
         return HttpResponse(json.dumps({
             "code": 1
@@ -146,10 +137,10 @@ class SlideoverConfig(ViewHelper):
         idstring = request.GET.get('data').encode("utf-8")
         if idstring:
             # 删除子节点数据
-            GameSlideOverModel.objects.extra(where=['foreignkey_labelSlideOver_id IN (' + idstring + ')']).delete()
-            BgSlideOverModel.objects.extra(where=['foreignkey_labelSlideOver_id IN (' + idstring + ')']).delete()
+            GameEndModel.objects.extra(where=['foreignkey_EndModel IN (' + idstring + ')']).delete()
+            BgEndModel.objects.extra(where=['foreignkey_EndModel IN (' + idstring + ')']).delete()
             # 删除父节点数据
-            SlideOverModel.objects.extra(where=['id IN (' + idstring + ')']).delete()
+            EndModel.objects.extra(where=['id IN (' + idstring + ')']).delete()
             res['code'] = 1
         else:
             res['code'] = 0
@@ -161,19 +152,19 @@ class SlideoverConfig(ViewHelper):
     def handleCopy(cls, request):
         id = request.GET['id'].encode("utf-8")
         # 获取父表数据
-        obj = SlideOverModel.objects.get(id=int(id))
+        obj = EndModel.objects.get(id=int(id))
         # 获取子表数据
-        objPositionChilds = BgSlideOverModel.objects.filter(foreignkey_labelSlideOver=obj)
-        objChilds = GameSlideOverModel.objects.filter(foreignkey_labelSlideOver=obj)
+        objBgChilds = BgEndModel.objects.filter(foreignkey_EndModel=obj)
+        objChilds = GameEndModel.objects.filter(foreignkey_EndModel=obj)
         obj.id = None
         obj.save()
         for _temp in objChilds:
             _temp.id = None
-            _temp.foreignkey_labelSlideOver = obj
+            _temp.foreignkey_EndModel = obj
             _temp.save()
-        for _tempPosi in objPositionChilds:
+        for _tempPosi in objBgChilds:
             _tempPosi.id = None
-            _tempPosi.foreignkey_labelSlideOver = obj
+            _tempPosi.foreignkey_EndModel = obj
             _tempPosi.save()
         return HttpResponse(json.dumps({
             "code": 1
@@ -183,64 +174,33 @@ class SlideoverConfig(ViewHelper):
     def _BgUpdataData(cls, request):
         fId = request.GET.get('id').encode("utf-8")
         # 背景数据
-        # 标题 4
-        bt_height = request.GET['bt_height'].encode("utf-8")
-        bt_scale = request.GET['bt_scale'].encode("utf-8")
-        bt_yfromtop = request.GET['bt_yfromtop'].encode("utf-8")
-        bt_imgurl = request.GET['bt_imgurl'].encode("utf-8")
+        # label 4
+        label_height = request.GET['label_height'].encode("utf-8")
+        label_scale = request.GET['label_scale'].encode("utf-8")
+        label_yfromtop = request.GET['label_yfromtop'].encode("utf-8")
+        label_imgurl = request.GET['label_imgurl'].encode("utf-8")
 
-        # 框 3
-        kuang_positionY = request.GET['kuang_positionY'].encode("utf-8")
-        kuang_bottomBlkHeight = request.GET['kuang_bottomBlkHeight'].encode("utf-8")
-        kuang_imgurl = request.GET['kuang_imgurl'].encode("utf-8")
+        # bg 4
+        bg_width = request.GET['bg_width'].encode("utf-8")
+        bg_height = request.GET['bg_height'].encode("utf-8")
+        bg_positionY = request.GET['bg_positionY'].encode("utf-8")
+        bg_imgurl = request.GET['bg_imgurl'].encode("utf-8")
 
-        # 拉按钮 6
-        la_scale = request.GET['la_scale'].encode("utf-8")
-        la_positionX = request.GET['la_positionX'].encode("utf-8")
-        la_positionY = request.GET['la_positionY'].encode("utf-8")
-        la_imgurl0 = request.GET['la_imgurl0'].encode("utf-8")
-        la_imgurl1 = request.GET['la_imgurl1'].encode("utf-8")
-        la_isredon = request.GET['la_isredon'].encode("utf-8")
+        # gird 2
+        gird_iconsWidth = request.GET['gird_iconsWidth'].encode("utf-8")
+        gird_iconsHeight = request.GET['gird_iconsHeight'].encode("utf-8")
 
-        # icon布局 6
-        icon_iconsWidth = request.GET['icon_iconsWidth'].encode("utf-8")
-        icon_iconsHeight = request.GET['icon_iconsHeight'].encode("utf-8")
-        icon_spacingX = request.GET['icon_spacingX'].encode("utf-8")
-        icon_spacingY = request.GET['icon_spacingY'].encode("utf-8")
-        icon_paddingLeft = request.GET['icon_paddingLeft'].encode("utf-8")
-        icon_paddingRight = request.GET['icon_paddingRight'].encode("utf-8")
-
-        # 文本 5
-        text_size = request.GET['text_size'].encode("utf-8")
-        text_yfromIcon = request.GET['text_yfromIcon'].encode("utf-8")
-        text_colorR = request.GET['text_colorR'].encode("utf-8")
-        text_colorG = request.GET['text_colorG'].encode("utf-8")
-        text_colorB = request.GET['text_colorB'].encode("utf-8")
-
-        BgSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(fId)).update(
-            bt_height=bt_height,
-            bt_scale=bt_scale,
-            bt_yfromtop=bt_yfromtop,
-            bt_imgurl=bt_imgurl,
-            kuang_positionY=kuang_positionY,
-            kuang_bottomBlkHeight=kuang_bottomBlkHeight,
-            kuang_imgurl=kuang_imgurl,
-            la_scale=la_scale,
-            la_positionX=la_positionX,
-            la_positionY=la_positionY,
-            la_imgurl0=la_imgurl0,
-            la_imgurl1=la_imgurl1,
-            la_isredon=la_isredon,
-            icon_iconsWidth=icon_iconsWidth,
-            icon_iconsHeight=icon_iconsHeight,
-            icon_spacingX=icon_spacingX,
-            icon_spacingY=icon_spacingY,
-            icon_paddingRight=icon_paddingRight,
-            text_size=text_size,
-            text_yfromIcon=text_yfromIcon,
-            text_colorR=text_colorR,
-            text_colorG=text_colorG,
-            text_colorB=text_colorB,
+        BgEndModel.objects.filter(foreignkey_EndModel=int(fId)).update(
+            label_height=label_height,
+            label_scale=label_scale,
+            label_yfromtop=label_yfromtop,
+            label_imgurl=label_imgurl,
+            bg_width=bg_width,
+            bg_height=bg_height,
+            bg_positionY=bg_positionY,
+            bg_imgurl=bg_imgurl,
+            gird_iconsWidth=gird_iconsWidth,
+            gird_iconsHeight=gird_iconsHeight,
         )
         return HttpResponse(json.dumps({
             "code": 1
@@ -250,101 +210,65 @@ class SlideoverConfig(ViewHelper):
     def _BgAddData(cls, request):
         fId = request.GET.get('id').encode("utf-8")
         # 背景数据
-        # 标题 4
-        bt_height = request.GET['bt_height'].encode("utf-8")
-        bt_scale = request.GET['bt_scale'].encode("utf-8")
-        bt_yfromtop = request.GET['bt_yfromtop'].encode("utf-8")
-        bt_imgurl = request.GET['bt_imgurl'].encode("utf-8")
+        # label 4
+        label_height = request.GET['label_height'].encode("utf-8")
+        label_scale = request.GET['label_scale'].encode("utf-8")
+        label_yfromtop = request.GET['label_yfromtop'].encode("utf-8")
+        label_imgurl = request.GET['label_imgurl'].encode("utf-8")
 
-        # 框 3
-        kuang_positionY = request.GET['kuang_positionY'].encode("utf-8")
-        kuang_bottomBlkHeight = request.GET['kuang_bottomBlkHeight'].encode("utf-8")
-        kuang_imgurl = request.GET['kuang_imgurl'].encode("utf-8")
+        # bg 4
+        bg_width = request.GET['bg_width'].encode("utf-8")
+        bg_height = request.GET['bg_height'].encode("utf-8")
+        bg_positionY = request.GET['bg_positionY'].encode("utf-8")
+        bg_imgurl = request.GET['bg_imgurl'].encode("utf-8")
 
-        # 拉按钮 6
-        la_scale = request.GET['la_scale'].encode("utf-8")
-        la_positionX = request.GET['la_positionX'].encode("utf-8")
-        la_positionY = request.GET['la_positionY'].encode("utf-8")
-        la_imgurl0 = request.GET['la_imgurl0'].encode("utf-8")
-        la_imgurl1 = request.GET['la_imgurl1'].encode("utf-8")
-        la_isredon = request.GET['la_isredon'].encode("utf-8")
+        # gird 2
+        gird_iconsWidth = request.GET['gird_iconsWidth'].encode("utf-8")
+        gird_iconsHeight = request.GET['gird_iconsHeight'].encode("utf-8")
 
-        # icon布局 6
-        icon_iconsWidth = request.GET['icon_iconsWidth'].encode("utf-8")
-        icon_iconsHeight = request.GET['icon_iconsHeight'].encode("utf-8")
-        icon_spacingX = request.GET['icon_spacingX'].encode("utf-8")
-        icon_spacingY = request.GET['icon_spacingY'].encode("utf-8")
-        icon_paddingLeft = request.GET['icon_paddingLeft'].encode("utf-8")
-        icon_paddingRight = request.GET['icon_paddingRight'].encode("utf-8")
-
-        # 文本 5
-        text_size = request.GET['text_size'].encode("utf-8")
-        text_yfromIcon = request.GET['text_yfromIcon'].encode("utf-8")
-        text_colorR = request.GET['text_colorR'].encode("utf-8")
-        text_colorG = request.GET['text_colorG'].encode("utf-8")
-        text_colorB = request.GET['text_colorB'].encode("utf-8")
-
-        bgObj = BgSlideOverModel(foreignkey_labelSlideOver_id=int(fId))
-        bgObj.bt_height = bt_height
-        bgObj.bt_scale = bt_scale
-        bgObj.bt_yfromtop = bt_yfromtop
-        bgObj.bt_imgurl = bt_imgurl
-
-        bgObj.kuang_positionY = kuang_positionY
-        bgObj.kuang_bottomBlkHeight = kuang_bottomBlkHeight
-        bgObj.kuang_imgurl = kuang_imgurl
-
-        bgObj.la_scale = la_scale
-        bgObj.la_positionX = la_positionX
-        bgObj.la_positionY = la_positionY
-        bgObj.la_imgurl0 = la_imgurl0
-        bgObj.la_imgurl1 = la_imgurl1
-        bgObj.la_isredon = la_isredon
-
-        bgObj.icon_iconsWidth = icon_iconsWidth
-        bgObj.icon_iconsHeight = icon_iconsHeight
-        bgObj.icon_spacingX = icon_spacingX
-        bgObj.icon_spacingY = icon_spacingY
-        bgObj.icon_paddingLeft = icon_paddingLeft
-        bgObj.icon_paddingRight = icon_paddingRight
-
-        bgObj.text_size = text_size
-        bgObj.text_yfromIcon = text_yfromIcon
-        bgObj.text_colorR = text_colorR
-        bgObj.text_colorG = text_colorG
-        bgObj.text_colorB = text_colorB
+        bgObj = BgEndModel(foreignkey_EndModel_id=int(fId))
+        bgObj.label_height = label_height
+        bgObj.label_scale = label_scale
+        bgObj.label_yfromtop = label_yfromtop
+        bgObj.label_imgurl = label_imgurl
+        bgObj.bg_width = bg_width
+        bgObj.bg_height = bg_height
+        bgObj.bg_positionY = bg_positionY
+        bgObj.bg_imgurl = bg_imgurl
+        bgObj.gird_iconsWidth = gird_iconsWidth
+        bgObj.gird_iconsHeight = gird_iconsHeight
 
         bgObj.save()
         return HttpResponse(json.dumps({
-                    "code": 1
-                }))
+            "code": 1
+        }))
+
     @classmethod
     def handleBgLook(cls, request):
         id = request.GET.get('id')
-        basic_data = BgSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(id))
+        basic_data = BgEndModel.objects.filter(foreignkey_EndModel=int(id))
         content = {
             'data': basic_data,
             'fId': id
         }
-        return render(request, 'custom/slideoverConfig/bg/update.html', content)
+        return render(request, 'custom/endConfig/bg/update.html', content)
 
     @classmethod
     def handleBgUpdate(cls, request):
         fId = request.GET.get('id').encode("utf-8")
-        isCreate = BgSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(fId)).count()
+        isCreate = BgEndModel.objects.filter(foreignkey_EndModel=int(fId)).count()
 
         return cls._BgUpdataData(request) if isCreate else cls._BgAddData(request)
 
 
-
-class SlideoverSub(ViewHelper):
+class EndConfigSub(ViewHelper):
     @classmethod
     def handleData(cls, request):
         id = request.GET['id'].encode("utf-8")
         page = request.GET['page'].encode("utf-8")
         limit = request.GET['limit'].encode("utf-8")
         resData = []
-        allData = GameSlideOverModel.objects.filter(foreignkey_labelSlideOver=int(id))
+        allData = GameEndModel.objects.filter(foreignkey_EndModel=int(id))
         index = 1
         for _temp in allData:
             _node = {
@@ -354,6 +278,7 @@ class SlideoverSub(ViewHelper):
             }
             resData.append(_node)
             index += 1
+            print _temp.index
 
         startIndex = (int(page) - 1) * int(limit)
         if startIndex + int(limit) - 1 < len(resData):
@@ -375,7 +300,7 @@ class SlideoverSub(ViewHelper):
     def handleList(cls, request):
         id = request.GET.get('id').encode("utf-8")
         content = {'fId': id}
-        return render(request, 'custom/slideoverConfig/sub/list.html', content)
+        return render(request, 'custom/endConfig/sub/list.html', content)
 
     @classmethod
     def handleAdd(cls, request):
@@ -384,7 +309,7 @@ class SlideoverSub(ViewHelper):
             'fId': id,
             'gameChoice': game.allGame
         }
-        return render(request, 'custom/slideoverConfig/sub/add.html', content)
+        return render(request, 'custom/endConfig/sub/add.html', content)
 
     @classmethod
     def handleSave(cls, request):
@@ -403,8 +328,8 @@ class SlideoverSub(ViewHelper):
         bi_landing_page_id = request.GET['bi_landing_page_id'].encode("utf-8")
         bi_educe_game = request.GET['bi_educe_game'].encode("utf-8")
 
-        obj = SlideOverModel.objects.get(id=id)
-        gameObj = GameSlideOverModel(foreignkey_labelSlideOver=obj)
+        obj = EndModel.objects.get(id=id)
+        gameObj = GameEndModel(foreignkey_EndModel=obj)
         gameObj.index = index
         gameObj.text = text
         gameObj.type = type
@@ -425,12 +350,12 @@ class SlideoverSub(ViewHelper):
     @classmethod
     def handleLook(cls, request):
         id = request.GET.get('id')
-        basic_data = GameSlideOverModel.objects.filter(id=int(id))
+        basic_data = GameEndModel.objects.filter(id=int(id))
         content = {
             'data': basic_data,
             'gameChoice': game.allGame
         }
-        return render(request, 'custom/slideoverConfig/sub/update.html', content)
+        return render(request, 'custom/endConfig/sub/update.html', content)
 
     @classmethod
     def handleUpdate(cls, request):
@@ -449,7 +374,7 @@ class SlideoverSub(ViewHelper):
         bi_landing_page_id = request.GET['bi_landing_page_id'].encode("utf-8")
         bi_educe_game = request.GET['bi_educe_game'].encode("utf-8")
 
-        GameSlideOverModel.objects.filter(id=int(id)).update(index=index,
+        GameEndModel.objects.filter(id=int(id)).update(index=index,
                                                              text=text,
                                                              type=type,
                                                              imgLink=imgLink,
@@ -470,7 +395,7 @@ class SlideoverSub(ViewHelper):
     def handleDel(cls, request):
         id = request.GET.get('id').encode("utf-8")
 
-        GameSlideOverModel.objects.filter(id=int(id)).delete()
+        GameEndModel.objects.filter(id=int(id)).delete()
         return HttpResponse(json.dumps({
             "code": 1
         }))
@@ -480,7 +405,7 @@ class SlideoverSub(ViewHelper):
         res = {}
         idstring = request.GET.get('data').encode("utf-8")
         if idstring:
-            GameSlideOverModel.objects.extra(where=['id IN (' + idstring + ')']).delete()
+            GameEndModel.objects.extra(where=['id IN (' + idstring + ')']).delete()
             res['code'] = 1
         else:
             res['code'] = 0
@@ -492,11 +417,9 @@ class SlideoverSub(ViewHelper):
     def handleCopy(cls, request):
         id = request.GET['id'].encode("utf-8")
         # 获取子表数据
-        obj = GameSlideOverModel.objects.get(id=int(id))
+        obj = GameEndModel.objects.get(id=int(id))
         obj.id = None
         obj.save()
         return HttpResponse(json.dumps({
             "code": 1
         }))
-
-

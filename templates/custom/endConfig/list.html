@@ -10,25 +10,41 @@
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/static/css/font.css">
     <link rel="stylesheet" href="/static/css/weadmin.css">
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+	      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+	      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
 </head>
 
 <body>
+<div class="weadmin-nav">
+    <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">导流配置</a>
+        <a><cite>结束页导流</cite></a>
+    </span>
+    <a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+</div>
 <div class="weadmin-body">
     <div class="weadmin-block demoTable">
-        <button class="layui-btn layui-btn-danger" onclick=newDelAll(this,'./delAll.html','slideoverConfigTableSubId')>
+
+        <button class="layui-btn layui-btn-danger" onclick=newDelAll(this,'./delAll.html','endConfigTableId')>
             <i class="layui-icon">&#xe640;</i>选中删除
         </button>
-        <button class="layui-btn" onclick="WeAdminShow('添加目标游戏','./add.html?id={{ fId }}',900,450)">
+        <button class="layui-btn" onclick="WeAdminShow('添加结束页导流','./add.html',900,500)">
             <i class="layui-icon">&#xe608;</i>添加
         </button>
-        <a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right"
-           href="javascript:location.replace(location.href);" title="刷新">
-            <i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+
     </div>
 
-    <table id="slideoverConfigTableSubId" lay-filter="slideoverConfigTableInfoSub"></table>
+    <table id="endConfigTableId" lay-filter="endConfigTableInfo"></table>
 
-    <script type="text/html" id="barslideoverConfigTableSubId">
+    <script type="text/html" id="barendConfigTableId">
+        <a class="layui-btn layui-btn-xs" lay-event="educe">目标游戏</a>
+        <a class="layui-btn layui-btn-xs" lay-event="bg">背景参数</a>
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="copy">复制</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -43,32 +59,34 @@
         var table = layui.table;
         //第一个实例
         table.render({
-            elem: '#slideoverConfigTableSubId'
+            elem: '#endConfigTableId'
             , method: 'get'
-            , url: './data.html?id=' + {{ fId }} //数据接口
+            , url: './data.html?appid=' + sessionStorage.appid //数据接口
             , cols: [[ //表头
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'id', title: 'ID', sort: true, hide:true}
-                , {field: 'index', title: 'index', sort: true, width: 70, align: 'center'}
+                , {field: 'id', title: 'ID', sort: true, width: 70, align: 'center'}
                 , {field: 'name', title: '游戏名称', sort: true, align: 'center'}
+                , {field: 'educeGame', title: '目标游戏', sort: true, align: 'center'}
+                , {field: 'educeGameCount', title: '目标游戏数量', sort: true, align: 'center'}
+                , {field: 'modifiTime', title: '最后修改时间', sort: true, align: 'center'}
                 , {
                     fixed: 'right',
                     title: '操作',
-                    width: 200,
+                    width: 300,
                     align: 'center',
-                    toolbar: '#barslideoverConfigTableSubId',
+                    toolbar: '#barendConfigTableId',
                 }
             ]]
             , page: true
         });
 
         //监听工具条
-        table.on('tool(slideoverConfigTableInfoSub)', function (obj) {
+        table.on('tool(endConfigTableInfo)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
                 // 编辑
                 openUrl = './look.html?id=' + data.id;
-                WeAdminShow('编辑', openUrl, 900, 450)
+                WeAdminShow('编辑', openUrl, 900, 500)
             } else if (obj.event === 'del') {
                 // 删除
                 openUrl = './del.html?id=' + data.id;
@@ -77,9 +95,17 @@
                 // 复制操作
                 openUrl = './copy.html?id=' + data.id;
                 normal_copy('复制', openUrl)
+            } else if (obj.event === 'educe') {
+                // 目标游戏
+                openUrl = './sub/list.html?id=' + data.id;
+                WeAdminShow('目标游戏', openUrl, 1200, 550)
+            } else if (obj.event === 'bg') {
+                // 目标游戏
+                openUrl = './bg/look.html?id=' + data.id;
+                WeAdminShow('背景参数', openUrl, 1200, 550)
             }
         });
-
+        
     });
 </script>
 </body>
