@@ -82,7 +82,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can add group',2,'add_group'),(5,'Can change group',2,'change_group'),(6,'Can delete group',2,'delete_group'),(7,'Can add permission',3,'add_permission'),(8,'Can change permission',3,'change_permission'),(9,'Can delete permission',3,'delete_permission'),(10,'Can add user',4,'add_user'),(11,'Can change user',4,'change_user'),(12,'Can delete user',4,'delete_user'),(13,'Can add content type',5,'add_contenttype'),(14,'Can change content type',5,'change_contenttype'),(15,'Can delete content type',5,'delete_contenttype'),(16,'Can add session',6,'add_session'),(17,'Can change session',6,'change_session'),(18,'Can delete session',6,'delete_session'),(19,'Can add 框',7,'add_bgslideovermodel'),(20,'Can change 框',7,'change_bgslideovermodel'),(21,'Can delete 框',7,'delete_bgslideovermodel'),(22,'Can add Icon布局',8,'add_gridslideovermodel'),(23,'Can change Icon布局',8,'change_gridslideovermodel'),(24,'Can delete Icon布局',8,'delete_gridslideovermodel'),(25,'Can add 位置设定',9,'add_positionmodel'),(26,'Can change 位置设定',9,'change_positionmodel'),(27,'Can delete 位置设定',9,'delete_positionmodel'),(28,'Can add 侧拉框',10,'add_slideovermodel'),(29,'Can change 侧拉框',10,'change_slideovermodel'),(30,'Can delete 侧拉框',10,'delete_slideovermodel'),(31,'Can add 拉按钮',11,'add_pullslideovermodel'),(32,'Can change 拉按钮',11,'change_pullslideovermodel'),(33,'Can delete 拉按钮',11,'delete_pullslideovermodel'),(34,'Can add 导出游戏',12,'add_gameslideovermodel'),(35,'Can change 导出游戏',12,'change_gameslideovermodel'),(36,'Can delete 导出游戏',12,'delete_gameslideovermodel'),(37,'Can add 导出游戏',13,'add_gameiconswitchmodel'),(38,'Can change 导出游戏',13,'change_gameiconswitchmodel'),(39,'Can delete 导出游戏',13,'delete_gameiconswitchmodel'),(40,'Can add 导流条',14,'add_stripmodel'),(41,'Can change 导流条',14,'change_stripmodel'),(42,'Can delete 导流条',14,'delete_stripmodel'),(43,'Can add Icon切换',15,'add_iconswitchmodel'),(44,'Can change Icon切换',15,'change_iconswitchmodel'),(45,'Can delete Icon切换',15,'delete_iconswitchmodel'),(46,'Can add 标题',16,'add_labelslideovermodel'),(47,'Can change 标题',16,'change_labelslideovermodel'),(48,'Can delete 标题',16,'delete_labelslideovermodel'),(49,'Can add 导出游戏',17,'add_gamestripmodel'),(50,'Can change 导出游戏',17,'change_gamestripmodel'),(51,'Can delete 导出游戏',17,'delete_gamestripmodel'),(52,'Can add 文本',18,'add_textslideovermodel'),(53,'Can change 文本',18,'change_textslideovermodel'),(54,'Can delete 文本',18,'delete_textslideovermodel'),(55,'Can add 文件上传',19,'add_uploadmodel'),(56,'Can change 文件上传',19,'change_uploadmodel'),(57,'Can delete 文件上传',19,'delete_uploadmodel');
+INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can add group',2,'add_group'),(5,'Can change group',2,'change_group'),(6,'Can delete group',2,'delete_group'),(7,'Can add permission',3,'add_permission'),(8,'Can change permission',3,'change_permission'),(9,'Can delete permission',3,'delete_permission'),(10,'Can add user',4,'add_user'),(11,'Can change user',4,'change_user'),(12,'Can delete user',4,'delete_user'),(13,'Can add content type',5,'add_contenttype'),(14,'Can change content type',5,'change_contenttype'),(15,'Can delete content type',5,'delete_contenttype'),(16,'Can add session',6,'add_session'),(17,'Can change session',6,'change_session'),(18,'Can delete session',6,'delete_session'),(19,'Can add 框',7,'add_bgslideovermodel'),(20,'Can change 框',7,'change_bgslideovermodel'),(21,'Can delete 框',7,'delete_bgslideovermodel'),(22,'Can add Icon布局',8,'add_gridslideovermodel'),(23,'Can change Icon布局',8,'change_gridslideovermodel'),(24,'Can delete Icon布局',8,'delete_gridslideovermodel'),(25,'Can add 位置设定',9,'add_positionmodel'),(26,'Can change 位置设定',9,'change_positionmodel'),(27,'Can delete 位置设定',9,'delete_positionmodel'),(28,'Can add 侧拉框',10,'add_slideovermodel'),(29,'Can change 侧拉框',10,'change_slideovermodel'),(30,'Can delete 侧拉框',10,'delete_slideovermodel'),(31,'Can add 拉按钮',11,'add_pullslideovermodel'),(32,'Can change 拉按钮',11,'change_pullslideovermodel'),(33,'Can delete 拉按钮',11,'delete_pullslideovermodel'),(34,'Can add 导出游戏',12,'add_gameslideovermodel'),(35,'Can change 导出游戏',12,'change_gameslideovermodel'),(36,'Can delete 导出游戏',12,'delete_gameslideovermodel'),(37,'Can add 导出游戏',13,'add_gameiconswitchmodel'),(38,'Can change 导出游戏',13,'change_gameiconswitchmodel'),(39,'Can delete 导出游戏',13,'delete_gameiconswitchmodel'),(40,'Can add 导流条',14,'add_stripmodel'),(41,'Can change 导流条',14,'change_stripmodel'),(42,'Can delete 导流条',14,'delete_stripmodel'),(43,'Can add Icon切换',15,'add_iconswitchmodel'),(44,'Can change Icon切换',15,'change_iconswitchmodel'),(45,'Can delete Icon切换',15,'delete_iconswitchmodel'),(46,'Can add 标题',16,'add_labelslideovermodel'),(47,'Can change 标题',16,'change_labelslideovermodel'),(48,'Can delete 标题',16,'delete_labelslideovermodel'),(49,'Can add 导出游戏',17,'add_gamestripmodel'),(50,'Can change 导出游戏',17,'change_gamestripmodel'),(51,'Can delete 导出游戏',17,'delete_gamestripmodel'),(52,'Can add 文本',18,'add_textslideovermodel'),(53,'Can change 文本',18,'change_textslideovermodel'),(54,'Can delete 文本',18,'delete_textslideovermodel'),(55,'Can add 文件上传',19,'add_uploadmodel'),(56,'Can change 文件上传',19,'change_uploadmodel'),(57,'Can delete 文件上传',19,'delete_uploadmodel'),(58,'Can add 游戏配置',20,'add_gameinfomodel'),(59,'Can change 游戏配置',20,'change_gameinfomodel'),(60,'Can delete 游戏配置',20,'delete_gameinfomodel'),(61,'Can add 结算页',21,'add_endmodel'),(62,'Can change 结算页',21,'change_endmodel'),(63,'Can delete 结算页',21,'delete_endmodel'),(64,'Can add 导出游戏',22,'add_gameendmodel'),(65,'Can change 导出游戏',22,'change_gameendmodel'),(66,'Can delete 导出游戏',22,'delete_gameendmodel'),(67,'Can add 背景参数',23,'add_bgendmodel'),(68,'Can change 背景参数',23,'change_bgendmodel'),(69,'Can delete 背景参数',23,'delete_bgendmodel');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +125,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$36000$5SRqxM2sdoct$ByWt6OiUo0gDI7+f8Ry/KQ9wKmW8HoDZqbTlPINXgkM=','2019-03-25 15:37:30.532022',1,'admin','','','',1,1,'2019-03-05 19:38:09.369911'),(2,'pbkdf2_sha256$36000$Al9dXOAz9CVE$OS5ODgyPSO/p2Q4rgc/lCCxF8xLtuSiwu21A+eaJ824=','2019-03-29 17:53:55.804946',0,'yu','','','',1,1,'2019-03-05 19:47:00.000000'),(3,'pbkdf2_sha256$36000$iYvFc03cbvlm$/jZZHKHoWugWUnTyGtkaMPKPyBPjveAizjhPFEf3QGo=','2019-03-08 11:04:00.000000',0,'cuijiuling','','','',1,1,'2019-03-08 11:03:00.000000');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$36000$5SRqxM2sdoct$ByWt6OiUo0gDI7+f8Ry/KQ9wKmW8HoDZqbTlPINXgkM=','2019-04-22 15:42:24.954411',1,'admin','','','',1,1,'2019-03-05 19:38:09.369911'),(2,'pbkdf2_sha256$36000$Al9dXOAz9CVE$OS5ODgyPSO/p2Q4rgc/lCCxF8xLtuSiwu21A+eaJ824=','2019-03-29 17:53:55.804946',0,'yu','','','',1,1,'2019-03-05 19:47:00.000000'),(3,'pbkdf2_sha256$36000$iYvFc03cbvlm$/jZZHKHoWugWUnTyGtkaMPKPyBPjveAizjhPFEf3QGo=','2019-03-08 11:04:00.000000',0,'cuijiuling','','','',1,1,'2019-03-08 11:03:00.000000');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,7 +233,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,7 +242,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(2,'auth','group'),(3,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(7,'oriented','bgslideovermodel'),(13,'oriented','gameiconswitchmodel'),(12,'oriented','gameslideovermodel'),(17,'oriented','gamestripmodel'),(8,'oriented','gridslideovermodel'),(15,'oriented','iconswitchmodel'),(16,'oriented','labelslideovermodel'),(9,'oriented','positionmodel'),(11,'oriented','pullslideovermodel'),(10,'oriented','slideovermodel'),(14,'oriented','stripmodel'),(18,'oriented','textslideovermodel'),(6,'sessions','session'),(19,'upload','uploadmodel');
+INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(2,'auth','group'),(3,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(20,'gameInfo','gameinfomodel'),(23,'oriented','bgendmodel'),(7,'oriented','bgslideovermodel'),(21,'oriented','endmodel'),(22,'oriented','gameendmodel'),(13,'oriented','gameiconswitchmodel'),(12,'oriented','gameslideovermodel'),(17,'oriented','gamestripmodel'),(8,'oriented','gridslideovermodel'),(15,'oriented','iconswitchmodel'),(16,'oriented','labelslideovermodel'),(9,'oriented','positionmodel'),(11,'oriented','pullslideovermodel'),(10,'oriented','slideovermodel'),(14,'oriented','stripmodel'),(18,'oriented','textslideovermodel'),(6,'sessions','session'),(19,'upload','uploadmodel');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,7 +259,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -268,7 +268,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2019-03-05 19:37:55.844192'),(2,'auth','0001_initial','2019-03-05 19:37:56.281583'),(3,'admin','0001_initial','2019-03-05 19:37:56.382983'),(4,'admin','0002_logentry_remove_auto_add','2019-03-05 19:37:56.421355'),(5,'contenttypes','0002_remove_content_type_name','2019-03-05 19:37:56.542307'),(6,'auth','0002_alter_permission_name_max_length','2019-03-05 19:37:56.607767'),(7,'auth','0003_alter_user_email_max_length','2019-03-05 19:37:56.671983'),(8,'auth','0004_alter_user_username_opts','2019-03-05 19:37:56.704269'),(9,'auth','0005_alter_user_last_login_null','2019-03-05 19:37:56.782362'),(10,'auth','0006_require_contenttypes_0002','2019-03-05 19:37:56.786369'),(11,'auth','0007_alter_validators_add_error_messages','2019-03-05 19:37:56.812773'),(12,'auth','0008_alter_user_username_max_length','2019-03-05 19:37:56.888525'),(13,'oriented','0001_initial','2019-03-05 19:37:57.256974'),(14,'oriented','0002_remove_gameiconswitchmodel_index','2019-03-05 19:37:57.294461'),(15,'oriented','0003_auto_20190227_1216','2019-03-05 19:37:58.044739'),(16,'oriented','0004_auto_20190305_1937','2019-03-05 19:37:58.102287'),(17,'sessions','0001_initial','2019-03-05 19:37:58.141236'),(18,'oriented','0002_auto_20190307_1635','2019-03-07 16:35:58.724108'),(19,'oriented','0002_auto_20190307_1644','2019-03-07 16:45:45.352271'),(20,'oriented','0002_auto_20190307_1738','2019-03-07 17:39:10.680678'),(21,'oriented','0003_auto_20190307_1740','2019-03-07 17:40:55.205147'),(22,'oriented','0004_auto_20190307_2124','2019-03-07 21:24:21.294519'),(23,'oriented','0005_auto_20190308_1049','2019-03-08 10:49:07.856572'),(24,'oriented','0006_auto_20190309_1704','2019-03-09 17:04:21.182551'),(25,'oriented','0007_auto_20190309_1824','2019-03-09 18:24:38.836011'),(26,'oriented','0008_auto_20190309_1830','2019-03-09 18:30:56.364144'),(27,'oriented','0009_auto_20190311_1630','2019-03-11 16:30:17.605595'),(28,'oriented','0010_auto_20190312_2155','2019-03-12 21:55:37.866702'),(29,'upload','0001_initial','2019-03-13 19:02:20.550389'),(30,'oriented','0011_auto_20190315_1157','2019-03-15 11:58:03.069731');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2019-03-05 19:37:55.844192'),(2,'auth','0001_initial','2019-03-05 19:37:56.281583'),(3,'admin','0001_initial','2019-03-05 19:37:56.382983'),(4,'admin','0002_logentry_remove_auto_add','2019-03-05 19:37:56.421355'),(5,'contenttypes','0002_remove_content_type_name','2019-03-05 19:37:56.542307'),(6,'auth','0002_alter_permission_name_max_length','2019-03-05 19:37:56.607767'),(7,'auth','0003_alter_user_email_max_length','2019-03-05 19:37:56.671983'),(8,'auth','0004_alter_user_username_opts','2019-03-05 19:37:56.704269'),(9,'auth','0005_alter_user_last_login_null','2019-03-05 19:37:56.782362'),(10,'auth','0006_require_contenttypes_0002','2019-03-05 19:37:56.786369'),(11,'auth','0007_alter_validators_add_error_messages','2019-03-05 19:37:56.812773'),(12,'auth','0008_alter_user_username_max_length','2019-03-05 19:37:56.888525'),(13,'oriented','0001_initial','2019-03-05 19:37:57.256974'),(14,'oriented','0002_remove_gameiconswitchmodel_index','2019-03-05 19:37:57.294461'),(15,'oriented','0003_auto_20190227_1216','2019-03-05 19:37:58.044739'),(16,'oriented','0004_auto_20190305_1937','2019-03-05 19:37:58.102287'),(17,'sessions','0001_initial','2019-03-05 19:37:58.141236'),(18,'oriented','0002_auto_20190307_1635','2019-03-07 16:35:58.724108'),(19,'oriented','0002_auto_20190307_1644','2019-03-07 16:45:45.352271'),(20,'oriented','0002_auto_20190307_1738','2019-03-07 17:39:10.680678'),(21,'oriented','0003_auto_20190307_1740','2019-03-07 17:40:55.205147'),(22,'oriented','0004_auto_20190307_2124','2019-03-07 21:24:21.294519'),(23,'oriented','0005_auto_20190308_1049','2019-03-08 10:49:07.856572'),(24,'oriented','0006_auto_20190309_1704','2019-03-09 17:04:21.182551'),(25,'oriented','0007_auto_20190309_1824','2019-03-09 18:24:38.836011'),(26,'oriented','0008_auto_20190309_1830','2019-03-09 18:30:56.364144'),(27,'oriented','0009_auto_20190311_1630','2019-03-11 16:30:17.605595'),(28,'oriented','0010_auto_20190312_2155','2019-03-12 21:55:37.866702'),(29,'upload','0001_initial','2019-03-13 19:02:20.550389'),(30,'oriented','0011_auto_20190315_1157','2019-03-15 11:58:03.069731'),(31,'gameInfo','0001_initial','2019-04-23 17:52:25.360125'),(32,'oriented','0012_auto_20190423_1752','2019-04-23 17:52:42.824195'),(33,'upload','0002_auto_20190423_1752','2019-04-23 17:52:42.870260'),(34,'oriented','0013_auto_20190429_1718','2019-04-29 17:18:44.271058');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,8 +294,71 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('2agmkp99kqlp1329n04rgcrsg63hmvqz','NGRmZTQ4ZGFhMTcxODBkNWY0OWRlZGY3Y2FlODFjM2VjMTUzYTU0Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjUwMjY5OTc3MGQ1YTE4OWY5OGY3YjZlNTlhY2QxN2FlYmI2YzIyYWYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2019-03-19 20:09:15.218379'),('9w88vwuv61pmhvn3n565amtbql14awex','MjIyMWQxYWFkYTZkODVjZDBjODA5NTQ1YWFmNzJmYzBhYWEwMjQ0Nzp7Il9hdXRoX3VzZXJfaGFzaCI6IjcyOWZmMjZlNDk4MTgzZmNkYTZhZTUwOTBkOWVjN2ZiZTFmYmMzNzUiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0=','2019-04-12 17:53:55.814081'),('h0rfvw2kgigougdt97fm3yea8xktlxdp','NGRmZTQ4ZGFhMTcxODBkNWY0OWRlZGY3Y2FlODFjM2VjMTUzYTU0Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjUwMjY5OTc3MGQ1YTE4OWY5OGY3YjZlNTlhY2QxN2FlYmI2YzIyYWYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2019-04-08 15:37:30.541576'),('myganmp67d2rnr6xhlkj4d5e5h6n5x0v','NGRmZTQ4ZGFhMTcxODBkNWY0OWRlZGY3Y2FlODFjM2VjMTUzYTU0Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjUwMjY5OTc3MGQ1YTE4OWY5OGY3YjZlNTlhY2QxN2FlYmI2YzIyYWYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2019-03-29 15:47:52.929315'),('uu1vrxhny4nm48zor4d9q48e5gbmjdyf','MzQ5NTlmNjg2YTViZWYwYTkwZmYwZDgwNzdkMDdmZDE0MDY2YjE5YTp7Il9hdXRoX3VzZXJfaGFzaCI6IjEyNmQ3N2U0N2MwOTVlNjJmOTBjYTZmZjkzZjYxMTZiNWQ0Mzg1MjkiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIzIn0=','2019-03-22 11:04:09.630616'),('xwepqqv3t7knc4qj0a9mui67sr0vqhbc','NGRmZTQ4ZGFhMTcxODBkNWY0OWRlZGY3Y2FlODFjM2VjMTUzYTU0Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjUwMjY5OTc3MGQ1YTE4OWY5OGY3YjZlNTlhY2QxN2FlYmI2YzIyYWYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2019-03-20 10:37:49.057191');
+INSERT INTO `django_session` VALUES ('2agmkp99kqlp1329n04rgcrsg63hmvqz','NGRmZTQ4ZGFhMTcxODBkNWY0OWRlZGY3Y2FlODFjM2VjMTUzYTU0Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjUwMjY5OTc3MGQ1YTE4OWY5OGY3YjZlNTlhY2QxN2FlYmI2YzIyYWYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2019-03-19 20:09:15.218379'),('4vvmdnpxzjsxm13c09hycifph91ji38z','NGRmZTQ4ZGFhMTcxODBkNWY0OWRlZGY3Y2FlODFjM2VjMTUzYTU0Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjUwMjY5OTc3MGQ1YTE4OWY5OGY3YjZlNTlhY2QxN2FlYmI2YzIyYWYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2019-04-15 16:19:11.372085'),('b9hh6g8676czb880zyhhz1l09tcfpvpq','NGRmZTQ4ZGFhMTcxODBkNWY0OWRlZGY3Y2FlODFjM2VjMTUzYTU0Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjUwMjY5OTc3MGQ1YTE4OWY5OGY3YjZlNTlhY2QxN2FlYmI2YzIyYWYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2019-05-03 09:48:36.075691'),('fsnwpyu0am020y246jhw56mkwi22uluc','NGRmZTQ4ZGFhMTcxODBkNWY0OWRlZGY3Y2FlODFjM2VjMTUzYTU0Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjUwMjY5OTc3MGQ1YTE4OWY5OGY3YjZlNTlhY2QxN2FlYmI2YzIyYWYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2019-04-25 18:30:08.153222'),('h0rfvw2kgigougdt97fm3yea8xktlxdp','NGRmZTQ4ZGFhMTcxODBkNWY0OWRlZGY3Y2FlODFjM2VjMTUzYTU0Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjUwMjY5OTc3MGQ1YTE4OWY5OGY3YjZlNTlhY2QxN2FlYmI2YzIyYWYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2019-04-08 15:37:30.541576'),('hon2ap6ydiiog80i1fk1dptdzq4adeda','NGRmZTQ4ZGFhMTcxODBkNWY0OWRlZGY3Y2FlODFjM2VjMTUzYTU0Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjUwMjY5OTc3MGQ1YTE4OWY5OGY3YjZlNTlhY2QxN2FlYmI2YzIyYWYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2019-05-06 15:42:24.994720'),('myganmp67d2rnr6xhlkj4d5e5h6n5x0v','NGRmZTQ4ZGFhMTcxODBkNWY0OWRlZGY3Y2FlODFjM2VjMTUzYTU0Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjUwMjY5OTc3MGQ1YTE4OWY5OGY3YjZlNTlhY2QxN2FlYmI2YzIyYWYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2019-03-29 15:47:52.929315'),('uu1vrxhny4nm48zor4d9q48e5gbmjdyf','MzQ5NTlmNjg2YTViZWYwYTkwZmYwZDgwNzdkMDdmZDE0MDY2YjE5YTp7Il9hdXRoX3VzZXJfaGFzaCI6IjEyNmQ3N2U0N2MwOTVlNjJmOTBjYTZmZjkzZjYxMTZiNWQ0Mzg1MjkiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIzIn0=','2019-03-22 11:04:09.630616'),('xwepqqv3t7knc4qj0a9mui67sr0vqhbc','NGRmZTQ4ZGFhMTcxODBkNWY0OWRlZGY3Y2FlODFjM2VjMTUzYTU0Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjUwMjY5OTc3MGQ1YTE4OWY5OGY3YjZlNTlhY2QxN2FlYmI2YzIyYWYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2019-03-20 10:37:49.057191'),('zt94rj9l85r83gfuicfwbqs6dcqd2cxj','NGRmZTQ4ZGFhMTcxODBkNWY0OWRlZGY3Y2FlODFjM2VjMTUzYTU0Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjUwMjY5OTc3MGQ1YTE4OWY5OGY3YjZlNTlhY2QxN2FlYmI2YzIyYWYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=','2019-05-01 18:03:10.649200');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `gameInfo_gameinfomodel`
+--
+
+DROP TABLE IF EXISTS `gameInfo_gameinfomodel`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `gameInfo_gameinfomodel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `game_id` int(10) unsigned NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `wxAppid` varchar(21) NOT NULL,
+  `socket_url` int(10) unsigned NOT NULL,
+  `inner_game` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `gameInfo_gameinfomodel`
+--
+
+LOCK TABLES `gameInfo_gameinfomodel` WRITE;
+/*!40000 ALTER TABLE `gameInfo_gameinfomodel` DISABLE KEYS */;
+INSERT INTO `gameInfo_gameinfomodel` VALUES (1,309,'旅行小西瓜','wx81319a080b7919e2',1,1),(2,20037,'祖玛弹球','wx81df03575e1e351f',1,1),(3,106,'疯狂枪手','wxaa5c62c26ee49681',0,1),(4,6,'富豪斗地主','wxbfebdafc2fc60b54',0,1),(5,301,'新俄罗斯2048','wxbb777fbea1e15f52',1,1),(6,20081,'十字消消消','wxb1d95fb6ebaf04eb',1,1),(7,20100,'2048合并','wx9f3847ace08e2ef0',1,1),(8,20111,'欢乐钓鱼大师','wx57f49f44206958e6',1,1),(9,302,'经典俄罗斯2048','wxf1e6cc8e12d25d1f',1,1),(10,110,'天天狙击','wx6a9fc3d2c62410d8',0,1),(11,115,'双枪王者','wx824d94ce511885ad',0,1),(12,108,'数字消消乐2','wxb082d51f37021fac',0,1),(13,20180,'欢乐挖矿大师','wxe28531ea9f8164dc',1,1),(14,20178,'碰撞球球','wx3e051a032d2386e9',1,1),(15,6,'单机斗地主','wxc1b648fc2fbc7ce8',1,1),(16,20136,'球球大消除','wx160e205dd45116c4',1,1),(17,20205,'3D球球打砖块','wxde9361a6865997fc',1,1),(18,20232,'疯狂斧头','wxd7062438a8b82506',1,1),(19,127,'合到8','wx352edabae2ef7a26',0,1),(20,125,'合并三国','wxca71cd422b7fa67c',0,1),(21,20241,'欢乐切水果大师','wxa3855d93c407a5b6',1,1),(22,20288,'欢乐涂色大师','wx950f5176e1d4ea9c',1,1),(23,128,'飞刀对战','wx2ff277bf28f5b970',0,1),(24,20287,'3D涂色迷宫','wx234bfd171f00b4fc',1,1),(25,20299,'3D割草大师','wxb7cb93eb49278934',1,1),(26,20235,'俄罗斯方块消除传奇','wx7a2ecd52309f2466',1,1),(27,0,'天天游乐场','wx1668490543c6bae9',9999,0),(28,0,'途游斗地主','wx785e80cff6120de5',9999,0),(29,0,'传奇来了','wx79ade44c39cefc7f',9999,0),(30,0,'世界争霸','wxe11c116fc919cca1',9999,0),(31,0,'龙城战歌','wx533d91264e8c999c',9999,0),(32,0,'俄罗斯方块拼图','wx45e02fc734c7b568',9999,0),(33,0,'欢乐途游麻将','wxe46bd15fcbb4f829',9999,0),(34,0,'途游休闲捕鱼','wx30efe34580243475',9999,0),(35,0,'途游四川麻将','wxa9b801abd43333d9',9999,0),(36,0,'途游捕鱼','wx4806f332084cae85',9999,0),(37,0,'3D战警','wx7cc3368d8ea0ed18',9999,0),(38,0,'西部射杀','wx85e9ff1a243bd54c',9999,0),(39,0,'王国无敌','wx656cf75188e899bf',9999,0),(40,0,'搭木板','wxe20385ecec37a61d',9999,0),(41,0,'欢乐加1','wxd9dac6412c7dab7b',9999,0),(42,0,'数字三消','wx9bb2c795e0a6cc26',9999,0),(43,0,'2048六角消除','wxb92d4d650d51eda8',9999,0),(44,0,'星星萌翻天','wx9b028af0bedc1ea7',9999,0),(45,0,'玩爆2048','wx38ba6e1a02228283',9999,0),(46,0,'枪手来了','wx760b441f8a68d7c6',9999,0),(47,0,'球球飞车','wx148b43768fd2f0c8',9999,0),(48,0,'大海王','wx720172c3c7b560c5',9999,0),(49,0,'战神录','wx30b605819c95270b',9999,0),(50,0,'沙城战神','wx7243aa518129131d',9999,0),(51,0,'左右冲鸭','wx6ae9fecf13de0423',9999,0),(52,0,'挪车大师','wxd82849dc23eb4ac0',9999,0),(53,0,'数字泡泡','wxdb030d1934b15d67',9999,0),(54,0,'途游游戏','wx4b05395b61fd2aaf',9999,0);
+/*!40000 ALTER TABLE `gameInfo_gameinfomodel` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `oriented_bgendmodel`
+--
+
+DROP TABLE IF EXISTS `oriented_bgendmodel`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oriented_bgendmodel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `label_height` double NOT NULL,
+  `label_scale` double NOT NULL,
+  `label_yfromtop` double NOT NULL,
+  `label_imgurl` varchar(512) NOT NULL,
+  `bg_width` double NOT NULL,
+  `bg_height` double NOT NULL,
+  `bg_positionY` double NOT NULL,
+  `bg_imgurl` varchar(512) NOT NULL,
+  `gird_iconsWidth` double NOT NULL,
+  `gird_iconsHeight` double NOT NULL,
+  `foreignkey_EndModel_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `foreignkey_EndModel_id` (`foreignkey_EndModel_id`),
+  CONSTRAINT `oriented_bgendmodel_foreignkey_EndModel__30669173_fk_oriented_` FOREIGN KEY (`foreignkey_EndModel_id`) REFERENCES `oriented_endmodel` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `oriented_bgendmodel`
+--
+
+LOCK TABLES `oriented_bgendmodel` WRITE;
+/*!40000 ALTER TABLE `oriented_bgendmodel` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oriented_bgendmodel` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -348,6 +411,76 @@ LOCK TABLES `oriented_bgslideovermodel` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `oriented_endmodel`
+--
+
+DROP TABLE IF EXISTS `oriented_endmodel`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oriented_endmodel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `game_id` int(10) unsigned NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `socket_url` int(10) unsigned NOT NULL,
+  `switch` int(10) unsigned NOT NULL,
+  `reddot` varchar(512) NOT NULL,
+  `viewAdCounts` int(10) unsigned NOT NULL,
+  `create_time` datetime(6) NOT NULL,
+  `modifi_time` datetime(6) NOT NULL,
+  `user` varchar(255) DEFAULT NULL,
+  `online_modifi_time` datetime(6) DEFAULT NULL,
+  `online_user` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `oriented_endmodel`
+--
+
+LOCK TABLES `oriented_endmodel` WRITE;
+/*!40000 ALTER TABLE `oriented_endmodel` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oriented_endmodel` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `oriented_gameendmodel`
+--
+
+DROP TABLE IF EXISTS `oriented_gameendmodel`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oriented_gameendmodel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `index` int(10) unsigned NOT NULL,
+  `text` varchar(512) NOT NULL,
+  `type` tinyint(1) NOT NULL,
+  `imgLink` varchar(512) NOT NULL,
+  `openType` tinyint(1) NOT NULL,
+  `openUrl` varchar(20) NOT NULL,
+  `isredon` tinyint(1) NOT NULL,
+  `topath` varchar(512) NOT NULL,
+  `bi_iconId` varchar(255) NOT NULL,
+  `bi_landing_page` varchar(512) NOT NULL,
+  `bi_landing_page_id` varchar(255) NOT NULL,
+  `bi_educe_game` varchar(255) NOT NULL,
+  `foreignkey_EndModel_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `oriented_gameendmode_foreignkey_EndModel__2535f93c_fk_oriented_` (`foreignkey_EndModel_id`),
+  CONSTRAINT `oriented_gameendmode_foreignkey_EndModel__2535f93c_fk_oriented_` FOREIGN KEY (`foreignkey_EndModel_id`) REFERENCES `oriented_endmodel` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `oriented_gameendmodel`
+--
+
+LOCK TABLES `oriented_gameendmodel` WRITE;
+/*!40000 ALTER TABLE `oriented_gameendmodel` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oriented_gameendmodel` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `oriented_gameiconswitchmodel`
 --
 
@@ -371,7 +504,7 @@ CREATE TABLE `oriented_gameiconswitchmodel` (
   PRIMARY KEY (`id`),
   KEY `oriented_gameiconswi_foreignkey_iconswitc_36b6aa0d_fk_oriented_` (`foreignkey_iconswitch_id`),
   CONSTRAINT `oriented_gameiconswi_foreignkey_iconswitc_36b6aa0d_fk_oriented_` FOREIGN KEY (`foreignkey_iconswitch_id`) REFERENCES `oriented_iconswitchmodel` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -443,7 +576,7 @@ CREATE TABLE `oriented_gamestripmodel` (
   PRIMARY KEY (`id`),
   KEY `oriented_gamestripmo_foreignkey_strip_id_84d6bc83_fk_oriented_` (`foreignkey_strip_id`),
   CONSTRAINT `oriented_gamestripmo_foreignkey_strip_id_84d6bc83_fk_oriented_` FOREIGN KEY (`foreignkey_strip_id`) REFERENCES `oriented_stripmodel` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -452,7 +585,7 @@ CREATE TABLE `oriented_gamestripmodel` (
 
 LOCK TABLES `oriented_gamestripmodel` WRITE;
 /*!40000 ALTER TABLE `oriented_gamestripmodel` DISABLE KEYS */;
-INSERT INTO `oriented_gamestripmodel` VALUES (1,0,'wxaa5c62c26ee49681','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/qiangshou.png','?from=3Dtsmg&togame=fkqs',0,'1512','https://sanxqn.nalrer.cn/tysanxiao/linkImages/1.png','728','fkqs',1),(2,3,'wx57f49f44206958e6','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/diaoyu.png','?from=3Dtsmg&togame=hldyds',0,'1515','https://sanxqn.nalrer.cn/tysanxiao/happyfishmaster/linkpage.jpg','729','hldyds',1),(3,9,'wx656cf75188e899bf','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/wudi.png','?from=3Dtsmg&togame=wgwd',0,'1521','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/wgwd.jpg','734','wgwd',1),(4,8,'wxd7062438a8b82506','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/fkft.png','?from=3Dtsmg&togame=fkft',0,'1523','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/GameBox6.jpg','736','fkft',1),(5,6,'wx30efe34580243475','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/tyxxbuyu.png','?from=3Dtsmg&togame=tyxxby',0,'1519','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/tyxxbuyu.jpg','737','tyxxby',1),(6,2,'wx7a2ecd52309f2466','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/russiaxccq.png','?from=3Dtsmg&togame=elsfkxccq',0,'1516','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/GameBox11.jpg','730','elsfkxccq',1),(7,1,'wxa3855d93c407a5b6','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/hlqsg.png','?from=3Dtsmg&togame=hlqsgds',0,'1517','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/GameBox9.jpg','731','hlqsgds',1),(8,5,'wx81df03575e1e351f','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/zumatq.png','?from=3Dtsmg&togame=zmtq',0,'1520','https://sanxqn.nalrer.cn/tysanxiao/linkImages/zuma.png','733','zmtq',1),(9,4,'wxde9361a6865997fc','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/3Dqq.png','?from=3Dtsmg&togame=3Dqqdzk',0,'1518','https://sanxqn.nalrer.cn/tysanxiao/fireball/linkimg_3D.png','732','3Dqqdzk',1),(10,7,'wxdb030d1934b15d67','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/szpp.png','?from=3Dtsmg&togame=szpp',0,'1522','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/szpp1.jpg','735','szpp',1),(11,2,'wx57f49f44206958e6','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/diaoyu.png','?from=zmtq&togame=hldyds',0,'836','https://sanxqn.nalrer.cn/tysanxiao/happyfishmaster/linkpage.jpg','200','hldyds',2),(12,3,'wxde9361a6865997fc','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/3Dqq.png','?from=zmtq&togame=3Dqqdzk',0,'914','https://sanxqn.nalrer.cn/tysanxiao/fireball/linkimg_3D.png','431','3Dqqdzk',2),(13,6,'wxbb777fbea1e15f52','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/newrussia2048.png','?from=zmtq&togame=newussia2048',0,'838','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/7.jpg','012','newussia2048',2),(14,1,'wx7a2ecd52309f2466','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/russiaxccq.png','?from=zmtq&togame=elsfkxccq',0,'1167','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/GameBox6.jpg','561','elsfkxccq',2),(15,8,'wx656cf75188e899bf','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/wudi.png','?from=zmtq&togame=wgwd',0,'841','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/wgwd.jpg','384','wgwd',2),(16,9,'wx4806f332084cae85','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/buyu.png','?from=zmtq&togame=tyby',0,'842','https://sanxqn.nalrer.cn/tysanxiao/linkImages/tyby.png','385','tyby',2),(17,4,'wxa3855d93c407a5b6','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/hlqsg.png','?from=zmtq&togame=hlqsgds',0,'1286','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/snipe_1.jpg','634','hlqsgds',2),(18,5,'wxdb030d1934b15d67','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/szpp.png','?from=zmtq&togame=szpp',0,'1573','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/szpp1.jpg','749','szpp',2),(19,7,'wx30b605819c95270b','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/zsl_1.png','?from=zmtq&togame=zhanshenlu',0,'1185','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/zsl_zuma.png','571','zhanshenlu',2),(20,0,'wxaa5c62c26ee49681','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/qiangshou.png','?from=zmtq&togame=fkqs',0,'357','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/fkqsldy.png','099','fkqs',2);
+INSERT INTO `oriented_gamestripmodel` VALUES (1,0,'wxaa5c62c26ee49681','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/qiangshou.png','?from=3Dtsmg&togame=fkqs',0,'1512','https://sanxqn.nalrer.cn/tysanxiao/linkImages/1.png','728','fkqs',1),(2,3,'wx57f49f44206958e6','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/diaoyu.png','?from=3Dtsmg&togame=hldyds',0,'1515','https://sanxqn.nalrer.cn/tysanxiao/happyfishmaster/linkpage.jpg','729','hldyds',1),(3,9,'wx656cf75188e899bf','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/wudi.png','?from=3Dtsmg&togame=wgwd',0,'1521','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/wgwd.jpg','734','wgwd',1),(4,8,'wxd7062438a8b82506','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/fkft.png','?from=3Dtsmg&togame=fkft',0,'1523','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/GameBox6.jpg','736','fkft',1),(5,6,'wx30efe34580243475','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/tyxxbuyu.png','?from=3Dtsmg&togame=tyxxby',0,'1519','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/tyxxbuyu.jpg','737','tyxxby',1),(6,2,'wx7a2ecd52309f2466','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/russiaxccq.png','?from=3Dtsmg&togame=elsfkxccq',0,'1516','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/GameBox11.jpg','730','elsfkxccq',1),(7,1,'wxa3855d93c407a5b6','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/hlqsg.png','?from=3Dtsmg&togame=hlqsgds',0,'1517','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/GameBox9.jpg','731','hlqsgds',1),(8,5,'wx81df03575e1e351f','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/zumatq.png','?from=3Dtsmg&togame=zmtq',0,'1520','https://sanxqn.nalrer.cn/tysanxiao/linkImages/zuma.png','733','zmtq',1),(9,4,'wxde9361a6865997fc','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/3Dqq.png','?from=3Dtsmg&togame=3Dqqdzk',0,'1518','https://sanxqn.nalrer.cn/tysanxiao/fireball/linkimg_3D.png','732','3Dqqdzk',1),(10,7,'wxdb030d1934b15d67','https://nslyqn.nalrer.cn/nsly/crazygun/growth/icon3/szpp.png','?from=3Dtsmg&togame=szpp',0,'1522','https://nslyqn.nalrer.cn/nsly/crazygun/growth/luodiye/szpp1.jpg','735','szpp',1);
 /*!40000 ALTER TABLE `oriented_gamestripmodel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -476,7 +609,7 @@ CREATE TABLE `oriented_iconswitchmodel` (
   `online_modifi_time` datetime(6) DEFAULT NULL,
   `online_user` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -506,7 +639,7 @@ CREATE TABLE `oriented_positionmodel` (
   PRIMARY KEY (`id`),
   KEY `oriented_positionmod_foreignkey_iconswitc_17027bac_fk_oriented_` (`foreignkey_iconswitch_id`),
   CONSTRAINT `oriented_positionmod_foreignkey_iconswitc_17027bac_fk_oriented_` FOREIGN KEY (`foreignkey_iconswitch_id`) REFERENCES `oriented_iconswitchmodel` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -581,7 +714,7 @@ CREATE TABLE `oriented_stripmodel` (
   `online_modifi_time` datetime(6) DEFAULT NULL,
   `online_user` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -590,7 +723,7 @@ CREATE TABLE `oriented_stripmodel` (
 
 LOCK TABLES `oriented_stripmodel` WRITE;
 /*!40000 ALTER TABLE `oriented_stripmodel` DISABLE KEYS */;
-INSERT INTO `oriented_stripmodel` VALUES (1,20287,'wx234bfd171f00b4fc',1,'https://sanxqn.nalrer.cn/tysanxiao/box/adImg/sxbg0.png','https://sanxqn.nalrer.cn/tysanxiao/box/adImg/adbg.png','https://sanxqn.nalrer.cn/tysanxiao/test/LikeConfigRes/reddot.png',10,117,142,1,5,20000,'2019-03-07 21:24:19.919622','2019-03-15 20:52:46.106320','cuijiuling','2019-03-15 20:52:58.807572','cuijiuling'),(2,20037,'wx81df03575e1e351f',1,'https://sanxqn.nalrer.cn/tysanxiao/test/LikeConfigRes/label.png','https://sanxqn.nalrer.cn/tysanxiao/test/LikeConfigRes/adRes.png','https://sanxqn.nalrer.cn/tysanxiao/test/LikeConfigRes/reddot.png',10,117,142,1,5,50,'2019-03-15 11:58:39.338853','2019-03-15 11:58:39.339002','import',NULL,NULL);
+INSERT INTO `oriented_stripmodel` VALUES (1,20287,'wx234bfd171f00b4fc',1,'https://sanxqn.nalrer.cn/tysanxiao/box/adImg/sxbg0.png','https://sanxqn.nalrer.cn/tysanxiao/box/adImg/adbg.png','https://sanxqn.nalrer.cn/tysanxiao/test/LikeConfigRes/reddot.png',10,117,142,1,5,20000,'2019-03-07 21:24:19.919622','2019-03-15 20:52:46.106320','cuijiuling','2019-03-15 20:52:58.807572','cuijiuling');
 /*!40000 ALTER TABLE `oriented_stripmodel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -611,7 +744,7 @@ CREATE TABLE `upload_uploadmodel` (
   `file` varchar(100) NOT NULL,
   `user` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -620,7 +753,6 @@ CREATE TABLE `upload_uploadmodel` (
 
 LOCK TABLES `upload_uploadmodel` WRITE;
 /*!40000 ALTER TABLE `upload_uploadmodel` DISABLE KEYS */;
-INSERT INTO `upload_uploadmodel` VALUES (1,20037,1,'wx81df03575e1e351f','1',1,'zm_bt_config5_2019-03-15_0867008e46.json','cuijiuling');
 /*!40000 ALTER TABLE `upload_uploadmodel` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -633,4 +765,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-29 23:59:01
+-- Dump completed on 2019-04-29 23:59:01
