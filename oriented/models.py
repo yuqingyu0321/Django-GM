@@ -245,8 +245,8 @@ class BgEndModel(models.Model):
     bg_imgurl = models.CharField(verbose_name='背景ICON',default='https://sanxqn.nalrer.cn/tysanxiao/test/LikeConfigRes/3sbg.png', max_length=512)
 
     # gird 2
-    gird_iconsWidth = models.FloatField(verbose_name='宽度')
-    gird_iconsHeight = models.FloatField(verbose_name='高度')
+    grid_iconsWidth = models.FloatField(verbose_name='宽度')
+    grid_iconsHeight = models.FloatField(verbose_name='高度')
 
     foreignkey_EndModel = models.OneToOneField(EndModel, verbose_name="结算页")
 

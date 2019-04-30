@@ -137,8 +137,8 @@ class EndConfig(ViewHelper):
         idstring = request.GET.get('data').encode("utf-8")
         if idstring:
             # 删除子节点数据
-            GameEndModel.objects.extra(where=['foreignkey_EndModel IN (' + idstring + ')']).delete()
-            BgEndModel.objects.extra(where=['foreignkey_EndModel IN (' + idstring + ')']).delete()
+            GameEndModel.objects.extra(where=['foreignkey_EndModel_id IN (' + idstring + ')']).delete()
+            BgEndModel.objects.extra(where=['foreignkey_EndModel_id IN (' + idstring + ')']).delete()
             # 删除父节点数据
             EndModel.objects.extra(where=['id IN (' + idstring + ')']).delete()
             res['code'] = 1
@@ -187,8 +187,8 @@ class EndConfig(ViewHelper):
         bg_imgurl = request.GET['bg_imgurl'].encode("utf-8")
 
         # gird 2
-        gird_iconsWidth = request.GET['gird_iconsWidth'].encode("utf-8")
-        gird_iconsHeight = request.GET['gird_iconsHeight'].encode("utf-8")
+        grid_iconsWidth = request.GET['grid_iconsWidth'].encode("utf-8")
+        grid_iconsHeight = request.GET['grid_iconsHeight'].encode("utf-8")
 
         BgEndModel.objects.filter(foreignkey_EndModel=int(fId)).update(
             label_height=label_height,
@@ -199,8 +199,8 @@ class EndConfig(ViewHelper):
             bg_height=bg_height,
             bg_positionY=bg_positionY,
             bg_imgurl=bg_imgurl,
-            gird_iconsWidth=gird_iconsWidth,
-            gird_iconsHeight=gird_iconsHeight,
+            grid_iconsWidth=grid_iconsWidth,
+            grid_iconsHeight=grid_iconsHeight,
         )
         return HttpResponse(json.dumps({
             "code": 1
@@ -223,8 +223,8 @@ class EndConfig(ViewHelper):
         bg_imgurl = request.GET['bg_imgurl'].encode("utf-8")
 
         # gird 2
-        gird_iconsWidth = request.GET['gird_iconsWidth'].encode("utf-8")
-        gird_iconsHeight = request.GET['gird_iconsHeight'].encode("utf-8")
+        grid_iconsWidth = request.GET['grid_iconsWidth'].encode("utf-8")
+        grid_iconsHeight = request.GET['grid_iconsHeight'].encode("utf-8")
 
         bgObj = BgEndModel(foreignkey_EndModel_id=int(fId))
         bgObj.label_height = label_height
@@ -235,8 +235,8 @@ class EndConfig(ViewHelper):
         bgObj.bg_height = bg_height
         bgObj.bg_positionY = bg_positionY
         bgObj.bg_imgurl = bg_imgurl
-        bgObj.gird_iconsWidth = gird_iconsWidth
-        bgObj.gird_iconsHeight = gird_iconsHeight
+        bgObj.grid_iconsWidth = grid_iconsWidth
+        bgObj.grid_iconsHeight = grid_iconsHeight
 
         bgObj.save()
         return HttpResponse(json.dumps({

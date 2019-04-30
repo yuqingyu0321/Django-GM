@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import json
+
 from datetime import datetime
-from django.shortcuts import render, HttpResponse, render_to_response
-from .models import *
+
 from gameInfo.game import allGame
+from .models import *
+
 
 def get_curr_oriented(basic_id, type):
     return ORIENTED_TYPE_MODEL[type].objects.filter(id=int(basic_id))
@@ -220,53 +221,110 @@ def get_slideover_educe_name(basic_ID):
     return allName
 
 
+def get_all_end_data(basic_id):
+    response = {}
+
+    obj_end = EndModel.objects.get(id=int(basic_id))
+
+    response['switch'] = obj_end.switch
+    response['reddot'] = obj_end.reddot
+    response['viewAdCounts'] = obj_end.viewAdCounts
+
+    obj_bg = BgEndModel.objects.filter(foreignkey_EndModel=int(basic_id))
+    if obj_bg:
+        label = {}
+        label['height'] = obj_bg[0].label_height
+        label['scale'] = obj_bg[0].label_scale
+        label['yfromtop'] = obj_bg[0].label_yfromtop
+        label['imgurl'] = obj_bg[0].label_imgurl
+        response['label'] = label
+
+        bg = {}
+        bg['width'] = obj_bg[0].bg_width
+        bg['height'] = obj_bg[0].bg_height
+        bg['positionY'] = obj_bg[0].bg_positionY
+        bg['imgurl'] = obj_bg[0].bg_imgurl
+        response['bg'] = bg
+
+        grid = {}
+        grid['iconsWidth'] = obj_bg[0].grid_iconsWidth
+        grid['iconsHeight'] = obj_bg[0].grid_iconsHeight
+        response['grid'] = grid
+
+    icon = []
+    wxAppIdList = []
+    obj_all_game = GameEndModel.objects.filter(foreignkey_EndModel=int(basic_id))
+    for obj_game in obj_all_game:
+        temp_dict = {}
+        temp_dict['index'] = int(obj_game.index)
+        temp_dict['text'] = str(obj_game.text)
+        temp_dict['type'] = int(obj_game.type)
+        temp_dict['imgLink'] = str(obj_game.imgLink)
+        temp_dict['openType'] = int(obj_game.openType)
+        temp_dict['openUrl'] = str(obj_game.openUrl)
+        temp_dict['isredon'] = int(obj_game.isredon)
+        temp_dict['topath'] = str(obj_game.topath)
+        wxAppIdList.append(obj_game.openUrl)
+
+        biParam = []
+        biParam.append(str(obj_game.bi_iconId))
+        biParam.append('{}{}'.format(obj_game.bi_iconId, obj_game.bi_landing_page_id))
+        biParam.append(obj_game.bi_landing_page)
+        biParam.append(str(obj_game.openUrl))
+        biParam.append(obj_game.bi_educe_game)
+        biParam.append(obj_game.bi_landing_page_id)
+        biParam.append(1)
+        temp_dict['biparam'] = biParam
+
+        icon.append(temp_dict)
+
+    response['icons'] = icon
+    return response, wxAppIdList
+
+def get_end_educe_name(basic_ID):
+    allName = []
+    obj_all_game = GameEndModel.objects.filter(foreignkey_EndModel=int(basic_ID))
+    for obj_game in obj_all_game:
+        wxAppId = str(obj_game.openUrl)
+        name = allGame.get(wxAppId, '')
+        allName.append(name)
+
+    return allName
+
 ORIENTED_TYPE_MODEL = {
     '0': IconSwitchModel,
     '1': StripModel,
     '2': SlideOverModel,
+    '3': EndModel,
 }
 
 ORIENTED_TYPE = {
     '0': 'Icon切换',
     '1': '导流条',
     '2': '侧拉框',
+    '3': '结束页',
 }
 
 ORIENTED_TYPE_GET_ALL_FUNC = {
     '0': get_all_iconswitch_data,
     '1': get_all_gameStrip_data,
     '2': get_all_SlideOver_data,
+    '3': get_all_end_data,
 }
 
 ORIENTED_TYPE_GET_EDUCENAME_FUNC = {
     '0': get_iconswitch_name,
     '1': get_strip_educe_name,
     '2': get_slideover_educe_name,
+    '3': get_end_educe_name,
 }
 
 ORIENTED_TYPE_SERVER_ID = {
     '0': 'iconSwitch',
     '1': 'strip',
     '2': 'slideOver',
+    '3': 'end',
 }
-
-
-def backup_educe_name(type_id, datas):
-    allName = ''
-    icons_datas = datas.get('icons', [])
-    if type_id == '0':
-        for _datas in icons_datas:
-            wxAppId = _datas['openData'][0]['imgurl']
-            allName += allGame.get(wxAppId, '')
-            allName += '；'
-
-    elif type_id == '1' or type_id == '2':
-        for _datas in icons_datas:
-            wxAppId = _datas['openUrl']
-            allName += allGame.get(wxAppId, '')
-            allName += '；'
-
-    return allName[:-1] if allName else allName
 
 
 def handle_userAndTime(request, basicId, typeId, fz):

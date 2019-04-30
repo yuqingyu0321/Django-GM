@@ -349,9 +349,52 @@ def upload_oriented_SlideOver(gameId, wxappId, oriented_model, socket, upload_da
         icon_obj.save()
     return True
 
+def upload_oriented_end(gameId, wxappId, oriented_model, socket, upload_datas):
+    obj = oriented_model()
+    obj.game_id = gameId
+    obj.name = wxappId
+    obj.socket_url = socket
+    obj.switch = upload_datas['switch']
+    obj.reddot = upload_datas['reddot']
+    obj.viewAdCounts = upload_datas['viewAdCounts']
+    obj.user = 'import'
+    obj.save()
+
+    bg_obj = BgEndModel(foreignkey_EndModel=obj)
+    bg_obj.label_height = upload_datas['label']['height']
+    bg_obj.label_scale = upload_datas['label']['scale']
+    bg_obj.label_yfromtop = upload_datas['label']['yfromtop']
+    bg_obj.label_imgurl = upload_datas['label']['imgurl']
+
+    bg_obj.bg_width = upload_datas['bg']['width']
+    bg_obj.bg_height = upload_datas['bg']['height']
+    bg_obj.bg_positionY = upload_datas['bg']['positionY']
+    bg_obj.bg_imgurl = upload_datas['bg']['imgurl']
+
+    bg_obj.grid_iconsWidth = upload_datas['grid']['iconsWidth']
+    bg_obj.grid_iconsHeight = upload_datas['grid']['iconsHeight']
+    bg_obj.save()
+
+    for _icon in upload_datas['icons']:
+        icon_obj = GameEndModel(foreignkey_EndModel=obj)
+        icon_obj.index = _icon['index']
+        icon_obj.text = _icon['text']
+        icon_obj.type = _icon['type']
+        icon_obj.imgLink = _icon['imgLink']
+        icon_obj.openType = _icon['openType']
+        icon_obj.openUrl = _icon['openUrl']
+        icon_obj.isredon = _icon['isredon']
+        icon_obj.topath = _icon['topath']
+        icon_obj.bi_iconId = _icon['biparam'][0]
+        icon_obj.bi_educe_game = _icon['biparam'][4]
+        icon_obj.bi_landing_page_id = _icon['biparam'][5]
+        icon_obj.bi_landing_page = _icon['biparam'][2]
+        icon_obj.save()
+    return True
 
 UPLOAD_ORIENTED = {
     '0': upload_oriented_IconSwitch,
     '1': upload_oriented_Strip,
     '2': upload_oriented_SlideOver,
+    '3': upload_oriented_end,
 }
